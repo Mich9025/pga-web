@@ -1,14 +1,14 @@
 // Craft Imports
-import { Section, Container, Prose } from "@/components/craft";
+import { Container, Prose, Section } from "@/components/craft";
 import Balancer from "react-wrap-balancer";
 
 // Next.js Imports
 import Link from "next/link";
 
 // Icons
-import { File, Pen, Tag, Diamond, User, Folder } from "lucide-react";
-import { WordPressIcon } from "@/components/icons/wordpress";
 import { NextJsIcon } from "@/components/icons/nextjs";
+import { WordPressIcon } from "@/components/icons/wordpress";
+import { Diamond, File, Folder, Pen, Tag, User } from "lucide-react";
 
 // This page is using the craft.tsx component and design system
 export default function Home() {
@@ -27,7 +27,9 @@ const ToDelete = () => {
     <main className="space-y-6">
       <Prose>
         <h1>
-          <Balancer>Headless WordPress built with the Next.js</Balancer>
+          <Balancer>
+            Hola Isarco. Headless WordPress built with the Next.js
+          </Balancer>
         </h1>
 
         <p>
