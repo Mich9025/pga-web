@@ -28,7 +28,7 @@ const ToDelete = () => {
       <Prose>
         <h1>
           <Balancer>
-            Hola Isarco. Headless WordPress built with the Next.js
+            Hola Isarco! Headless WordPress built with the Next.js
           </Balancer>
         </h1>
 
