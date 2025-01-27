@@ -13,10 +13,10 @@
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 3.9%;
 
-    --primary: 0 0% 9%;
+    --primary: 201, 51%, 11%;
     --primary-foreground: 0 0% 98%;
 
-    --secondary: 0 0% 96.1%;
+    --secondary: 19, 25%, 78%;
     --secondary-foreground: 0 0% 9%;
 
     --muted: 0 0% 96.1%;
@@ -45,11 +45,11 @@
     --popover: 0 0% 3.9%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
+    --primary: 201, 51%, 11%;
+    --primary-foreground: 0 0% 98%;
 
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 19, 25%, 78%;
+    --secondary-foreground: 0 0% 9%;
 
     --muted: 0 0% 14.9%;
     --muted-foreground: 0 0% 63.9%;
@@ -95,4 +95,9 @@
     scrollbar-width: none;
     /* Firefox */
   }
+}
+
+.vignette {
+  @apply absolute inset-0;
+  box-shadow: 0 0 200px rgba(0, 0, 0, 0.9) inset;
 }

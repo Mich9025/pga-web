@@ -1,21 +1,22 @@
 import "./globals.css";
 
-import type { Metadata } from "next";
-import { Inter as FontSans } from "next/font/google";
-import { ThemeProvider } from "@/components/theme/theme-provider";
-import { Button } from "@/components/ui/button";
+import { Container, Section } from "@/components/craft";
 import { MobileNav } from "@/components/nav/mobile-nav";
+import { ThemeProvider } from "@/components/theme/theme-provider";
 import { ThemeToggle } from "@/components/theme/theme-toggle";
-import { mainMenu, contentMenu } from "@/menu.config";
-import { Section, Container } from "@/components/craft";
-import { Analytics } from "@vercel/analytics/react";
+import { Button } from "@/components/ui/button";
+import { contentMenu, mainMenu } from "@/menu.config";
 import { siteConfig } from "@/site.config";
+import { Analytics } from "@vercel/analytics/react";
+import type { Metadata } from "next";
+import { Montserrat as FontSans } from "next/font/google";
 
-import Balancer from "react-wrap-balancer";
-import Logo from "@/public/logo.svg";
+import Logo from "@/public/logo-35.svg";
 import Image from "next/image";
 import Link from "next/link";
+import Balancer from "react-wrap-balancer";
 
+import { NavigationMenu } from "@/components/nav/navigation-menu";
 import { cn } from "@/lib/utils";
 
 const font = FontSans({
@@ -44,7 +45,7 @@ export default function RootLayout({
       <body className={cn("min-h-screen font-sans antialiased", font.variable)}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="light"
           enableSystem
           disableTransitionOnChange
         >
@@ -61,12 +62,15 @@ export default function RootLayout({
 const Nav = ({ className, children, id }: NavProps) => {
   return (
     <nav
-      className={cn("sticky z-50 top-0 bg-background", "border-b", className)}
+      className={cn(
+        "fixed left-0 right-0 z-50 top-0 bg-background/80",
+        className
+      )}
       id={id}
     >
-      <div
+      <Container
         id="nav-container"
-        className="max-w-5xl mx-auto py-4 px-6 sm:px-8 flex justify-between items-center"
+        className="py-4 px-6 sm:px-8 flex justify-between items-center"
       >
         <Link
           className="hover:opacity-75 transition-all flex gap-4 items-center"
@@ -76,29 +80,22 @@ const Nav = ({ className, children, id }: NavProps) => {
             src={Logo}
             alt="Logo"
             loading="eager"
-            className="dark:invert"
-            width={42}
-            height={26.44}
+            className="max-h-20"
+            width={140 * 1.2}
+            height={44 * 1.2}
           ></Image>
-          <h2 className="text-sm">{siteConfig.site_name}</h2>
         </Link>
         {children}
         <div className="flex items-center gap-2">
           <div className="mx-2 hidden md:flex">
-            {Object.entries(mainMenu).map(([key, href]) => (
-              <Button key={href} asChild variant="ghost" size="sm">
-                <Link href={href}>
-                  {key.charAt(0).toUpperCase() + key.slice(1)}
-                </Link>
-              </Button>
-            ))}
+            <NavigationMenu />
           </div>
           <Button asChild className="hidden sm:flex">
             <Link href="https://github.com/9d8dev/next-wp">Get Started</Link>
           </Button>
           <MobileNav />
         </div>
-      </div>
+      </Container>
     </nav>
   );
 };

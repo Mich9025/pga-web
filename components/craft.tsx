@@ -1,8 +1,8 @@
 // craft-ds, v0.3.2
 // This is a design system for building responsive layouts in React and handling prose
 
-import React from "react";
 import { type ClassValue, clsx } from "clsx";
+import React from "react";
 import { twMerge } from "tailwind-merge";
 
 // Utility function to merge class names
@@ -180,7 +180,7 @@ const styles = {
   layout: {
     spacing: "[&>*+*]:mt-6",
     article: "max-w-prose",
-    container: "max-w-5xl mx-auto p-6 sm:p-8",
+    container: "max-w-screen-xl mx-auto p-6 sm:p-8",
     section: "py-8 md:py-12",
   },
 };
