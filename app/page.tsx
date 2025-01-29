@@ -84,7 +84,7 @@ const SectionInmobiliario = () => {
                 className="text-left justify-start md:text-lg !rounded-full"
               >
                 <MdOutlineLocationSearching className="mr-2 opacity-50 size-5" />
-                Usa mi ubicación actual"
+                Usa mi ubicación actual
               </Button>
             </div>
           </Container>
