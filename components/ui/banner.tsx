@@ -45,7 +45,7 @@ export function Banner({
   };
 
   return (
-    <div className="overflow-hidden relative bg-cyan-800 px-6 py-24 sm:py-32 lg:px-8 bg-cover bg-center min-h-[95vh] flex items-center bg-opacity-40">
+    <div className="overflow-hidden relative bg-primary px-6 py-24 sm:py-32 lg:px-8 bg-cover bg-center min-h-[95vh] flex items-center bg-opacity-40">
       <Carousel
         setApi={setCarouselApi}
         opts={{ loop: true }}
