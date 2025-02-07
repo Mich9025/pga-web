@@ -4,6 +4,7 @@ import { Metadata } from "next";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import Marquee from "@/components/ui/marquee";
 import Image from "next/image";
 
 export const metadata: Metadata = {
@@ -130,7 +131,7 @@ export default function Page() {
             {services.map((service) => (
               <Card key={service.title} className="group overflow-hidden">
                 <CardContent className="p-0">
-                  <div className="relative aspect-[4/3]">
+                  <div className="relative aspect-[4/3] bg-primary/50 flex items-center justify-center">
                     <Image
                       src={service.image}
                       alt={service.title}
@@ -159,19 +160,24 @@ export default function Page() {
           <h2 className="text-3xl font-medium mb-12">Nuestros Clientes</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 items-center">
             {/* Add client logos here */}
-            {Array.from({ length: 12 }).map((_, i) => (
-              <div
-                key={i}
-                className="aspect-[3/2] relative grayscale hover:grayscale-0 transition-all"
-              >
-                <Image
-                  src={`/client-${i + 1}.png`}
-                  alt={`Client ${i + 1}`}
-                  fill
-                  className="object-contain"
-                />
-              </div>
-            ))}
+          </div>
+          <div className="relative flex h-full max-h-96 min-h-72 w-full min-w-72 items-center justify-center overflow-hidden">
+            <Marquee pauseOnHover className=" [--duration:40s] gap-4 p-4">
+              {Array.from({ length: 12 }).map((_, i) => (
+                <div
+                  key={i}
+                  className="aspect-[3/2] relative grayscale hover:grayscale-0 transition-all border min-w-52 flex items-center justify-center"
+                >
+                  <Image
+                    src={`/client-${i + 1}.png`}
+                    alt={`Client ${i + 1}`}
+                    fill
+                    className="object-contain"
+                  />
+                  {`Client ${i + 1}`}
+                </div>
+              ))}
+            </Marquee>
           </div>
         </Container>
       </Section>
