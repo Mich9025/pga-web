@@ -2,17 +2,18 @@
 // Used to fetch data from a WordPress site using the WordPress REST API
 // Types are imported from `wp.d.ts`
 
-import querystring from "query-string";
 import { revalidateTag } from "next/cache";
 import { headers } from "next/headers";
+import querystring from "query-string";
 
 import {
-  Post,
-  Category,
-  Tag,
-  Page,
   Author,
+  Category,
   FeaturedMedia,
+  Page,
+  Post,
+  Tag,
+  WooProduct,
 } from "./wordpress.d";
 
 // WordPress Config
@@ -64,7 +65,26 @@ async function wordpressFetch<T>(
   const headersList = await headers();
   const userAgent = headersList.get("user-agent") || "Next.js WordPress Client";
 
-  const response = await fetch(url, {
+  // Check if it's a WooCommerce endpoint
+  const isWooCommerce = url.includes("/wp-json/wc/");
+
+  let finalUrl = url;
+  if (isWooCommerce) {
+    // Add authentication parameters to URL
+    const consumerKey = process.env.WC_CONSUMER_KEY;
+    const consumerSecret = process.env.WC_CONSUMER_SECRET;
+
+    if (!consumerKey || !consumerSecret) {
+      throw new Error("WooCommerce API keys not configured");
+    }
+
+    finalUrl = getUrl(url, {
+      consumer_key: consumerKey,
+      consumer_secret: consumerSecret,
+    });
+  }
+
+  const response = await fetch(finalUrl, {
     ...defaultFetchOptions,
     ...options,
     headers: {
@@ -84,7 +104,6 @@ async function wordpressFetch<T>(
 
   return response.json();
 }
-
 // WordPress Functions
 
 export async function getAllPosts(filterParams?: {
@@ -446,3 +465,60 @@ export async function revalidateWordPressData(tags: string[] = ["wordpress"]) {
 
 // Export error class for error handling
 export { WordPressAPIError };
+
+export async function getAllProperties(): Promise<WooProduct[]> {
+  const consumerKey = process.env.WC_CONSUMER_KEY;
+  const consumerSecret = process.env.WC_CONSUMER_SECRET;
+
+  // Construct URL with authentication directly
+  const baseUrl = process.env.WORDPRESS_URL;
+  const url = `${baseUrl}/wp-json/wc/v3/products?consumer_key=${consumerKey}&consumer_secret=${consumerSecret}`;
+
+  try {
+    const response = await fetch(url, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      next: { revalidate: 3600 },
+    });
+
+    if (!response.ok) {
+      console.error("Response status:", response.status);
+      console.error("Response text:", await response.text());
+      throw new Error(`WooCommerce API failed: ${response.statusText}`);
+    }
+
+    return response.json();
+  } catch (error) {
+    console.error("Error fetching properties:", error);
+    throw error;
+  }
+}
+
+export async function getPropertyBySlug(slug: string): Promise<WooProduct> {
+  const consumerKey = process.env.WC_CONSUMER_KEY;
+  const consumerSecret = process.env.WC_CONSUMER_SECRET;
+
+  const baseUrl = process.env.WORDPRESS_URL;
+  const url = `${baseUrl}/wp-json/wc/v3/products?slug=${slug}&consumer_key=${consumerKey}&consumer_secret=${consumerSecret}`;
+  console.log("Fetching URL:", url); // For debugging
+
+  try {
+    const response = await fetch(url, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      next: { revalidate: 3600 },
+    });
+
+    if (!response.ok) {
+      throw new Error(`WooCommerce API failed: ${response.statusText}`);
+    }
+
+    const products = await response.json();
+    return products[0]; // WooCommerce returns an array, we want the first item
+  } catch (error) {
+    console.error("Error fetching property:", error);
+    throw error;
+  }
+}

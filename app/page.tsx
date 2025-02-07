@@ -1,3 +1,5 @@
+"use client";
+
 // Craft Imports
 import { Container, Section } from "@/components/craft";
 
@@ -29,9 +31,25 @@ import {
 } from "@/public/images/steps/1.png";
 import Step2 from "@/public/images/steps/2.png";
 import Step3 from "@/public/images/steps/3.png";
+import { useContext, useEffect } from "react";
+import { NavContext } from "./context/NavContext";
 
 // This page is using the craft.tsx component and design system
 export default function Home() {
+  const { setIsTransparent } = useContext(NavContext);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsTransparent(entry.isIntersecting),
+      { threshold: 0 }
+    );
+
+    const banner = document.querySelector("#banner");
+    if (banner) observer.observe(banner);
+
+    return () => observer.disconnect();
+  }, []);
+
   const bgImages = [
     "https://isarco.com.co/wp-content/uploads/BANNER-OFICINAS-EQUIPADAS-scaled.jpg",
     "https://isarco.com.co/wp-content/uploads/coworking-2.jpg",
@@ -39,13 +57,15 @@ export default function Home() {
   ];
   return (
     <>
-      <Banner images={bgImages}>
-        <Container className="relative z-10">
-          <h2 className="mt-2 text-5xl font-bold tracking-tight text-white sm:text-7xl md:text-8xl">
-            Conoce nuestros proyectos
-          </h2>
-        </Container>
-      </Banner>
+      <div id="banner">
+        <Banner images={bgImages}>
+          <Container className="relative z-10">
+            <h2 className="mt-2 text-5xl font-bold tracking-tight text-white sm:text-7xl md:text-8xl">
+              Conoce nuestros proyectos
+            </h2>
+          </Container>
+        </Banner>
+      </div>
       <SectionInmobiliario />
       <SectionAcompanamiento />
       <SectionSolutions />
@@ -186,27 +206,27 @@ const SectionSolutions = () => {
     {
       title: "Locales",
       imageUrl: "https://isarco.com.co/wp-content/uploads/locales.jpg",
-      href: "/inmobiliaria-360&categoria=locales-comerciales",
+      href: "/inmuebles&tags=locales-comerciales",
     },
     {
       title: "Apartamentos",
       imageUrl: "https://isarco.com.co/wp-content/uploads/apartamentos.jpg",
-      href: "/inmobiliaria-360&categoria=apartamentos",
+      href: "/inmuebles&tags=apartamentos",
     },
     {
       title: "Bodegas",
       imageUrl: "https://isarco.com.co/wp-content/uploads/minibodegas.jpg",
-      href: "/inmobiliaria-360&categoria=bodegas",
+      href: "/inmuebles&tags=bodegas",
     },
     {
       title: "Oficinas",
       imageUrl: "https://isarco.com.co/wp-content/uploads/coworking-1.jpg",
-      href: "/inmobiliaria-360&categoria=oficinas",
+      href: "/inmuebles&tags=oficinas",
     },
     {
       title: "Co-working",
       imageUrl: "https://isarco.com.co/wp-content/uploads/coworking-2.jpg",
-      href: "/inmobiliaria-360&categoria=oficinas",
+      href: "/inmuebles&tags=oficinas",
     },
   ];
   return (

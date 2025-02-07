@@ -230,3 +230,124 @@ export interface FilterBarProps {
   onTagChange?: (tagId: Tag["id"] | undefined) => void;
   onCategoryChange?: (categoryId: Category["id"] | undefined) => void;
 }
+
+export interface WooProduct {
+  id: number;
+  name: string;
+  slug: string;
+  permalink: string;
+  description: string;
+  short_description: string;
+  images: {
+    id: number;
+    src: string;
+    name: string;
+    alt: string;
+  }[];
+  categories: {
+    id: number;
+    name: string;
+    slug: string;
+  }[];
+  tags: {
+    id: number;
+    name: string;
+    slug: string;
+  }[];
+  meta_data: {
+    id: number;
+    key: string;
+    value: string | { [key: string]: any };
+  }[];
+  status: string;
+  price: string;
+  price_html: string;
+  related_ids: number[];
+  stock_status: string;
+  // WooCommerce required fields even if not used
+  type: string;
+  featured: boolean;
+  catalog_visibility: string;
+  regular_price: string;
+  sale_price: string;
+  virtual: boolean;
+  purchasable: boolean;
+  tax_status: string;
+  tax_class: string;
+  date_created: string;
+  date_created_gmt: string;
+  date_modified: string;
+  date_modified_gmt: string;
+  date_on_sale_from: string;
+  date_on_sale_to: string;
+  on_sale: boolean;
+  total_sales: number;
+  total_sales_count: number;
+  backorders: string;
+  backorders_allowed: boolean;
+  sold_individually: boolean;
+  weight: string;
+  length: string;
+  width: string;
+  height: string;
+  condition: string;
+  categories: {
+    id: number;
+    name: string;
+    slug: string;
+    parent: number;
+    description: string;
+    display: string;
+    image: string;
+  }[];
+  gallery_images: {
+    id: number;
+    date_created: string;
+    date_created_gmt: string;
+    slug: string;
+    type: string;
+    link: string;
+    title: RenderedTitle;
+    author: number;
+    alt_text: string;
+    media_type: string;
+    mime_type: string;
+    media_details: MediaDetails;
+    source_url: string;
+    description: string;
+    caption: string;
+    parent: number;
+    order: number;
+    menu_order: number;
+    featured_media: number;
+    comment_status: "open" | "closed";
+    ping_status: "open" | "closed";
+    template: string;
+    meta: Record<string, unknown>;
+  }[];
+  images: {
+    id: number;
+    date_created: string;
+    date_created_gmt: string;
+    slug: string;
+    type: string;
+    link: string;
+    title: RenderedTitle;
+    author: number;
+    alt_text: string;
+    media_type: string;
+    mime_type: string;
+    media_details: MediaDetails;
+    source_url: string;
+    description: string;
+    caption: string;
+    parent: number;
+    order: number;
+    menu_order: number;
+    featured_media: number;
+    comment_status: "open" | "closed";
+    ping_status: "open" | "closed";
+    template: string;
+    meta: Record<string, unknown>;
+  }[];
+}

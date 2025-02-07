@@ -125,6 +125,7 @@ flowchart TD
 ```mermaid
 graph LR
     A[Landing] --> B[Proyectos]
+    A --> C[Inmuebles + Categories]
     X --> C[Inmuebles + Categories]
     A --> X[Inmo-360]
     X --> D[Servicios]

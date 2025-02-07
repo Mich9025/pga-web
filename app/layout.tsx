@@ -15,6 +15,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Balancer from "react-wrap-balancer";
 
+// import { NavProvider } from "@/app/context/NavContext";
 import { NavigationMenu } from "@/components/nav/navigation-menu";
 import { cn } from "@/lib/utils";
 
@@ -24,10 +25,9 @@ const font = FontSans({
 });
 
 export const metadata: Metadata = {
-  title: "WordPress & Next.js Starter by 9d8",
-  description:
-    "A starter template for Next.js with WordPress as a headless CMS.",
-  metadataBase: new URL(siteConfig.site_domain),
+  title: siteConfig.seo.defaultTitle,
+  description: siteConfig.seo.defaultDescription,
+  metadataBase: new URL(siteConfig.domain),
   alternates: {
     canonical: "/",
   },
@@ -48,9 +48,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          {/* <NavProvider> */}
           <Nav />
           {children}
           <Footer />
+          {/* </NavProvider> */}
         </ThemeProvider>
         <Analytics />
       </body>
@@ -103,7 +105,7 @@ const Footer = () => {
           <div className="flex flex-col gap-6 not-prose">
             <div className="text-center max-w-80 flex flex-col gap-6">
               <Link href="/">
-                <h3 className="sr-only">{siteConfig.site_name}</h3>
+                <h3 className="sr-only">{siteConfig.name}</h3>
                 <Image
                   src={LogoFooter}
                   alt="Logo"
@@ -114,7 +116,7 @@ const Footer = () => {
                 ></Image>
               </Link>
               <p>
-                <Balancer>{siteConfig.site_description}</Balancer>
+                <Balancer>{siteConfig.description}</Balancer>
               </p>
               <p className="text-center">
                 <a
