@@ -9,9 +9,9 @@ import { Montserrat as FontSans } from "next/font/google";
 // import { NavProvider } from "@/app/context/NavContext";
 import { cn } from "@/lib/utils";
 
-import { Footer } from "@/app/Footer";
+import { Footer } from "@/components/footer/Footer";
 
-import { Nav } from "@/app/Nav";
+import { NavigationMenu } from "@/components/nav/navigation-menu";
 import { NavProvider } from "./context/NavContext";
 
 const font = FontSans({
@@ -44,7 +44,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <NavProvider>
-            <Nav />
+            <NavigationMenu />
             {children}
             <Footer />
           </NavProvider>

@@ -1,6 +1,7 @@
 import { Container, Section } from "@/components/craft";
 import { Metadata } from "next";
 
+import { SectionHeader } from "@/components/header/SectionHeader";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -59,18 +60,11 @@ export default function Page() {
   return (
     <>
       {/* Hero Section */}
-      <Section className="bg-primary text-secondary min-h-[70vh] flex items-center">
-        <Container className="py-24">
-          <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-medium mb-4">
-              Soluciones Inmobiliarias 360
-            </h1>
-            <p className="text-xl md:text-2xl">
-              Te acompañamos en cada paso de tu proceso inmobiliario
-            </p>
-          </div>
-        </Container>
-      </Section>
+      <SectionHeader
+        title="Soluciones Inmobiliarias 360"
+        description="Te acompañamos en cada paso de tu proceso inmobiliario"
+        image="/soluciones-inmobiliarias-360.jpg"
+      />
 
       {/* Steps Section */}
       <Section className="bg-secondary">

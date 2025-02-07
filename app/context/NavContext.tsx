@@ -27,7 +27,7 @@ export const NavProvider = ({ children }: { children: React.ReactNode }) => {
       {
         root: null, // Observe relative to viewport
         threshold: 0.1, // When 10% of the hero is visible
-        rootMargin: "-100px 0px 0px 0px", // Offset (triggers 100px earlier)
+        rootMargin: "-400px 0px 0px 0px", // Offset (triggers 100px earlier)
       }
     );
 

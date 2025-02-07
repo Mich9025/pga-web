@@ -66,7 +66,10 @@ export const NavigationMenu = ({ className, children, id }: NavProps) => {
   React.useEffect(() => {
     const hero = document.getElementById("hero-section");
 
-    if (!hero) return;
+    if (!hero) {
+      setIsTransparent(false);
+      return;
+    }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -85,7 +88,7 @@ export const NavigationMenu = ({ className, children, id }: NavProps) => {
       className={cn(
         "left-0 right-0 z-50 top-0 transition-all duration-150",
         isHome ? "fixed" : "fixed",
-        isTransparent ? "bg-transparent text-white" : "bg-white shadow-md",
+        isTransparent ? "bg-transparent" : "bg-white shadow-md",
         className
       )}
       id={id}
@@ -93,8 +96,8 @@ export const NavigationMenu = ({ className, children, id }: NavProps) => {
       <Container
         id="nav-container"
         className={cn(
-          "lg:px-0 flex justify-between items-center",
-          isTransparent ? "" : "!py-3"
+          "lg:px-0 flex justify-between items-center transition-transform duration-150",
+          isTransparent ? "h-28 text-white" : "h-12"
         )}
       >
         <Link
