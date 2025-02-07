@@ -57,7 +57,7 @@ export default function Home() {
   ];
   return (
     <>
-      <div id="banner">
+      <div id="hero-section">
         <Banner images={bgImages}>
           <Container className="relative z-10">
             <h2 className="mt-2 text-5xl font-bold tracking-tight text-white sm:text-7xl md:text-8xl">
@@ -206,27 +206,27 @@ const SectionSolutions = () => {
     {
       title: "Locales",
       imageUrl: "https://isarco.com.co/wp-content/uploads/locales.jpg",
-      href: "/inmuebles&tags=locales-comerciales",
+      href: "/inmuebles?tags=locales-comerciales",
     },
     {
       title: "Apartamentos",
       imageUrl: "https://isarco.com.co/wp-content/uploads/apartamentos.jpg",
-      href: "/inmuebles&tags=apartamentos",
+      href: "/inmuebles?tags=apartamentos",
     },
     {
       title: "Bodegas",
       imageUrl: "https://isarco.com.co/wp-content/uploads/minibodegas.jpg",
-      href: "/inmuebles&tags=bodegas",
+      href: "/inmuebles?tags=bodegas",
     },
     {
       title: "Oficinas",
       imageUrl: "https://isarco.com.co/wp-content/uploads/coworking-1.jpg",
-      href: "/inmuebles&tags=oficinas",
+      href: "/inmuebles?tags=oficinas",
     },
     {
       title: "Co-working",
       imageUrl: "https://isarco.com.co/wp-content/uploads/coworking-2.jpg",
-      href: "/inmuebles&tags=oficinas",
+      href: "/inmuebles?tags=oficinas",
     },
   ];
   return (

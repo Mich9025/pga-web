@@ -466,13 +466,47 @@ export async function revalidateWordPressData(tags: string[] = ["wordpress"]) {
 // Export error class for error handling
 export { WordPressAPIError };
 
-export async function getAllProperties(): Promise<WooProduct[]> {
+export interface PropertyFilters {
+  tag?: string;
+  category?: string[];
+  search?: string;
+  tag_slug?: string[];
+  area_min?: number;
+  area_max?: number;
+  price_min?: number;
+  price_max?: number;
+  locations?: string[];
+  types?: string[];
+}
+
+export async function getAllProperties(
+  filters?: PropertyFilters
+): Promise<WooProduct[]> {
   const consumerKey = process.env.WC_CONSUMER_KEY;
   const consumerSecret = process.env.WC_CONSUMER_SECRET;
 
-  // Construct URL with authentication directly
+  // Build query parameters
+  const queryParams = new URLSearchParams({
+    consumer_key: consumerKey!,
+    consumer_secret: consumerSecret!,
+  });
+
+  // Add filters if they exist
+  if (filters?.tag) {
+    queryParams.append("tag", filters.tag);
+  }
+  if (filters?.tag_slug) {
+    queryParams.append("tag_slug", filters.tag_slug.join(","));
+  }
+  if (filters?.category) {
+    queryParams.append("category", filters.category.join(","));
+  }
+  if (filters?.search) {
+    queryParams.append("search", filters.search);
+  }
+
   const baseUrl = process.env.WORDPRESS_URL;
-  const url = `${baseUrl}/wp-json/wc/v3/products?consumer_key=${consumerKey}&consumer_secret=${consumerSecret}`;
+  const url = `${baseUrl}/wp-json/wc/v3/products?${queryParams.toString()}`;
 
   try {
     const response = await fetch(url, {
@@ -483,8 +517,6 @@ export async function getAllProperties(): Promise<WooProduct[]> {
     });
 
     if (!response.ok) {
-      console.error("Response status:", response.status);
-      console.error("Response text:", await response.text());
       throw new Error(`WooCommerce API failed: ${response.statusText}`);
     }
 

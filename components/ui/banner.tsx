@@ -7,6 +7,7 @@ import {
   CarouselItem,
   type CarouselApi,
 } from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -45,10 +46,11 @@ export function Banner({
   };
 
   return (
-    <div className="overflow-hidden relative bg-primary px-6 py-24 sm:py-32 lg:px-8 bg-cover bg-center min-h-[95vh] flex items-center bg-opacity-40">
+    <div className="overflow-hidden relative bg-primary px-6 py-24 sm:py-32 lg:px-8 min-h-[95vh] flex items-center ">
       <Carousel
         setApi={setCarouselApi}
         opts={{ loop: true }}
+        plugins={[Autoplay({ playOnInit: true, delay: 5000 })]}
         className="absolute inset-0 opacity-50"
       >
         <CarouselContent className="absolute inset-0 !m-0">
