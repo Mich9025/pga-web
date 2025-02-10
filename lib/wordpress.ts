@@ -506,7 +506,7 @@ export async function getAllProperties(
   }
 
   const baseUrl = process.env.WORDPRESS_URL;
-  const url = `${baseUrl}/wp-json/wc/v3/products?${queryParams.toString()}`;
+  const url = `${baseUrl}/wp-json/wp/v2/states?${queryParams.toString()}`;
 
   try {
     const response = await fetch(url, {
@@ -532,7 +532,7 @@ export async function getPropertyBySlug(slug: string): Promise<WooProduct> {
   const consumerSecret = process.env.WC_CONSUMER_SECRET;
 
   const baseUrl = process.env.WORDPRESS_URL;
-  const url = `${baseUrl}/wp-json/wc/v3/products?slug=${slug}&consumer_key=${consumerKey}&consumer_secret=${consumerSecret}`;
+  const url = `${baseUrl}/wp-json/wp/v2/states?slug=${slug}&consumer_key=${consumerKey}&consumer_secret=${consumerSecret}`;
   console.log("Fetching URL:", url); // For debugging
 
   try {

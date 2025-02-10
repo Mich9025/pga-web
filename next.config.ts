@@ -15,6 +15,12 @@ const nextConfig: NextConfig = {
         port: "",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "clon.codecolombia.com",
+        port: "",
+        pathname: "/**",
+      },
     ],
   },
   async redirects() {

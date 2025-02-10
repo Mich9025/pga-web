@@ -15,15 +15,16 @@ interface PropertyCardProps {
 
 export function PropertyCard({ property }: PropertyCardProps) {
   // Extract metadata
-  const precio = property.meta_data.find((m) => m.key === "price")
+  const precio = property?.meta_data?.find((m) => m.key === "price")
     ?.value as string;
-  const area = property.meta_data.find((m) => m.key === "area")
+  const area = property?.meta_data?.find((m) => m.key === "area")
     ?.value as string;
-  const habitaciones = property.meta_data.find((m) => m.key === "habitaciones")
+  const habitaciones = property?.meta_data?.find(
+    (m) => m.key === "habitaciones"
+  )?.value as string;
+  const banos = property?.meta_data?.find((m) => m.key === "banos")
     ?.value as string;
-  const banos = property.meta_data.find((m) => m.key === "banos")
-    ?.value as string;
-  const parking = property.meta_data.find((m) => m.key === "parking")
+  const parking = property?.meta_data?.find((m) => m.key === "parking")
     ?.value as string;
 
   return (

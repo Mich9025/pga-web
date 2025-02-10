@@ -67,7 +67,7 @@ export default async function Page({
         </Container>
       </Section>
       <Section>
-        <Container className="space-y-6 overflow-scroll h-80">
+        <Container className="space-y-6 overflow-scroll bg-black text-gray-200 rounded-md">
           <pre>{JSON.stringify(properties, null, 2)}</pre>
           <BackButton />
         </Container>

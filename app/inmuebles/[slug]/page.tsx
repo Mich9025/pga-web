@@ -71,7 +71,7 @@ export default async function PropertyPage({
     if (!property) {
       notFound();
     }
-    const meta_data = property.meta_data.reduce(
+    const meta_data = property?.meta_data.reduce(
       (acc, meta) => ({
         ...acc,
         [meta.key]: meta.value,
@@ -80,29 +80,29 @@ export default async function PropertyPage({
     );
 
     const meta = {
-      rank_math_seo_score: String(meta_data.rank_math_seo_score),
-      imagen_principal: String(meta_data.imagen_principal),
-      imagen_principal_2: String(meta_data.imagen_principal_2),
-      imagen_principal_3: String(meta_data.imagen_principal_3),
-      imagen_principal_4: String(meta_data.imagen_principal_4),
-      precio: String(meta_data.precio),
-      area: String(meta_data.area),
-      direccion: String(meta_data.direccion),
-      administracion: String(meta_data.administracion),
-      altura: String(meta_data.altura),
-      acabados: String(meta_data.acabados),
-      punto_electrico: String(meta_data.punto_electrico),
-      punto_hidraulico: String(meta_data.punto_hidraulico),
-      voz_y_datos: String(meta_data.voz_y_datos),
-      habitaciones: String(meta_data.habitaciones),
-      banos: String(meta_data.banos),
-      cocina: String(meta_data.cocina),
-      deposito: String(meta_data.deposito),
-      terraza: String(meta_data.terraza),
-      salas: String(meta_data.salas),
-      parking: String(meta_data.parking),
+      rank_math_seo_score: String(meta_data?.rank_math_seo_score),
+      imagen_principal: String(meta_data?.imagen_principal),
+      imagen_principal_2: String(meta_data?.imagen_principal_2),
+      imagen_principal_3: String(meta_data?.imagen_principal_3),
+      imagen_principal_4: String(meta_data?.imagen_principal_4),
+      precio: String(meta_data?.precio),
+      area: String(meta_data?.area),
+      direccion: String(meta_data?.direccion),
+      administracion: String(meta_data?.administracion),
+      altura: String(meta_data?.altura),
+      acabados: String(meta_data?.acabados),
+      punto_electrico: String(meta_data?.punto_electrico),
+      punto_hidraulico: String(meta_data?.punto_hidraulico),
+      voz_y_datos: String(meta_data?.voz_y_datos),
+      habitaciones: String(meta_data?.habitaciones),
+      banos: String(meta_data?.banos),
+      cocina: String(meta_data?.cocina),
+      deposito: String(meta_data?.deposito),
+      terraza: String(meta_data?.terraza),
+      salas: String(meta_data?.salas),
+      parking: String(meta_data?.parking),
       rank_math_internal_links_processed: String(
-        meta_data.rank_math_internal_links_processed
+        meta_data?.rank_math_internal_links_processed
       ),
     };
 
@@ -234,13 +234,23 @@ export async function generateMetadata({
 }: {
   params: { slug: string };
 }): Promise<Metadata> {
-  const property = await getPropertyBySlug(params.slug);
+  const { slug } = params;
+
+  if (!slug) {
+    return generateMetadataFromContent({
+      title: "Property Not Found",
+      description: "The requested property could not be found",
+      path: `/inmobiliaria-360/${slug}`,
+    });
+  }
+
+  const property = await getPropertyBySlug(slug);
 
   if (!property) {
     return generateMetadataFromContent({
       title: "Property Not Found",
       description: "The requested property could not be found",
-      path: `/inmobiliaria-360/${params.slug}`,
+      path: `/inmobiliaria-360/${slug}`,
     });
   }
 
