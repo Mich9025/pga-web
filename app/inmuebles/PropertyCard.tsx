@@ -1,49 +1,125 @@
-import { Badge } from "@/components/ui/badge";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
-import { WooProduct } from "@/lib/wordpress.d";
+import { PropertyResponse } from "@/lib/wordpress.d";
 import Image from "next/image";
 import Link from "next/link";
+import { cloneElement } from "react";
+import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
+import { LiaShowerSolid } from "react-icons/lia";
+import {
+  LuBed,
+  LuBuilding,
+  LuFactory,
+  LuMapPin,
+  LuSquareParking,
+  LuWarehouse,
+} from "react-icons/lu";
+import { TbRulerMeasure, TbRulerMeasure2 } from "react-icons/tb";
 
 interface PropertyCardProps {
-  property: WooProduct;
+  property: PropertyResponse;
 }
 
 export function PropertyCard({ property }: PropertyCardProps) {
-  // Extract metadata
-  const precio = property?.meta_data?.find((m) => m.key === "price")
-    ?.value as string;
-  const area = property?.meta_data?.find((m) => m.key === "area")
-    ?.value as string;
-  const habitaciones = property?.meta_data?.find(
-    (m) => m.key === "habitaciones"
-  )?.value as string;
-  const banos = property?.meta_data?.find((m) => m.key === "banos")
-    ?.value as string;
-  const parking = property?.meta_data?.find((m) => m.key === "parking")
-    ?.value as string;
+  const pathNames = property?.url_front?.split("/");
+  const categorySlug = pathNames[0];
+  const propertySlug = pathNames[1];
 
+  // Extract metadata
+  const title =
+    propertySlug.charAt(0).toUpperCase() +
+    propertySlug.replace("-", " ").slice(1) +
+    " " +
+    property.title.rendered;
+
+  const propertyType =
+    categorySlug.charAt(0).toUpperCase() +
+    categorySlug.replace("-", " ").slice(1);
+
+  let propertyTypeIcon = <LuBuilding />;
+  switch (property.type) {
+    case "residencial":
+      propertyTypeIcon = <LuBed />;
+      break;
+    case "comercial":
+      propertyTypeIcon = <LuBuilding />;
+      break;
+    case "industrial":
+      propertyTypeIcon = <LuFactory />;
+      break;
+    case "bodega":
+      propertyTypeIcon = <LuWarehouse />;
+      break;
+    case "oficina":
+      propertyTypeIcon = <HiOutlineBuildingOffice2 />;
+      break;
+    default:
+      propertyTypeIcon = <LuBuilding />;
+      break;
+  }
+
+  const image = property.featured_image_url as string;
+  const precio = property.precio_lista;
+  const area = property.area_cons;
+  const habitaciones = property.habitaciones;
+  const banos = property.banos;
+  const parking = property.parqueaderos;
+  const ubicacion = property.direccion;
+
+  const overview = [
+    {
+      title: "Área",
+      value: property.area_cons,
+      icon: <TbRulerMeasure />,
+      unit: "m²",
+    },
+    {
+      title: "Altura",
+      value: property.altur,
+      icon: <TbRulerMeasure2 />,
+      unit: "m",
+    },
+    {
+      title: "Habitaciones",
+      value: property.habitaciones,
+      icon: <LuBed />,
+    },
+    {
+      title: "Banos",
+      value: property.banos,
+      icon: <LiaShowerSolid />,
+    },
+    {
+      title: "Parqueadores",
+      value: property.parqueaderos,
+      icon: <LuSquareParking />,
+    },
+  ];
+  const iconClassName = "size-8 stroke-primary/70 stroke-1";
+
+  const propsClassName =
+    "flex flex-col md:flex-row w-full justify-between [&>*]:grow [&>*]:p-4 [&>*]:-mr-px [&>*]:-mt-px [&>*]:border [&>*]:border-border [&>*]:flex  [&>*]:flex-col [&>*]:text-center  [&>*]:items-center [&>*]:gap-3";
   return (
     <Card className="group overflow-hidden">
-      <Link href={`/inmuebles/${property.slug}`}>
+      <Link
+        href={`/inmuebles/${categorySlug}/${propertySlug}/${property.slug}`}
+      >
         <CardHeader className="p-0 relative aspect-square">
           {/* Main Image */}
-          {property.images?.[0] && (
-            <Image
-              src={property.images[0].src}
-              alt={property.name}
-              fill
-              className="object-cover transition-transform group-hover:scale-105"
-            />
-          )}
+          <Image
+            src={image}
+            alt={title}
+            fill
+            className="object-cover transition-transform group-hover:scale-105"
+          />
           {/* Status Badge */}
-          <Badge className="absolute top-4 left-4 z-10" variant="secondary">
+          {/* <Badge className="absolute top-4 left-4 z-10" variant="secondary">
             {property.status === "publish" ? "Active" : property.status}
-          </Badge>
+          </Badge> */}
           {/* Favorite Button */}
           {/* <button
             className="absolute top-4 right-4 z-10 p-2 rounded-full bg-white/80 hover:bg-white transition-colors"
@@ -57,50 +133,67 @@ export function PropertyCard({ property }: PropertyCardProps) {
         </CardHeader>
 
         <CardContent className="p-4 space-y-3">
-          {/* Price */}
-          <div className="text-lg font-bold">
-            {precio || "Precio a consultar"}
+          <div className="flex flex-col gap-2">
+            <h3 className="text-2xl font-semibold">{title}</h3>
+            <dl className="flex gap-2 items-center text-base [&>*]:flex [&>*]:items-center [&>dd]:pr-4">
+              <dt>
+                <span className="sr-only">Tipo de inmueble</span>
+                {cloneElement(propertyTypeIcon, {
+                  className: "size-6 stroke-primary/70 stroke-1",
+                  "aria-hidden": "true",
+                })}
+              </dt>
+              <dd>{propertyType}</dd>
+              <dt>
+                <span className="sr-only">Dirección</span>
+                <LuMapPin
+                  className="size-6 stroke-primary/70 stroke-1"
+                  aria-hidden="true"
+                />
+              </dt>
+              <dd>
+                <address className="not-italic">{property.direccion}</address>
+              </dd>
+            </dl>
           </div>
-
-          {/* Title */}
-          <h3 className="font-semibold line-clamp-1">{property.name}</h3>
+          {/* Price */}
+          <div className="text-lg">{precio || "Precio a consultar"}</div>
 
           {/* Location */}
-          <p className="text-sm text-muted-foreground line-clamp-1">
-            {property.categories?.[0]?.name || "Location not specified"}
-          </p>
-
-          {/* Property Type */}
-          <p className="text-sm text-muted-foreground">
-            {property.tags?.[0]?.name || "Type not specified"}
-          </p>
+          {/* <p className="text-sm text-muted-foreground line-clamp-1">
+            {ubicacion || "Location not specified"}
+          </p> */}
         </CardContent>
 
-        <CardFooter className="p-4 pt-0 grid grid-cols-4 gap-2 text-xs text-muted-foreground">
-          {/* Stats */}
-          {area && (
-            <div className="flex items-center gap-1">
-              <span className="font-medium">{area}</span>
-            </div>
-          )}
-          {habitaciones && (
-            <div className="flex items-center gap-1">
-              <span className="font-medium">{habitaciones}</span>
-              <span>hab</span>
-            </div>
-          )}
-          {banos && (
-            <div className="flex items-center gap-1">
-              <span className="font-medium">{banos}</span>
-              <span>baños</span>
-            </div>
-          )}
-          {parking && (
-            <div className="flex items-center gap-1">
-              <span className="font-medium">{parking}</span>
-              <span>park</span>
-            </div>
-          )}
+        <CardFooter className="p-0 -m-px text-xs text-muted-foreground">
+          <dl className={propsClassName}>
+            {overview.map(({ title, value, icon, unit }, index) => {
+              if (!value) return null;
+              return (
+                <div
+                  key={`general-${index}`}
+                  className="feature-item"
+                  itemProp="amenityFeature"
+                  itemScope
+                  itemType="https://schema.org/PropertyValue"
+                >
+                  {cloneElement(icon, {
+                    className: iconClassName,
+                    "aria-hidden": "true",
+                  })}
+                  <div className="flex flex-col">
+                    <dt className="text-xs">
+                      <span itemProp="name">{title}</span>
+                    </dt>
+                    <dd className="text-sm font-semibold text-foreground/60">
+                      <span itemProp="value">{value}</span>
+                      {unit && <span itemProp="unitText">{unit}</span>}
+                    </dd>
+                  </div>
+                </div>
+              );
+            })}
+          </dl>
         </CardFooter>
       </Link>
     </Card>

@@ -252,11 +252,63 @@ const CarouselNext = React.forwardRef<
 });
 CarouselNext.displayName = "CarouselNext";
 
+// Add these exports to the existing carousel file
+export type { CarouselProps }; // Add this to the exports
+
+// Create a new component for the thumbnail strip
+interface CarouselThumbnailsProps extends React.HTMLAttributes<HTMLDivElement> {
+  children: React.ReactNode;
+}
+
+const CarouselThumbnails = React.forwardRef<
+  HTMLDivElement,
+  CarouselThumbnailsProps
+>(({ className, children, ...props }, ref) => {
+  const { api, orientation } = useCarousel();
+  const [selectedIndex, setSelectedIndex] = React.useState(0);
+
+  React.useEffect(() => {
+    if (!api) return;
+
+    api.on("select", () => {
+      setSelectedIndex(api.selectedScrollSnap());
+    });
+  }, [api]);
+
+  return (
+    <div
+      ref={ref}
+      className={cn("relative mt-4 overflow-hidden", className)}
+      {...props}
+    >
+      <div className="flex gap-2 overflow-auto pb-2">
+        {React.Children.map(children, (child, index) => {
+          if (!React.isValidElement(child)) return null;
+
+          return React.cloneElement(child, {
+            ...child.props,
+            className: cn(
+              child.props.className,
+              "cursor-pointer transition-opacity duration-200",
+              selectedIndex === index
+                ? "opacity-100"
+                : "opacity-50 hover:opacity-75"
+            ),
+            onClick: () => api?.scrollTo(index),
+          });
+        })}
+      </div>
+    </div>
+  );
+});
+CarouselThumbnails.displayName = "CarouselThumbnails";
+
 export {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
+  CarouselThumbnails,
   type CarouselApi,
 };

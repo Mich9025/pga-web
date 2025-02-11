@@ -1,4 +1,5 @@
 // lib/metadata.ts
+import { siteConfig } from "@/site.config";
 import { Metadata } from "next";
 
 interface MetadataProps {
@@ -9,6 +10,7 @@ interface MetadataProps {
   type?: "website" | "article";
   publishedTime?: string;
   modifiedTime?: string;
+  keywords?: string[];
 }
 
 export function generateMetadataFromContent({
@@ -19,10 +21,13 @@ export function generateMetadataFromContent({
   type = "website",
   publishedTime,
   modifiedTime,
+  keywords = [],
 }: MetadataProps): Metadata {
-  const siteName = "Isarco";
-  const siteUrl = "https://isarco.com.co";
+  const siteName = siteConfig.name;
+  const siteUrl = siteConfig.domain;
   const fullUrl = `${siteUrl}${path}`;
+
+  const defaultKeywords = siteConfig.seo.defaultKeywords;
 
   return {
     title: `${title} | ${siteName}`,
@@ -46,5 +51,6 @@ export function generateMetadataFromContent({
       description,
       ...(image && { images: [image] }),
     },
+    keywords: [...keywords, ...defaultKeywords]?.join(","),
   };
 }

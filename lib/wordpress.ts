@@ -12,8 +12,8 @@ import {
   FeaturedMedia,
   Page,
   Post,
+  PropertyResponse,
   Tag,
-  WooProduct,
 } from "./wordpress.d";
 
 // WordPress Config
@@ -481,7 +481,7 @@ export interface PropertyFilters {
 
 export async function getAllProperties(
   filters?: PropertyFilters
-): Promise<WooProduct[]> {
+): Promise<PropertyResponse[]> {
   const consumerKey = process.env.WC_CONSUMER_KEY;
   const consumerSecret = process.env.WC_CONSUMER_SECRET;
 
@@ -527,12 +527,11 @@ export async function getAllProperties(
   }
 }
 
-export async function getPropertyBySlug(slug: string): Promise<WooProduct> {
-  const consumerKey = process.env.WC_CONSUMER_KEY;
-  const consumerSecret = process.env.WC_CONSUMER_SECRET;
-
+export async function getPropertyBySlug(
+  slug: string
+): Promise<PropertyResponse> {
   const baseUrl = process.env.WORDPRESS_URL;
-  const url = `${baseUrl}/wp-json/wp/v2/states?slug=${slug}&consumer_key=${consumerKey}&consumer_secret=${consumerSecret}`;
+  const url = `${baseUrl}/wp-json/wp/v2/states?slug=${slug}`;
   console.log("Fetching URL:", url); // For debugging
 
   try {

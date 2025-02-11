@@ -4,7 +4,8 @@ import Image from "next/image";
 
 interface SectionHeaderProps {
   title: string;
-  description: string;
+  description?: string;
+  descriptionHtml?: string;
   image?: string;
   className?: string;
 }
@@ -12,6 +13,7 @@ interface SectionHeaderProps {
 export const SectionHeader = ({
   title,
   description,
+  descriptionHtml,
   image,
   className,
 }: SectionHeaderProps) => {
@@ -37,7 +39,17 @@ export const SectionHeader = ({
           <h1 className="text-4xl md:text-6xl lg:text-7xl mb-4 font-bold">
             {title}
           </h1>
-          <p className="text-xl md:text-2xl">{description}</p>
+          {description && (
+            <p className="mb-12 text-xl md:text-2xl line-clamp-3">
+              {description}
+            </p>
+          )}
+          {descriptionHtml && (
+            <div
+              className="mb-12 text-xl md:text-2xl line-clamp-3"
+              dangerouslySetInnerHTML={{ __html: descriptionHtml }}
+            />
+          )}
         </div>
       </Container>
     </Section>

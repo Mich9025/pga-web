@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { LuArrowLeft } from "react-icons/lu";
 import { Button } from "./ui/button";
 
 export default function BackButton() {
@@ -8,7 +9,7 @@ export default function BackButton() {
 
   return (
     <Button variant="outline" size="sm" onClick={() => router.back()}>
-      Go Back
+      Volver <LuArrowLeft className="inline-block size-4 opacity-40 ml-3" />
     </Button>
   );
 }

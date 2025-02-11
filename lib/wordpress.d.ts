@@ -351,3 +351,109 @@ export interface WooProduct {
     meta: Record<string, unknown>;
   }[];
 }
+
+interface PropertyResponse {
+  id: number;
+  date: string;
+  date_gmt: string;
+  guid: {
+    rendered: string;
+  };
+  modified: string;
+  modified_gmt: string;
+  slug: string;
+  status: string;
+  type: string;
+  link: string;
+  habitaciones: string;
+  title: {
+    rendered: string;
+  };
+  content: {
+    rendered: string;
+    protected: boolean;
+  };
+  excerpt: {
+    rendered: string;
+    protected: boolean;
+  };
+  featured_media: number;
+  gallery_images: [
+    {
+      id: number;
+      url: string;
+      width: number;
+      height: number;
+    }
+  ];
+  template: string;
+  projects: number[];
+  state_types: number[];
+  mode: number[];
+  location: number[];
+  class_list: string[];
+  featured_image_url: string | null;
+  direccion: string;
+  area_cons: string;
+  area_priv: string;
+  precio_lista: string;
+  preciom2: string;
+  admon: string;
+  state_status: string;
+  altur: string;
+  cocineta: string;
+  banos: string;
+  parqueaderos: string;
+  estrato: string;
+  red_electrica: string;
+  red_hidraulica: string;
+  red_voz_datos: string;
+  cuarto_tecnico: string;
+  depositos: string;
+  punto_extraccion: string;
+  red_gas: string;
+  antiguedad_edificio: string;
+  url_front: string;
+  _links: {
+    self: Link[];
+    collection: Link[];
+    about: Link[];
+    "version-history": VersionHistory[];
+    "predecessor-version": PredecessorVersion[];
+    "wp:attachment": Link[];
+    "wp:term": WpTerm[];
+    curies: Curie[];
+  };
+}
+
+interface Link {
+  href: string;
+  targetHints?: {
+    allow: string[];
+  };
+}
+
+interface VersionHistory {
+  count: number;
+  href: string;
+}
+
+interface PredecessorVersion {
+  id: number;
+  href: string;
+}
+
+interface WpTerm {
+  taxonomy: string;
+  embeddable: boolean;
+  href: string;
+}
+
+interface Curie {
+  name: string;
+  href: string;
+  templated: boolean;
+}
+
+// Type for array of properties
+type PropertyList = PropertyResponse[];
