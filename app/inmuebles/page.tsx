@@ -1,5 +1,6 @@
-import BackButton from "@/components/back";
-import { Container, Prose, Section } from "@/components/craft";
+import { Container } from "@/components/craft";
+import { SectionHeader } from "@/components/header/SectionHeader";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   PropertyFilters as ApiParams,
   getAllProperties,
@@ -7,6 +8,7 @@ import {
 import { Metadata } from "next";
 import { PropertiesFilter } from "./PropertiesFilters";
 import { PropertyCard } from "./PropertyCard";
+import { SearchMap } from "./SearchMap";
 
 export const metadata: Metadata = {
   title: "Inmuebles",
@@ -16,11 +18,11 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function Page({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined };
-}) {
+interface SearchProps {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}
+
+export default async function Page({ searchParams }: SearchProps) {
   const {
     search,
     locations,
@@ -49,29 +51,39 @@ export default async function Page({
 
   return (
     <>
-      <Section className="bg-primary text-primary-foreground">
-        <Container className="space-y-6">
-          <Prose className="mb-8">
-            <h2>inmo 360...</h2>
-          </Prose>
-        </Container>
-      </Section>
+      <SectionHeader
+        title={"Inmuebles"}
+        image={properties[0]?.featured_image_url as string}
+        className="min-h-[30vh]"
+      />
       <PropertiesFilter />
-      <Section>
-        <Container>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {properties.map((property) => (
-              <PropertyCard key={property.id} property={property} />
-            ))}
-          </div>
+      <Tabs defaultValue="list" className="w-full">
+        <Container className="">
+          <TabsList className="mt-2">
+            <TabsTrigger value="list">Listado</TabsTrigger>
+            <TabsTrigger value="map">Buscar en el mapa</TabsTrigger>
+          </TabsList>
         </Container>
-      </Section>
-      <Section>
+        <TabsContent value="list">
+          <Container className="!pt-0">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {properties.map((property) => (
+                <PropertyCard key={property.id} property={property} />
+              ))}
+            </div>
+          </Container>
+        </TabsContent>
+        <TabsContent value="map">
+          {" "}
+          <SearchMap properties={properties} />
+        </TabsContent>
+      </Tabs>
+      {/* <Section>
         <Container className="space-y-6 overflow-scroll bg-black text-gray-200 rounded-md">
           <pre>{JSON.stringify(properties, null, 2)}</pre>
           <BackButton />
         </Container>
-      </Section>
+      </Section> */}
     </>
   );
 }

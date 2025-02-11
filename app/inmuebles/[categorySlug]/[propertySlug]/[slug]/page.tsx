@@ -34,14 +34,19 @@ import { PropertyMap } from "./PropertyMap";
 import Slider from "./Slider";
 
 interface PageParams {
-  categorySlug: string;
-  propertySlug: string;
-  slug: string;
+  params: Promise<{
+    categorySlug: string;
+    propertySlug: string;
+    slug: string;
+  }>;
 }
 
-export default async function PropertyPage({ params }: { params: PageParams }) {
+export default async function PropertyPage({ params }: PageParams) {
   try {
-    const { categorySlug, propertySlug, slug } = await params;
+    const slug = (await params).slug;
+    const categorySlug = (await params).categorySlug;
+    const propertySlug = (await params).propertySlug;
+
     console.log(
       "Attempting to fetch property with categorySlug, propertySlug, slug:",
       categorySlug,
@@ -399,10 +404,10 @@ export default async function PropertyPage({ params }: { params: PageParams }) {
 
 export async function generateMetadata({
   params,
-}: {
-  params: PageParams;
-}): Promise<Metadata> {
-  const { slug, propertySlug, categorySlug } = await params;
+}: PageParams): Promise<Metadata> {
+  const slug = (await params).slug;
+  const categorySlug = (await params).categorySlug;
+  const propertySlug = (await params).propertySlug;
 
   const path = `/inmuebles/${categorySlug}/${propertySlug}/${slug}`;
 

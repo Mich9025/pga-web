@@ -517,10 +517,14 @@ export async function getAllProperties(
     });
 
     if (!response.ok) {
-      throw new Error(`WooCommerce API failed: ${response.statusText}`);
+      throw new Error(`Properties API failed: ${response.statusText}`);
     }
 
-    return response.json();
+    const propertiesRaw = await response.json();
+    const properties = await Promise.all(
+      propertiesRaw.map((p: PropertyResponse) => extendPropertyResponse(p))
+    );
+    return properties;
   } catch (error) {
     console.error("Error fetching properties:", error);
     throw error;
@@ -546,10 +550,111 @@ export async function getPropertyBySlug(
       throw new Error(`WooCommerce API failed: ${response.statusText}`);
     }
 
-    const products = await response.json();
-    return products[0]; // WooCommerce returns an array, we want the first item
+    const propertiesRaw = await response.json();
+    const properties = await Promise.all(
+      propertiesRaw.map((p: PropertyResponse) => extendPropertyResponse(p))
+    );
+    return properties[0]; // WooCommerce returns an array, we want the first item
   } catch (error) {
     console.error("Error fetching property:", error);
     throw error;
   }
+}
+
+export function extractClassInfo(classList: string[]): {
+  stateType?: string;
+  mode?: string;
+  location?: string;
+} {
+  const extractValue = (prefix: string) => {
+    const item = classList.find((cls) => cls.startsWith(`${prefix}-`));
+    return item ? item.replace(`${prefix}-`, "") : null;
+  };
+
+  return {
+    stateType: String(extractValue("state_types")),
+    mode: String(extractValue("mode")),
+    location: String(extractValue("location")),
+  };
+}
+
+export async function extendPropertyResponse(
+  property: PropertyResponse
+): Promise<PropertyResponse> {
+  const address = property.direccion;
+
+  // get coordinates from address and nominatim
+
+  let coordinates;
+
+  if (address) {
+    try {
+      const searchAddress = `${address}, Bogotá, Colombia`;
+      const encodedAddress = encodeURIComponent(searchAddress);
+
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/search?format=json&q=${encodedAddress}&limit=1`
+      );
+
+      const data = await response.json();
+
+      if (data && data[0]) {
+        coordinates = {
+          lat: parseFloat(data[0].lat),
+          lon: parseFloat(data[0].lon),
+        };
+      }
+    } catch (error) {
+      console.error("Error getting coordinates:", error);
+    }
+  }
+
+  const pathNames = property?.url_front?.split("/");
+  const categorySlug = pathNames[0];
+  const propertySlug = pathNames[1];
+
+  const propertyName =
+    propertySlug.charAt(0).toUpperCase() +
+    propertySlug.replace("-", " ").slice(1);
+
+  const title = propertyName + " " + property.title.rendered;
+
+  const propertyType =
+    categorySlug.charAt(0).toUpperCase() +
+    categorySlug.replace("-", " ").slice(1);
+
+  const classInfo = extractClassInfo(property.class_list);
+
+  const keywords = [
+    propertyName,
+    propertyType,
+    property.title.rendered,
+    ...Object.values(classInfo).filter(Boolean),
+    // ...property.keywords,
+  ];
+
+  const path = `/inmuebles/${categorySlug}/${propertySlug}/${property.slug}`;
+
+  const frontend = {
+    title,
+    path,
+    description: property.excerpt.rendered?.replace(/<[^>]*>/g, "") || "",
+    image:
+      (property.featured_image_url as string) ||
+      (property.gallery_images[0].url as string) ||
+      "",
+    price: property.precio_lista as string,
+    address: address,
+    keywords,
+    propertyType,
+    propertyCategory: propertyName,
+    propertyLocation: property.direccion as string,
+    ...classInfo,
+  };
+
+  return {
+    ...property,
+    coordinates,
+    frontend,
+  };
 }

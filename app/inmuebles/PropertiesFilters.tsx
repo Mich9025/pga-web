@@ -126,7 +126,7 @@ export function PropertiesFilter() {
   };
 
   return (
-    <Section className="py-8 md:py-12 bg-secondary text-primary">
+    <Section className="py-4 md:py-2 bg-secondary text-foreground">
       <Container>
         <div className="flex items-center gap-4">
           {/* Search Input */}

@@ -1,15 +1,15 @@
 import {
-  getPostBySlug,
-  getFeaturedMediaById,
   getAuthorById,
   getCategoryById,
+  getFeaturedMediaById,
+  getPostBySlug,
 } from "@/lib/wordpress";
 
-import { Section, Container, Article, Prose } from "@/components/craft";
-import { Metadata } from "next";
+import { Article, Container, Prose, Section } from "@/components/craft";
 import { badgeVariants } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { siteConfig } from "@/site.config";
+import { Metadata } from "next";
 
 import Link from "next/link";
 import Balancer from "react-wrap-balancer";
@@ -26,7 +26,7 @@ export async function generateMetadata({
     return {};
   }
 
-  const ogUrl = new URL(`${siteConfig.site_domain}/api/og`);
+  const ogUrl = new URL(`${siteConfig.domain}/api/og`);
   ogUrl.searchParams.append("title", post.title.rendered);
   // Strip HTML tags for description
   const description = post.excerpt.rendered.replace(/<[^>]*>/g, "").trim();
@@ -39,7 +39,7 @@ export async function generateMetadata({
       title: post.title.rendered,
       description: description,
       type: "article",
-      url: `${siteConfig.site_domain}/posts/${post.slug}`,
+      url: `${siteConfig.domain}/posts/${post.slug}`,
       images: [
         {
           url: ogUrl.toString(),

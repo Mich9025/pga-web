@@ -16,11 +16,11 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function Page({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined };
-}) {
+interface SearchProps {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}
+
+export default async function Page({ searchParams }: SearchProps) {
   const {
     search,
     locations,

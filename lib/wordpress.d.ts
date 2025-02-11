@@ -352,7 +352,23 @@ export interface WooProduct {
   }[];
 }
 
-interface PropertyResponse {
+export interface PropertyResponse {
+  coordinates?: { lat: number; lon: number }; // Cached coordinates
+  frontend?: {
+    title: string;
+    path: string;
+    description: string;
+    propertyType: string;
+    propertyCategory: string;
+    propertyLocation: string;
+    image: string;
+    price?: string;
+    address: string;
+    keywords: string[];
+    stateType?: string;
+    mode?: string;
+    location?: string;
+  };
   id: number;
   date: string;
   date_gmt: string;
