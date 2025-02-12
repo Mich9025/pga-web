@@ -544,3 +544,22 @@ interface Client extends WPEntity {
     curies: Curie[];
   };
 }
+
+// Podcast
+interface Podcast extends WPEntity {
+  type: "clients";
+  title: RenderedTitle;
+  featured_media: number;
+  template: string;
+  featured_image_url: string;
+  youtube_url: string;
+  spotify_url: string;
+  _links: {
+    self: Link[];
+    collection: Link[];
+    about: Link[];
+    "wp:featuredmedia": WpTerm[];
+    "wp:attachment": Link[];
+    curies: Curie[];
+  };
+}

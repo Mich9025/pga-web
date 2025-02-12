@@ -1,10 +1,11 @@
 // Define the menu items
 export const mainMenu = {
   home: "/",
-  "Nuestros proyectos": "/proyectos",
+  // "Nuestros proyectos": "/proyectos",
+  inmuebles: "/inmuebles",
   "inmmobiliaria 360": "/inmobiliaria-360",
-  servicios: "/servicios",
   "acerca de Isarco": "/acerca",
+  podcast: "/podcast",
   blog: "/blog",
   contacto: "/contacto",
 };

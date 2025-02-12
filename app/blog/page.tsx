@@ -73,7 +73,7 @@ export default async function Page({
     if (author) params.set("author", author);
     if (tag) params.set("tag", tag);
     if (search) params.set("search", search);
-    return `/posts${params.toString() ? `?${params.toString()}` : ""}`;
+    return `/blog${params.toString() ? `?${params.toString()}` : ""}`;
   };
 
   return (

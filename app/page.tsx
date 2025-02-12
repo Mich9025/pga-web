@@ -1,9 +1,6 @@
 import { Container, Section } from "@/components/craft";
 import Image from "next/image";
-import { IoMdPin } from "react-icons/io";
 import { IoSearch } from "react-icons/io5";
-
-import { MdOutlineLocationSearching } from "react-icons/md";
 
 import { Banner } from "@/components/ui/banner";
 import { Card, CardContent } from "@/components/ui/card";
@@ -15,12 +12,11 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
-import { Input } from "@/components/ui/input";
-
-import { Button } from "@/components/ui/button";
 import { getAllFromCustomPostType } from "@/lib/wordpress";
 import { Inmo360 } from "@/lib/wordpress.d";
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+import LandingSearchSection from "./inmuebles/LandingSearchSection";
 // This page is using the craft.tsx component and design system
 export default async function Home() {
   const inmo = await getAllFromCustomPostType<Inmo360>("inmo-360");
@@ -58,32 +54,20 @@ const SectionInmobiliario = () => {
             <h2 className="py-8 text-3xl font-medium tracking-tight sm:text-6xl md:text-7xl lg:text-[5rem]">
               Arrienda o vende en 5 días
             </h2>
-            <p className="mt-6 text-lg md:text-2xl lg:text-3xl">Leer más</p>
+            <Link
+              href={`inmobiliaria-360`}
+              className="group flex items-center gap-2 mt-6 text-lg md:text-2xl lg:text-3xl hover:opacity-100 opacity-80 transition-all duration-150 ease-in-out"
+            >
+              <span>Leer más</span>
+              <ArrowRight
+                className="size-8 opacity-0 group-hover:opacity-100 transform -translate-x-3 group-hover:translate-x-0 transition-all duration-150 ease-in-out"
+                strokeWidth={1}
+              />
+            </Link>
           </Container>
         </div>
         <div className="bg-background text-foreground h-full flex items-center lg:items-start">
-          <Container className="py-4 md:py-24 lg:py-48 flex flex-col gap-y-6 max-w-md mx-auto">
-            <h2 className="py-8 text-3xl font-medium tracking-tight sm:text-6xl md:text-7xl lg:text-[5rem]">
-              Encuentra el espacio ideal
-            </h2>
-            <div className="flex flex-col gap-3">
-              <div className="relative">
-                <IoMdPin className="absolute left-4 top-2.5 mr-2 opacity-50 size-5" />
-                <Input
-                  type="text"
-                  placeholder="Ingresa una ubicación"
-                  className="pl-12 md:text-lg !rounded-full"
-                />
-              </div>
-              <Button
-                variant="outline"
-                className="text-left justify-start md:text-lg !rounded-full"
-              >
-                <MdOutlineLocationSearching className="mr-2 opacity-50 size-5" />
-                Usa mi ubicación actual
-              </Button>
-            </div>
-          </Container>
+          <LandingSearchSection />
         </div>
       </div>
     </Section>

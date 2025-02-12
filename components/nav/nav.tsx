@@ -211,12 +211,32 @@ export const NavigationMenu = ({ className, children, id }: NavProps) => {
                     </NavigationMenuLink>
                   </Link>
                 </NavigationMenuItem>
+
+                <NavigationMenuItem>
+                  <Link href="/blog" legacyBehavior passHref>
+                    <NavigationMenuLink
+                      className={navigationMenuTriggerStyle()}
+                    >
+                      Blog
+                    </NavigationMenuLink>
+                  </Link>
+                </NavigationMenuItem>
+
+                <NavigationMenuItem>
+                  <Link href="/podcast" legacyBehavior passHref>
+                    <NavigationMenuLink
+                      className={navigationMenuTriggerStyle()}
+                    >
+                      Podcast
+                    </NavigationMenuLink>
+                  </Link>
+                </NavigationMenuItem>
                 <NavigationMenuItem>
                   <Link href="/contacto" legacyBehavior passHref>
                     <NavigationMenuLink
                       className={navigationMenuTriggerStyle()}
                     >
-                      Contacto
+                      Contáctanos
                     </NavigationMenuLink>
                   </Link>
                 </NavigationMenuItem>
