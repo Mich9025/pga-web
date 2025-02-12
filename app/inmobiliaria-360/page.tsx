@@ -1,180 +1,34 @@
-import { Container, Section } from "@/components/craft";
-import { Metadata } from "next";
-
 import { SectionHeader } from "@/components/header/SectionHeader";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import Marquee from "@/components/ui/marquee";
-import Image from "next/image";
+import { generateMetadataFromContent } from "@/lib/metadata";
+import { getAllFromCustomPostType } from "@/lib/wordpress";
+import { Client, Inmo360 } from "@/lib/wordpress.d";
+import { Suspense } from "react";
+import InmoContent from "./InmoContent";
 
-export const metadata: Metadata = {
-  title: "All Pages",
-  description: "Browse all pages of our blog posts",
-  alternates: {
-    canonical: "/posts/pages",
-  },
-};
-const steps = [
-  {
-    id: 1,
-    title: "Inmobiliaria",
-    icon: "🏢",
-  },
-  {
-    id: 2,
-    title: "Asesoría",
-    icon: "📋",
-  },
-  {
-    id: 3,
-    title: "Análisis PH",
-    icon: "📊",
-  },
-  {
-    id: 4,
-    title: "Acompañamiento",
-    icon: "🤝",
-  },
-];
+export const metadata = generateMetadataFromContent({
+  title: "Inmobiliaria 360",
+  description: "Soluciones inmobiliarias integrales para todas tus necesidades",
+  path: "/inmo360",
+  keywords: ["servicios inmobiliarios", "360", "soluciones", "gestión"],
+});
 
-const services = [
-  {
-    title: "Consultoría",
-    image: "/consultoria.jpg",
-    description: "Asesoría especializada en proyectos inmobiliarios",
-  },
-  {
-    title: "Tecnología",
-    image: "/tecnologia.jpg",
-    description: "Soluciones digitales para el sector inmobiliario",
-  },
-  {
-    title: "Eficiencia",
-    image: "/eficiencia.jpg",
-    description: "Optimización de procesos y recursos",
-  },
-];
+export default async function Page() {
+  const clients = await getAllFromCustomPostType<Client>("clients", 12);
+  const immo = await getAllFromCustomPostType<Inmo360>("inmo-360");
 
-export default function Page() {
   return (
     <>
       {/* Hero Section */}
       <SectionHeader
         title="Soluciones Inmobiliarias 360"
         description="Te acompañamos en cada paso de tu proceso inmobiliario"
-        image="/soluciones-inmobiliarias-360.jpg"
+        // image="/soluciones-inmobiliarias-360.jpg"
+        className="min-h-[500px]"
       />
 
-      {/* Steps Section */}
-      <Section className="bg-secondary">
-        <Container>
-          <div className="relative">
-            {/* Steps Connection Line */}
-            <div className="absolute top-1/2 left-0 w-full h-1 bg-primary/20" />
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10">
-              {steps.map((step, index) => (
-                <div
-                  key={step.id}
-                  className="flex flex-col items-center text-center"
-                >
-                  <div className="w-16 h-16 rounded-full bg-primary text-secondary flex items-center justify-center text-2xl mb-4">
-                    {step.icon}
-                  </div>
-                  <h3 className="text-xl font-medium">{step.title}</h3>
-                </div>
-              ))}
-            </div>
-          </div>
-        </Container>
-      </Section>
-
-      {/* Contact Form Section */}
-      <Section className="bg-background">
-        <Container>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <Image
-                src="/agent-image.jpg"
-                alt="Agente Inmobiliario"
-                width={500}
-                height={500}
-                className="rounded-lg"
-              />
-            </div>
-            <div className="bg-white p-8 rounded-lg shadow-lg">
-              <h2 className="text-2xl font-medium mb-6">Formulario</h2>
-              <form className="space-y-4">
-                <Input placeholder="Nombre" />
-                <Input placeholder="Email" type="email" />
-                <Input placeholder="Teléfono" type="tel" />
-                <Input placeholder="Asunto" />
-                <Button className="w-full">Enviar</Button>
-              </form>
-            </div>
-          </div>
-        </Container>
-      </Section>
-
-      {/* Services Section */}
-      <Section className="bg-secondary">
-        <Container>
-          <h2 className="text-3xl font-medium mb-12">Estructura</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {services.map((service) => (
-              <Card key={service.title} className="group overflow-hidden">
-                <CardContent className="p-0">
-                  <div className="relative aspect-[4/3] bg-primary/50 flex items-center justify-center">
-                    <Image
-                      src={service.image}
-                      alt={service.title}
-                      fill
-                      className="object-cover transition-transform group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-primary/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                      <div className="text-center text-secondary p-6">
-                        <h3 className="text-xl font-medium mb-2">
-                          {service.title}
-                        </h3>
-                        <p>{service.description}</p>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </Container>
-      </Section>
-
-      {/* Clients Section */}
-      <Section className="bg-background">
-        <Container>
-          <h2 className="text-3xl font-medium mb-12">Nuestros Clientes</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 items-center">
-            {/* Add client logos here */}
-          </div>
-          <div className="relative flex h-full max-h-96 min-h-72 w-full min-w-72 items-center justify-center overflow-hidden">
-            <Marquee pauseOnHover className=" [--duration:40s] gap-4 p-4">
-              {Array.from({ length: 12 }).map((_, i) => (
-                <div
-                  key={i}
-                  className="aspect-[3/2] relative grayscale hover:grayscale-0 transition-all border min-w-52 flex items-center justify-center"
-                >
-                  <Image
-                    src={`/client-${i + 1}.png`}
-                    alt={`Client ${i + 1}`}
-                    fill
-                    className="object-contain"
-                  />
-                  {`Client ${i + 1}`}
-                </div>
-              ))}
-            </Marquee>
-          </div>
-        </Container>
-      </Section>
+      <Suspense fallback={<div>Cargando...</div>}>
+        <InmoContent immo={immo} clients={clients} />
+      </Suspense>
     </>
   );
 }

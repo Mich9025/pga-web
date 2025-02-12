@@ -30,6 +30,7 @@ export function generateMetadataFromContent({
   const defaultKeywords = siteConfig.seo.defaultKeywords;
 
   return {
+    metadataBase: new URL(siteUrl),
     title: `${title} | ${siteName}`,
     description,
     alternates: {

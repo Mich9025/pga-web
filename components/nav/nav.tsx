@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import * as React from "react";
 
 import LogoColor from "@/public/images/logo/logo_horizontal.png";
 import Logo from "@/public/logo-35.svg";
@@ -23,47 +22,62 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
+import {
+  ComponentPropsWithoutRef,
+  ElementRef,
+  forwardRef,
+  useContext,
+  useEffect,
+} from "react";
 
 const components: { title: string; href: string; description: string }[] = [
-  //   {
-  //     title: "Apartamentos",
-  //     href: "/inmobiliaria-360&categoria=apartamentos",
-  //     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-  //   },
-  //   {
-  //     title: "Oficinas",
-  //     href: "/inmobiliaria-360&categoria=oficinas",
-  //     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-  //   },
-  //   {
-  //     title: "Locales Comerciales",
-  //     href: "/inmobiliaria-360&categoria=locales-comerciales",
-  //     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-  //   },
-  //   {
-  //     title: "Bodegas",
-  //     href: "/inmobiliaria-360&categoria=bodegas",
-  //     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-  //   },
   {
-    title: "Servicios",
-    href: "/inmobiliaria-360",
+    title: "Apartamentos",
+    href: "/inmuebles?t=apartamentos",
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
   },
   {
-    title: "Encuentra el espacio ideal",
-    href: "/inmuebles",
+    title: "Oficinas",
+    href: "/inmuebles?t=oficinas",
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
   },
+  {
+    title: "Locales Comerciales",
+    href: "/inmuebles?t=locales-comerciales",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+  },
+  {
+    title: "Bodegas",
+    href: "/inmuebles?t=bodegas",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+  },
+  {
+    title: "Depósitos",
+    href: "/inmuebles?t=depositos",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+  },
+  // {
+  //   title: "Servicios",
+  //   href: "/inmobiliaria-360",
+  //   description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+  // },
+  // {
+  //   title: "Encuentra el espacio ideal",
+  //   href: "/inmuebles",
+  //   description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+  // },
 ];
 
 export const NavigationMenu = ({ className, children, id }: NavProps) => {
   // check if home page
   const pathname = usePathname();
   const isHome = pathname === "/";
-  const { isTransparent, setIsTransparent } = React.useContext(NavContext);
+  const { isTransparent, setIsTransparent } = useContext(NavContext);
 
-  React.useEffect(() => {
+  useEffect(() => {
+    // Reset transparency state on page change
+    setIsTransparent(true);
+
     const hero = document.getElementById("hero-section");
 
     if (!hero) {
@@ -81,7 +95,7 @@ export const NavigationMenu = ({ className, children, id }: NavProps) => {
     observer.observe(hero);
 
     return () => observer.disconnect();
-  }, [setIsTransparent]);
+  }, [setIsTransparent, pathname]);
 
   return (
     <nav
@@ -164,9 +178,7 @@ export const NavigationMenu = ({ className, children, id }: NavProps) => {
                   </NavigationMenuContent>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger>
-                    Inmobiliaria 360
-                  </NavigationMenuTrigger>
+                  <NavigationMenuTrigger>Inmuebles</NavigationMenuTrigger>
                   <NavigationMenuContent>
                     <ul className="grid w-[400px] gap-x-3 p-2 md:w-[500px] md:grid-cols-2 lg:w-[700px]">
                       {components.map((component) => (
@@ -180,6 +192,15 @@ export const NavigationMenu = ({ className, children, id }: NavProps) => {
                       ))}
                     </ul>
                   </NavigationMenuContent>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <Link href="/inmobiliaria-360" legacyBehavior passHref>
+                    <NavigationMenuLink
+                      className={navigationMenuTriggerStyle()}
+                    >
+                      Inmobiliaria 360
+                    </NavigationMenuLink>
+                  </Link>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
                   <Link href="/acerca" legacyBehavior passHref>
@@ -208,29 +229,28 @@ export const NavigationMenu = ({ className, children, id }: NavProps) => {
   );
 };
 
-const ListItem = React.forwardRef<
-  React.ElementRef<"a">,
-  React.ComponentPropsWithoutRef<"a">
->(({ className, title, children, href, ...props }, ref) => {
-  return (
-    <li>
-      <NavigationMenuLink asChild>
-        <Link
-          ref={ref}
-          href={href ?? "#"}
-          className={cn(
-            "block select-none space-y-2 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-            className
-          )}
-          {...props}
-        >
-          <div className="text-base font-semibold leading-none">{title}</div>
-          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-            {children}
-          </p>
-        </Link>
-      </NavigationMenuLink>
-    </li>
-  );
-});
+const ListItem = forwardRef<ElementRef<"a">, ComponentPropsWithoutRef<"a">>(
+  ({ className, title, children, href, ...props }, ref) => {
+    return (
+      <li>
+        <NavigationMenuLink asChild>
+          <Link
+            ref={ref}
+            href={href ?? "#"}
+            className={cn(
+              "block select-none space-y-2 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+              className
+            )}
+            {...props}
+          >
+            <div className="text-base font-semibold leading-none">{title}</div>
+            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+              {children}
+            </p>
+          </Link>
+        </NavigationMenuLink>
+      </li>
+    );
+  }
+);
 ListItem.displayName = "ListItem";

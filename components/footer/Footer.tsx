@@ -1,13 +1,30 @@
 import { Container, Section } from "@/components/craft";
-import { blogMenu, mainMenu, menuSocials } from "@/menu.config";
+import { getAllFromCustomPostType } from "@/lib/wordpress";
+import { SocialProfile } from "@/lib/wordpress.d";
+import { blogMenu, mainMenu } from "@/menu.config";
 import LogoFooter from "@/public/images/logo_negativo/logo_negativo_vertical.png";
 import { siteConfig } from "@/site.config";
 import Image from "next/image";
 import Link from "next/link";
-import { FaFacebook, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa";
+import {
+  FaEnvelope,
+  FaFacebook,
+  FaInstagram,
+  FaLinkedin,
+  FaSpotify,
+  FaTelegram,
+  FaTiktok,
+  FaTwitter,
+  FaWhatsapp,
+  FaYoutube,
+} from "react-icons/fa";
 
 import Balancer from "react-wrap-balancer";
-export const Footer = () => {
+export const Footer = async () => {
+  const socials = await getAllFromCustomPostType<SocialProfile>(
+    "social-profiles"
+  );
+
   return (
     <footer className="bg-primary text-primary-foreground py-4 md:py-8 lg:py-12">
       <Section>
@@ -37,29 +54,36 @@ export const Footer = () => {
                 </a>
               </p>
               <div className="flex gap-3 max-w-80 items-center justify-center">
-                {Object.entries(menuSocials).map(([key, href]) => {
+                {socials.map((social) => {
+                  const title = social.title.rendered;
                   const iconMap: { [key: string]: any } = {
                     YouTube: FaYoutube,
                     LinkedIn: FaLinkedin,
                     Instagram: FaInstagram,
                     Facebook: FaFacebook,
+                    Twitter: FaTwitter,
+                    WhatsApp: FaWhatsapp,
+                    Telegram: FaTelegram,
+                    Email: FaEnvelope,
+                    Spotify: FaSpotify,
+                    TikTok: FaTiktok,
                   };
 
-                  const Icon = iconMap[key];
+                  const Icon = iconMap[title];
 
                   return (
-                    <a
+                    <Link
+                      key={`social-profile-${social.id}`}
                       className="aspect-square p-1.5 flex items-center justify-center rounded-full bg-white/70 hover:bg-white text-primary"
-                      href={href}
-                      key={href}
+                      href={social.profile_url}
                       target="_blank"
                       rel="noreferrer"
                     >
                       <span className="sr-only">
-                        {key}: {href}
+                        {title}: {social.handler}
                       </span>
                       {Icon && <Icon className="size-5" />}
-                    </a>
+                    </Link>
                   );
                 })}
               </div>

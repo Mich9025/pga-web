@@ -1,11 +1,11 @@
 import {
-  getAllPosts,
   getAllAuthors,
-  getAllTags,
   getAllCategories,
+  getAllPosts,
+  getAllTags,
   searchAuthors,
-  searchTags,
   searchCategories,
+  searchTags,
 } from "@/lib/wordpress";
 
 import {
@@ -17,17 +17,20 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 
-import { Section, Container, Prose } from "@/components/craft";
-import { Metadata } from "next";
-import { PostCard } from "@/components/posts/post-card";
+import { Container, Prose, Section } from "@/components/craft";
 import { FilterPosts } from "@/components/posts/filter";
+import { PostCard } from "@/components/posts/post-card";
 import { SearchInput } from "@/components/posts/search-input";
 
-export const metadata: Metadata = {
-  title: "Blog Posts",
-  description: "Browse all our blog posts",
-};
+import { generateMetadataFromContent } from "@/lib/metadata";
 
+// blog/page.tsx
+export const metadata = generateMetadataFromContent({
+  title: "Blog",
+  description: "Noticias y artículos sobre el sector inmobiliario",
+  path: "/blog",
+  keywords: ["blog", "noticias", "artículos", "sector inmobiliario"],
+});
 export const dynamic = "auto";
 export const revalidate = 600;
 

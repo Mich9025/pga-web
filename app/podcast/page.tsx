@@ -1,14 +1,14 @@
 import { Container, Section } from "@/components/craft";
-import { Metadata } from "next";
 import PodcastPage from "./PodcastPage";
 
-export const metadata: Metadata = {
+import { generateMetadataFromContent } from "@/lib/metadata";
+
+export const metadata = generateMetadataFromContent({
   title: "Podcast",
-  description: "Podcast de entre muros y sueños",
-  alternates: {
-    canonical: "/podcast",
-  },
-};
+  description: "Escucha nuestro podcast sobre el mercado inmobiliario",
+  path: "/podcast",
+  keywords: ["podcast", "audio", "entrevistas", "mercado inmobiliario"],
+});
 
 export default function Page() {
   return (

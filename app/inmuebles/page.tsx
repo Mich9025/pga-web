@@ -5,19 +5,18 @@ import {
   PropertyFilters as ApiParams,
   getAllProperties,
 } from "@/lib/wordpress";
-import { Metadata } from "next";
 import { PropertiesFilter } from "./PropertiesFilters";
 import { PropertyCard } from "./PropertyCard";
 import { SearchMap } from "./SearchMap";
 
-export const metadata: Metadata = {
-  title: "Inmuebles",
-  description: "Buscador de inmuebles",
-  alternates: {
-    canonical: "/inmuebles",
-  },
-};
+import { generateMetadataFromContent } from "@/lib/metadata";
 
+export const metadata = generateMetadataFromContent({
+  title: "Buscador de Inmuebles",
+  description: "Explora nuestra selección de propiedades disponibles",
+  path: "/inmuebles",
+  keywords: ["propiedades", "venta", "arriendo", "inmuebles"],
+});
 interface SearchProps {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }

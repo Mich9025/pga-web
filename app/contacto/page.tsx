@@ -1,4 +1,5 @@
-import { Container, Section } from "@/components/craft";
+import { Section } from "@/components/craft";
+import { SectionHeader } from "@/components/header/SectionHeader";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
@@ -12,35 +13,24 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { getAllPages } from "@/lib/wordpress";
-import { Metadata } from "next";
 import { HiBuildingOffice2, HiEnvelope, HiPhone } from "react-icons/hi2";
 
-export const metadata: Metadata = {
+import { generateMetadataFromContent } from "@/lib/metadata";
+
+// contact/page.tsx
+export const metadata = generateMetadataFromContent({
   title: "Contacto",
-  description: "Contacto de Isarco",
-  alternates: {
-    canonical: "/posts/pages",
-  },
-};
+  description: "Ponte en contacto con nuestro equipo de expertos inmobiliarios",
+  path: "/contacto",
+  keywords: ["contacto", "ubicación", "teléfono", "email"],
+});
 
 export default async function Page() {
-  const pages = await getAllPages();
+  // const pages = await getAllPages();
 
   return (
     <>
-      <Section
-        id="hero-section"
-        className="bg-primary text-primary-foreground flex items-center py-24 min-h-[400px]"
-      >
-        <Container className="py-24">
-          <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-medium">
-              Contacto
-            </h1>
-          </div>
-        </Container>
-      </Section>
+      <SectionHeader title={"Contacto"} className="min-h-[400px]" />
       <Section className="!mb-0 !pb-0">
         <div className="relative isolate bg-white">
           <div className="mx-auto grid max-w-7xl grid-cols-1 lg:grid-cols-2">
@@ -87,29 +77,29 @@ export default async function Page() {
                 <h2 className="text-pretty text-4xl font-semibold tracking-tight sm:text-5xl">
                   Contacto
                 </h2>
-                <p className="mt-6 text-lg/8 text-gray-600">
+                {/* <p className="mt-6 text-lg/8 text-gray-600">
                   Proin volutpat consequat porttitor cras nullam gravida at.
                   Orci molestie a eu arcu. Sed ut tincidunt integer elementum id
                   sem. Arcu sed malesuada et magna.
-                </p>
+                </p> */}
                 <dl className="mt-10 space-y-4 text-base/7 text-gray-600">
                   <div className="flex gap-x-4">
                     <dt className="flex-none">
-                      <span className="sr-only">Address</span>
+                      <span className="sr-only">Dirección</span>
                       <HiBuildingOffice2
                         aria-hidden="true"
                         className="h-7 w-6 text-gray-400"
                       />
                     </dt>
                     <dd>
-                      545 Mavis Island
+                      Calle 103 No. 19-60 Piso 4
                       <br />
-                      Chicago, IL 99191
+                      Bogotá, D.C. Colombia
                     </dd>
                   </div>
                   <div className="flex gap-x-4">
                     <dt className="flex-none">
-                      <span className="sr-only">Telephone</span>
+                      <span className="sr-only">Teléfono</span>
                       <HiPhone
                         aria-hidden="true"
                         className="h-7 w-6 text-gray-400"
@@ -117,10 +107,10 @@ export default async function Page() {
                     </dt>
                     <dd>
                       <a
-                        href="tel:+1 (555) 234-5678"
+                        href="tel:+57 1 822 222 22"
                         className="hover:text-gray-900"
                       >
-                        +1 (555) 234-5678
+                        +57 1 822 222 22
                       </a>
                     </dd>
                   </div>
@@ -134,10 +124,62 @@ export default async function Page() {
                     </dt>
                     <dd>
                       <a
-                        href="mailto:hello@example.com"
+                        href="mailto:contacto@isarco.com.co"
                         className="hover:text-gray-900"
                       >
-                        hello@example.com
+                        contacto@isarco.com.co
+                      </a>
+                    </dd>
+                  </div>
+
+                  <div className="flex gap-x-4 items-center pt-8">
+                    <dt className="flex items-center w-[190px] gap-2">
+                      <HiPhone
+                        aria-hidden="true"
+                        className="size-5 text-gray-400"
+                      />
+                      <span className="font-bold">Apartamentos</span>
+                    </dt>
+                    <dd>
+                      <a
+                        href="tel:+57 3214633905"
+                        className="hover:text-gray-900"
+                      >
+                        +57 3214633905
+                      </a>
+                    </dd>
+                  </div>
+                  <div className="flex gap-x-4 items-center">
+                    <dt className="flex items-center w-[190px] gap-2">
+                      <HiPhone
+                        aria-hidden="true"
+                        className="size-5 text-gray-400"
+                      />
+                      <span className="font-bold">Locales y Oficinas</span>
+                    </dt>
+                    <dd>
+                      <a
+                        href="tel:+57 3226285433"
+                        className="hover:text-gray-900"
+                      >
+                        +57 3226285433
+                      </a>
+                    </dd>
+                  </div>
+                  <div className="flex gap-x-4 items-center">
+                    <dt className="flex items-center w-[190px] gap-2">
+                      <HiPhone
+                        aria-hidden="true"
+                        className="size-5 text-gray-400"
+                      />
+                      <span className="font-bold">IsarcoWorking</span>
+                    </dt>
+                    <dd>
+                      <a
+                        href="tel:+57 13232235837"
+                        className="hover:text-gray-900"
+                      >
+                        +57 13232235837
                       </a>
                     </dd>
                   </div>

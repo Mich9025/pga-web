@@ -1,12 +1,5 @@
-"use client";
-
-// Craft Imports
 import { Container, Section } from "@/components/craft";
-
-// Next.js Imports
 import Image from "next/image";
-
-// Icons
 import { IoMdPin } from "react-icons/io";
 import { IoSearch } from "react-icons/io5";
 
@@ -25,36 +18,19 @@ import {
 import { Input } from "@/components/ui/input";
 
 import { Button } from "@/components/ui/button";
-import {
-  default as Step1,
-  default as Step4,
-} from "@/public/images/steps/1.png";
-import Step2 from "@/public/images/steps/2.png";
-import Step3 from "@/public/images/steps/3.png";
-import { useContext, useEffect } from "react";
-import { NavContext } from "./context/NavContext";
-
+import { getAllFromCustomPostType } from "@/lib/wordpress";
+import { Inmo360 } from "@/lib/wordpress.d";
+import Link from "next/link";
 // This page is using the craft.tsx component and design system
-export default function Home() {
-  const { setIsTransparent } = useContext(NavContext);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsTransparent(entry.isIntersecting),
-      { threshold: 0 }
-    );
-
-    const banner = document.querySelector("#banner");
-    if (banner) observer.observe(banner);
-
-    return () => observer.disconnect();
-  }, []);
+export default async function Home() {
+  const inmo = await getAllFromCustomPostType<Inmo360>("inmo-360");
 
   const bgImages = [
     "https://isarco.com.co/wp-content/uploads/BANNER-OFICINAS-EQUIPADAS-scaled.jpg",
     "https://isarco.com.co/wp-content/uploads/coworking-2.jpg",
     "https://isarco.com.co/wp-content/uploads/new-home-scaled.jpg",
   ];
+
   return (
     <>
       <div id="hero-section">
@@ -67,7 +43,7 @@ export default function Home() {
         </Banner>
       </div>
       <SectionInmobiliario />
-      <SectionAcompanamiento />
+      <SectionAcompanamiento inmo={inmo} />
       <SectionSolutions />
     </>
   );
@@ -114,40 +90,7 @@ const SectionInmobiliario = () => {
   );
 };
 
-const SectionAcompanamiento = () => {
-  const slides = [
-    {
-      title: "Construcción",
-      description:
-        "Planificamos, coordinamos y ejecutamos todas las etapas de un proyecto inmobiliario.",
-      imageUrl: "public/images/steps/1.png",
-      image: Step1,
-      href: "/inmobiliaria-360",
-    },
-    {
-      title: "Administración PH",
-      description:
-        "Gestionamos y manejamos todo el proceso de inmobiliario, desde la contratación hasta la ejecución.",
-      imageUrl: "public/images/steps/2.png",
-      image: Step2,
-      href: "/inmobiliaria-360",
-    },
-    {
-      title: "Arriendos",
-      description:
-        "Conocemos nuestros arrendamientos y nuestro proceso de arrendamiento.",
-      imageUrl: "public/images/steps/3.png",
-      image: Step3,
-      href: "/inmobiliaria-360",
-    },
-    {
-      title: "Otros",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      imageUrl: "public/images/steps/1.png",
-      image: Step4,
-      href: "/inmobiliaria-360",
-    },
-  ];
+const SectionAcompanamiento = ({ inmo }: { inmo: Inmo360[] }) => {
   return (
     <Section className="bg-secondary text-primary">
       <Container className="flex flex-col gap-y-6 md:gap-y-8 lg:gap-y-10">
@@ -161,33 +104,38 @@ const SectionAcompanamiento = () => {
           className="w-full"
         >
           <CarouselContent className="!m-0">
-            {slides.map(({ title, description, href, image }) => (
+            {inmo.map(({ id, title, content, slug, featured_image_url }) => (
               <CarouselItem
-                key={`carousel-acompanamiento-item-${title}`}
+                key={`carousel-acompanamiento-item-${id}`}
                 className="md:basis-1/2 lg:basis-1/3 !p-0 relative"
               >
                 <div className="p-1">
-                  <Card className="group relative bg-primary text-primary-foreground overflow-hidden lg:p-6">
-                    <Image
-                      src={image}
-                      alt={title}
-                      className="absolute inset-0 transform scale-100 group-hover:scale-110 group-hover:opacity-40 opacity-70 object-cover w-full h-full transition-all duration-150 hover:duration-[10s] ease-in-out"
-                      width={470}
-                      height={688}
-                    />
-                    <CardContent className="flex flex-col  aspect-[6/10] items-start justify-center p-6 relative z-10">
-                      <h2 className="text-lg md:text-2xl font-semibold flex-none">
-                        {title}
-                      </h2>
-                      <div className="flex grow flex-col items-center justify-center">
-                        <p className="text-sm md:text-xl font-semibold transform translate-y-10 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-150 hover:duration-75 ease-in-out">
-                          {description}
-                        </p>
-                      </div>
-                      <a href={href} className="font-semibold flex-none">
-                        Leer más
-                      </a>
-                    </CardContent>
+                  <Card className="group relative bg-primary text-primary-foreground overflow-hidden lg:p-6 border-none hover:shadow-lg">
+                    <Link href={`/inmobiliaria-360?s=${slug}`}>
+                      <Image
+                        src={String(featured_image_url)}
+                        alt={title.rendered}
+                        className="absolute inset-0 transform scale-100 group-hover:scale-110 group-hover:opacity-40 opacity-70 object-cover w-full h-full transition-all duration-150 hover:duration-[10s] ease-in-out"
+                        width={470}
+                        height={688}
+                      />
+                      <CardContent className="flex flex-col  aspect-[6/10] items-start justify-center p-6 relative z-10">
+                        <h2 className="text-lg md:text-2xl font-semibold flex-none">
+                          {title.rendered}
+                        </h2>
+                        <div className="flex grow flex-col items-center justify-center">
+                          <div
+                            dangerouslySetInnerHTML={{
+                              __html: content.rendered,
+                            }}
+                            className="text-sm md:text-xl font-semibold transform translate-y-10 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-150 hover:duration-75 ease-in-out"
+                          />
+                        </div>
+                        <span className="font-semibold flex-none">
+                          Leer más
+                        </span>
+                      </CardContent>
+                    </Link>
                   </Card>
                 </div>
               </CarouselItem>
@@ -206,27 +154,27 @@ const SectionSolutions = () => {
     {
       title: "Locales",
       imageUrl: "https://isarco.com.co/wp-content/uploads/locales.jpg",
-      href: "/inmuebles?tags=locales-comerciales",
+      href: "/inmuebles?t=locales-comerciales",
     },
     {
       title: "Apartamentos",
       imageUrl: "https://isarco.com.co/wp-content/uploads/apartamentos.jpg",
-      href: "/inmuebles?tags=apartamentos",
+      href: "/inmuebles?t=apartamentos",
     },
     {
       title: "Bodegas",
       imageUrl: "https://isarco.com.co/wp-content/uploads/minibodegas.jpg",
-      href: "/inmuebles?tags=bodegas",
+      href: "/inmuebles?t=bodegas",
     },
     {
       title: "Oficinas",
       imageUrl: "https://isarco.com.co/wp-content/uploads/coworking-1.jpg",
-      href: "/inmuebles?tags=oficinas",
+      href: "/inmuebles?t=oficinas",
     },
     {
       title: "Co-working",
       imageUrl: "https://isarco.com.co/wp-content/uploads/coworking-2.jpg",
-      href: "/inmuebles?tags=oficinas",
+      href: "/inmuebles?t=oficinas",
     },
   ];
   return (
@@ -249,7 +197,7 @@ const SectionSolutions = () => {
                 className="group md:basis-1/2 lg:basis-1/4 group-hover:lg:basis-1/5 hover:lg:!basis-2/5 !p-0 transition-all duration-75 ease-in-out"
               >
                 <a className="p-1" href={href}>
-                  <Card className="rounded-none border-secondary bg-slate-800 group relative bg-primary text-primary-foreground overflow-hidden lg:p-6">
+                  <Card className="rounded-none border-secondary group relative bg-primary text-primary-foreground overflow-hidden lg:p-6">
                     <Image
                       src={imageUrl}
                       alt={title}
