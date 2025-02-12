@@ -11,34 +11,32 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Slider } from "@/components/ui/slider";
-import debounce from "lodash/debounce";
+import { cn } from "@/lib/utils";
+import { TaxonomyTerm } from "@/lib/wordpress.d";
 import { ChevronDown, Search } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useState } from "react";
 
-interface FilterOption {
-  label: string;
-  value: string;
+interface PropertiesFilterProps {
+  locations: TaxonomyTerm[];
+  propertyTypes: TaxonomyTerm[];
+  modes: TaxonomyTerm[];
 }
 
-const locations: FilterOption[] = [
-  { label: "Chapinero", value: "chapinero" },
-  { label: "Usaquén", value: "usaquen" },
-  { label: "Suba", value: "suba" },
-];
+const PRICE_MAX_DEFAULT = 10000000000; // 10000M
+const PRICE_STEP = 1000000;
 
-const propertyTypes: FilterOption[] = [
-  { label: "Apartamentos", value: "apartamentos" },
-  { label: "Casas", value: "casas" },
-  { label: "Bodegas", value: "bodegas" },
-  { label: "Locales", value: "locales" },
-];
-
-export function PropertiesFilter() {
+export function PropertiesFilter({
+  locations,
+  propertyTypes,
+  modes,
+}: PropertiesFilterProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // Initialize states from URL params
+  const [searchOpen, setSearchOpen] = useState(false);
+
+  // Main states
   const [search, setSearch] = useState(searchParams.get("search") || "");
   const [selectedLocations, setSelectedLocations] = useState<string[]>(
     searchParams.get("locations")?.split(",") || []
@@ -46,14 +44,25 @@ export function PropertiesFilter() {
   const [selectedTypes, setSelectedTypes] = useState<string[]>(
     searchParams.get("types")?.split(",") || []
   );
+  const [selectedMode, setSelectedMode] = useState<string[]>(
+    searchParams.get("modes")?.split(",") || []
+  );
   const [priceRange, setPriceRange] = useState([
     parseInt(searchParams.get("price_min") || "0"),
-    parseInt(searchParams.get("price_max") || "100"),
+    parseInt(searchParams.get("price_max") || `${PRICE_MAX_DEFAULT}`),
   ]);
   const [area, setArea] = useState({
     min: searchParams.get("area_min") || "",
     max: searchParams.get("area_max") || "",
   });
+
+  // Temporary states for each filter
+  const [tempLocations, setTempLocations] =
+    useState<string[]>(selectedLocations);
+  const [tempTypes, setTempTypes] = useState<string[]>(selectedTypes);
+  const [tempModes, setTempModes] = useState<string[]>(selectedMode);
+  const [tempPriceRange, setTempPriceRange] = useState(priceRange);
+  const [tempArea, setTempArea] = useState(area);
 
   const updateFilters = useCallback(() => {
     const params = new URLSearchParams();
@@ -62,89 +71,121 @@ export function PropertiesFilter() {
     if (selectedLocations.length > 0)
       params.set("locations", selectedLocations.join(","));
     if (selectedTypes.length > 0) params.set("types", selectedTypes.join(","));
-
+    if (selectedMode.length > 0) params.set("modes", selectedMode.join(","));
     if (priceRange[0] !== 0) params.set("price_min", priceRange[0].toString());
-    if (priceRange[1] !== 100)
+    if (priceRange[1] !== PRICE_MAX_DEFAULT)
       params.set("price_max", priceRange[1].toString());
-
     if (area.min) params.set("area_min", area.min);
     if (area.max) params.set("area_max", area.max);
 
     router.push(`?${params.toString()}`, { scroll: false });
-  }, [search, selectedLocations, selectedTypes, priceRange, area, router]);
-
-  // Debounce the update for inputs that change frequently
-  const debouncedUpdate = useMemo(
-    () => debounce(() => updateFilters(), 500),
-    [updateFilters]
-  );
-  // Use different update strategies for different inputs
-  const handleSearchChange = (value: string) => {
-    setSearch(value);
-    debouncedUpdate();
-  };
-
-  const handleLocationChange = (checked: boolean, value: string) => {
-    const newLocations = checked
-      ? [...selectedLocations, value]
-      : selectedLocations.filter((l) => l !== value);
-
-    setSelectedLocations(newLocations);
-    const params = new URLSearchParams(searchParams.toString());
-    if (newLocations.length > 0) {
-      params.set("locations", newLocations.join(","));
-    } else {
-      params.delete("locations");
-    }
-    router.push(`?${params.toString()}`, { scroll: false });
-  };
-
-  const handleTypeChange = (checked: boolean, value: string) => {
-    const newTypes = checked
-      ? [...selectedTypes, value]
-      : selectedTypes.filter((t) => t !== value);
-
-    setSelectedTypes(newTypes);
-    const params = new URLSearchParams(searchParams.toString());
-    if (newTypes.length > 0) {
-      params.set("types", newTypes.join(","));
-    } else {
-      params.delete("types");
-    }
-    router.push(`?${params.toString()}`, { scroll: false });
-  };
-
-  const handlePriceChange = (value: number[]) => {
-    setPriceRange(value);
-    debouncedUpdate();
-  };
-
-  const handleAreaChange = (values: { min: string; max: string }) => {
-    setArea(values);
-    debouncedUpdate();
-  };
+  }, [
+    search,
+    selectedLocations,
+    selectedTypes,
+    selectedMode,
+    priceRange,
+    area,
+    router,
+  ]);
 
   return (
-    <Section className="py-4 md:py-2 bg-secondary text-foreground">
+    <Section className="py-4 md:py-2 bg-primary/80 text-foreground">
       <Container>
         <div className="flex items-center gap-4">
           {/* Search Input */}
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input
-              placeholder="Buscar inmuebles..."
-              className="pl-10"
-              value={search}
-              onChange={(e) => handleSearchChange(e.target.value)}
-            />
+            <div className="w-fit relative">
+              <Search
+                className={cn(
+                  "absolute left-3 top-1/2 -translate-y-1/2 size-6 select-none pointer-events-none",
+                  searchOpen
+                    ? "text-muted-foreground"
+                    : "text-primary-foreground"
+                )}
+              />
+              <Input
+                placeholder={!searchOpen ? "" : "Buscar inmuebles..."}
+                className={cn(
+                  "pl-10 !text-base min-w-12 max-w-screen-sm transition-all duration-150 ease-in-out",
+                  !searchOpen
+                    ? "w-12 !p-0 text-transparent bg-primary border-primary/50"
+                    : "w-full"
+                )}
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                onFocus={() => setSearchOpen(true)}
+                onBlur={() => setSearchOpen(false)}
+              />
+              {searchOpen && search && (
+                <Button
+                  size="xs"
+                  className="absolute right-2 top-1/2 -translate-y-1/2"
+                  onClick={updateFilters}
+                >
+                  Buscar
+                </Button>
+              )}
+            </div>
           </div>
 
           {/* Filters */}
           <div className="flex items-center gap-2">
+            {/* Modo */}
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button className="flex items-center gap-2" size="sm">
+                  Modo
+                  <ChevronDown className="h-4 w-4" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-80">
+                <div className="space-y-4">
+                  {modes.map((type) => (
+                    <div
+                      key={`filter-term-${type.id}`}
+                      className="flex items-center space-x-2"
+                    >
+                      <Checkbox
+                        id={type.slug}
+                        checked={tempModes.includes(type.slug)}
+                        onCheckedChange={(checked) =>
+                          setTempModes(
+                            checked
+                              ? [...tempModes, type.slug]
+                              : tempModes.filter((m) => m !== type.slug)
+                          )
+                        }
+                      />
+                      <Label htmlFor={type.slug}>{type.name}</Label>
+                    </div>
+                  ))}
+                  <div className="flex justify-center gap-2 pt-4 border-t">
+                    <Button
+                      size="xs"
+                      variant="outline"
+                      onClick={() => setTempModes(selectedMode)}
+                    >
+                      Cancelar
+                    </Button>
+                    <Button
+                      size="xs"
+                      onClick={() => {
+                        setSelectedMode(tempModes);
+                        updateFilters();
+                      }}
+                    >
+                      Aplicar
+                    </Button>
+                  </div>
+                </div>
+              </PopoverContent>
+            </Popover>
+
             {/* Ubicaciones */}
             <Popover>
               <PopoverTrigger asChild>
-                <Button variant="outline" className="flex items-center gap-2">
+                <Button className="flex items-center gap-2" size="sm">
                   Ubicaciones
                   <ChevronDown className="h-4 w-4" />
                 </Button>
@@ -153,22 +194,41 @@ export function PropertiesFilter() {
                 <div className="space-y-4">
                   {locations.map((location) => (
                     <div
-                      key={location.value}
+                      key={location.slug}
                       className="flex items-center space-x-2"
                     >
                       <Checkbox
-                        id={location.value}
-                        checked={selectedLocations.includes(location.value)}
+                        id={location.slug}
+                        checked={tempLocations.includes(location.slug)}
                         onCheckedChange={(checked) =>
-                          handleLocationChange(
-                            checked as boolean,
-                            location.value
+                          setTempLocations(
+                            checked
+                              ? [...tempLocations, location.slug]
+                              : tempLocations.filter((l) => l !== location.slug)
                           )
                         }
                       />
-                      <Label htmlFor={location.value}>{location.label}</Label>
+                      <Label htmlFor={location.slug}>{location.name}</Label>
                     </div>
                   ))}
+                  <div className="flex justify-center gap-2 pt-4 border-t">
+                    <Button
+                      size="xs"
+                      variant="outline"
+                      onClick={() => setTempLocations(selectedLocations)}
+                    >
+                      Cancelar
+                    </Button>
+                    <Button
+                      size="xs"
+                      onClick={() => {
+                        setSelectedLocations(tempLocations);
+                        updateFilters();
+                      }}
+                    >
+                      Aplicar
+                    </Button>
+                  </div>
                 </div>
               </PopoverContent>
             </Popover>
@@ -176,7 +236,7 @@ export function PropertiesFilter() {
             {/* Tipo de Inmueble */}
             <Popover>
               <PopoverTrigger asChild>
-                <Button variant="outline" className="flex items-center gap-2">
+                <Button className="flex items-center gap-2" size="sm">
                   Tipo de Inmueble
                   <ChevronDown className="h-4 w-4" />
                 </Button>
@@ -185,20 +245,41 @@ export function PropertiesFilter() {
                 <div className="space-y-4">
                   {propertyTypes.map((type) => (
                     <div
-                      key={type.value}
+                      key={`filter-term-${type.id}`}
                       className="flex items-center space-x-2"
                     >
                       <Checkbox
-                        id={type.value}
-                        checked={selectedTypes.includes(type.value)}
+                        id={type.slug}
+                        checked={tempTypes.includes(type.slug)}
                         onCheckedChange={(checked) =>
-                          handleTypeChange(checked as boolean, type.value)
+                          setTempTypes(
+                            checked
+                              ? [...tempTypes, type.slug]
+                              : tempTypes.filter((t) => t !== type.slug)
+                          )
                         }
                       />
-
-                      <Label htmlFor={type.value}>{type.label}</Label>
+                      <Label htmlFor={type.slug}>{type.name}</Label>
                     </div>
                   ))}
+                  <div className="flex justify-center gap-2 pt-4 border-t">
+                    <Button
+                      size="xs"
+                      variant="outline"
+                      onClick={() => setTempTypes(selectedTypes)}
+                    >
+                      Cancelar
+                    </Button>
+                    <Button
+                      size="xs"
+                      onClick={() => {
+                        setSelectedTypes(tempTypes);
+                        updateFilters();
+                      }}
+                    >
+                      Aplicar
+                    </Button>
+                  </div>
                 </div>
               </PopoverContent>
             </Popover>
@@ -206,7 +287,7 @@ export function PropertiesFilter() {
             {/* Presupuesto */}
             <Popover>
               <PopoverTrigger asChild>
-                <Button variant="outline" className="flex items-center gap-2">
+                <Button size="sm">
                   Presupuesto
                   <ChevronDown className="h-4 w-4" />
                 </Button>
@@ -214,17 +295,33 @@ export function PropertiesFilter() {
               <PopoverContent className="w-80">
                 <div className="space-y-4">
                   <Slider
-                    value={priceRange}
-                    onValueChange={(newValue) => {
-                      setPriceRange(newValue);
-                      handlePriceChange(newValue);
-                    }}
-                    max={100}
-                    step={1}
+                    value={tempPriceRange}
+                    onValueChange={setTempPriceRange}
+                    min={0}
+                    max={PRICE_MAX_DEFAULT}
+                    step={PRICE_STEP}
                   />
                   <div className="flex justify-between text-sm">
-                    <span>${priceRange[0]}M</span>
-                    <span>${priceRange[1]}M+</span>
+                    <span>${(tempPriceRange[0] / 1000000).toFixed(1)}M</span>
+                    <span>${(tempPriceRange[1] / 1000000).toFixed(1)}M+</span>
+                  </div>
+                  <div className="flex justify-center gap-2 pt-4 border-t">
+                    <Button
+                      size="xs"
+                      variant="outline"
+                      onClick={() => setTempPriceRange(priceRange)}
+                    >
+                      Cancelar
+                    </Button>
+                    <Button
+                      size="xs"
+                      onClick={() => {
+                        setPriceRange(tempPriceRange);
+                        updateFilters();
+                      }}
+                    >
+                      Aplicar
+                    </Button>
                   </div>
                 </div>
               </PopoverContent>
@@ -233,7 +330,7 @@ export function PropertiesFilter() {
             {/* Tamaño */}
             <Popover>
               <PopoverTrigger asChild>
-                <Button variant="outline" className="flex items-center gap-2">
+                <Button className="flex items-center gap-2" size="sm">
                   Tamaño
                   <ChevronDown className="h-4 w-4" />
                 </Button>
@@ -245,12 +342,10 @@ export function PropertiesFilter() {
                       <Label>Mínimo m²</Label>
                       <Input
                         type="number"
-                        value={area.min}
-                        onChange={(e) => {
-                          const newArea = { ...area, min: e.target.value };
-                          setArea(newArea);
-                          handleAreaChange(newArea); // Pass new value, not state
-                        }}
+                        value={tempArea.min}
+                        onChange={(e) =>
+                          setTempArea({ ...tempArea, min: e.target.value })
+                        }
                         placeholder="0"
                       />
                     </div>
@@ -258,15 +353,31 @@ export function PropertiesFilter() {
                       <Label>Máximo m²</Label>
                       <Input
                         type="number"
-                        value={area.max}
-                        onChange={(e) => {
-                          const newArea = { ...area, min: e.target.value };
-                          setArea(newArea);
-                          handleAreaChange(newArea); // Pass new value, not state
-                        }}
+                        value={tempArea.max}
+                        onChange={(e) =>
+                          setTempArea({ ...tempArea, max: e.target.value })
+                        }
                         placeholder="1000+"
                       />
                     </div>
+                  </div>
+                  <div className="flex justify-center gap-2 pt-4 border-t">
+                    <Button
+                      size="xs"
+                      variant="outline"
+                      onClick={() => setTempArea(area)}
+                    >
+                      Cancelar
+                    </Button>
+                    <Button
+                      size="xs"
+                      onClick={() => {
+                        setArea(tempArea);
+                        updateFilters();
+                      }}
+                    >
+                      Aplicar
+                    </Button>
                   </div>
                 </div>
               </PopoverContent>

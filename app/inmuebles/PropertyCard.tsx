@@ -25,20 +25,10 @@ interface PropertyCardProps {
 }
 
 export function PropertyCard({ property }: PropertyCardProps) {
-  const pathNames = property?.url_front?.split("/");
-  const categorySlug = pathNames[0];
-  const propertySlug = pathNames[1];
-
   // Extract metadata
-  const title =
-    propertySlug.charAt(0).toUpperCase() +
-    propertySlug.replace("-", " ").slice(1) +
-    " " +
-    property.title.rendered;
+  const title = property.frontend?.title;
 
-  const propertyType =
-    categorySlug.charAt(0).toUpperCase() +
-    categorySlug.replace("-", " ").slice(1);
+  const propertyType = property.frontend?.propertyType;
 
   let propertyTypeIcon = <LuBuilding />;
   switch (property.type) {
@@ -105,9 +95,7 @@ export function PropertyCard({ property }: PropertyCardProps) {
     "flex flex-col md:flex-row w-full justify-between [&>*]:grow [&>*]:p-4 [&>*]:-mr-px [&>*]:-mt-px [&>*]:border [&>*]:border-border [&>*]:flex  [&>*]:flex-col [&>*]:text-center  [&>*]:items-center [&>*]:gap-3";
   return (
     <Card className="group overflow-hidden">
-      <Link
-        href={`/inmuebles/${categorySlug}/${propertySlug}/${property.slug}`}
-      >
+      <Link href={`/inmuebles/${property.frontend?.path}`}>
         <CardHeader className="p-0 relative aspect-square">
           {/* Main Image */}
           <Image

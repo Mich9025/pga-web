@@ -1,7 +1,11 @@
 import BackButton from "@/components/back";
 import { Container, Prose, Section } from "@/components/craft";
 import { SectionHeader } from "@/components/header/SectionHeader";
-import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardTitle } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { generateMetadataFromContent } from "@/lib/metadata";
 import { getPropertyBySlug } from "@/lib/wordpress";
 import { Metadata } from "next";
@@ -233,19 +237,26 @@ export default async function PropertyPage({ params }: PageParams) {
         <Section>
           <Container>
             <div className="flex flex-col md:flex-row h-full md:grid md:grid-cols-2">
-              <div className="">
-                <div className="pr-3">
+              <div className="flex flex-col gap-6">
+                <div className="">
                   {property?.gallery_images?.length > 0 && (
                     <Slider
                       id="property-gallery"
                       alt={title}
                       images={[
-                        ...property?.gallery_images,
-                        ...property?.gallery_images,
+                        {
+                          id: 999999999,
+                          url: String(property?.featured_image_url),
+                          width: 800,
+                          height: 800,
+                        },
                         ...property?.gallery_images,
                       ]}
                     />
                   )}
+                </div>
+                <div className="flex flex-col gap-6 md:pr-12">
+                  <PropertyMap address={property.direccion} />
                 </div>
               </div>
               {/* Property Details Section */}
@@ -385,6 +396,48 @@ export default async function PropertyPage({ params }: PageParams) {
                     })}
                   </dl>
                 </Card>
+                <Card className="bg-muted">
+                  <CardContent>
+                    <CardTitle className="py-6 md:py-8">
+                      Solicitar información
+                    </CardTitle>
+                    <form className="space-y-4 md:space-y-4 lg:space-y-10">
+                      <Input placeholder="Nombre" />
+                      <Input placeholder="Email" type="email" />
+                      <Input placeholder="Teléfono" type="tel" />
+                      <Textarea
+                        id="message"
+                        name="message"
+                        rows={4}
+                        defaultValue={"Mensaje"}
+                      />
+                      <div className="sm:col-span-2">
+                        <div className="flex items-center space-x-2">
+                          <Checkbox id="terms" />
+                          <label
+                            htmlFor="terms"
+                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                          >
+                            He leído y acepto la política de privacidad
+                          </label>
+                        </div>
+                      </div>
+                      <div className="sm:col-span-2">
+                        <div className="flex items-center space-x-2">
+                          <Checkbox id="subscribe" />
+                          <label
+                            htmlFor="subscribe"
+                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                          >
+                            Acepto recibir comunicaciones comerciales de LA
+                            EMPRESA
+                          </label>
+                        </div>
+                      </div>
+                      <Button className="w-full">Enviar</Button>
+                    </form>
+                  </CardContent>
+                </Card>
               </section>
             </div>
           </Container>
@@ -393,7 +446,6 @@ export default async function PropertyPage({ params }: PageParams) {
             <BackButton />
           </Container>
         </Section>
-        <PropertyMap address={property.direccion} />
       </>
     );
   } catch (error) {

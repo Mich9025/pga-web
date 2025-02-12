@@ -4,6 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   PropertyFilters as ApiParams,
   getAllProperties,
+  getTaxonomyTerms,
 } from "@/lib/wordpress";
 import { PropertiesFilter } from "./PropertiesFilters";
 import { PropertyCard } from "./PropertyCard";
@@ -26,25 +27,28 @@ export default async function Page({ searchParams }: SearchProps) {
     search,
     locations,
     types,
+    modes,
     price_min,
     price_max,
     area_min,
     area_max,
-    tags,
   } = await searchParams;
 
   // Convert to your API parameters
   const apiParams: ApiParams = {
     search: search as string,
-    category: locations ? (locations as string)?.split(",") : undefined,
-    tag_slug: tags ? (types as string)?.split(",") : undefined,
-    // tags: tags ? (tags as string)?.split(",") : undefined,
+    locations: locations ? (locations as string)?.split(",") : undefined,
     types: types ? (types as string)?.split(",") : undefined,
+    modes: modes ? (modes as string)?.split(",") : undefined,
     price_min: price_min ? parseInt(price_min as string) : undefined,
     price_max: price_max ? parseInt(price_max as string) : undefined,
     area_min: area_min ? parseInt(area_min as string) : undefined,
     area_max: area_max ? parseInt(area_max as string) : undefined,
   };
+
+  const taxonomies_locations = await getTaxonomyTerms("location");
+  const taxonomies_types = await getTaxonomyTerms("state_types");
+  const taxonomies_modes = await getTaxonomyTerms("mode");
 
   const properties = await getAllProperties(apiParams);
 
@@ -55,7 +59,11 @@ export default async function Page({ searchParams }: SearchProps) {
         image={properties[0]?.featured_image_url as string}
         className="min-h-[30vh]"
       />
-      <PropertiesFilter />
+      <PropertiesFilter
+        locations={taxonomies_locations}
+        propertyTypes={taxonomies_types}
+        modes={taxonomies_modes}
+      />
       <Tabs defaultValue="list" className="w-full">
         <Container className="">
           <TabsList className="mt-2">

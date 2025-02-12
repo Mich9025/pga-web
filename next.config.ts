@@ -17,6 +17,12 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
+        hostname: "api.isarco.com.co",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
         hostname: "clon.codecolombia.com",
         port: "",
         pathname: "/**",

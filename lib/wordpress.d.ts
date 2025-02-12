@@ -1,5 +1,5 @@
 // Common types that are reused across multiple entities
-interface WPEntity {
+export interface WPEntity {
   id: number;
   date: string;
   date_gmt: string;
@@ -13,17 +13,17 @@ interface WPEntity {
   };
 }
 
-interface RenderedContent {
+export interface RenderedContent {
   rendered: string;
   protected: boolean;
 }
 
-interface RenderedTitle {
+export interface RenderedTitle {
   rendered: string;
 }
 
 // Media types
-interface MediaSize {
+export interface MediaSize {
   file: string;
   width: number;
   height: number;
@@ -31,7 +31,7 @@ interface MediaSize {
   source_url: string;
 }
 
-interface MediaDetails {
+export interface MediaDetails {
   width: number;
   height: number;
   file: string;
@@ -93,7 +93,7 @@ export interface Page extends WPEntity {
 }
 
 // Taxonomy types
-interface Taxonomy {
+export interface Taxonomy {
   id: number;
   count: number;
   description: string;
@@ -124,7 +124,7 @@ export interface Author {
 }
 
 // Block types
-interface BlockSupports {
+export interface BlockSupports {
   align?: boolean | string[];
   anchor?: boolean;
   className?: boolean;
@@ -144,7 +144,7 @@ interface BlockSupports {
   [key: string]: unknown;
 }
 
-interface BlockStyle {
+export interface BlockStyle {
   name: string;
   label: string;
   isDefault: boolean;
@@ -354,20 +354,25 @@ export interface WooProduct {
 
 export interface PropertyResponse {
   coordinates?: { lat: number; lon: number }; // Cached coordinates
-  frontend?: {
+  frontend: {
     title: string;
     path: string;
     description: string;
-    propertyType: string;
-    propertyCategory: string;
-    propertyLocation: string;
     image: string;
-    price?: string;
+    price: string;
     address: string;
     keywords: string[];
-    stateType?: string;
-    mode?: string;
-    location?: string;
+    propertyType?: string; // Made optional since it comes from terms
+    propertyMode?: string; // Added for mode
+    propertyLocation?: string;
+    propertyProject?: string; // Added for project
+    propertyCategory?: string; // Made optional
+    terms: {
+      stateType?: Term;
+      mode?: Term;
+      location?: Term;
+      project?: Term;
+    };
   };
   id: number;
   date: string;
@@ -442,30 +447,30 @@ export interface PropertyResponse {
   };
 }
 
-interface Link {
+export interface Link {
   href: string;
   targetHints?: {
     allow: string[];
   };
 }
 
-interface VersionHistory {
+export interface VersionHistory {
   count: number;
   href: string;
 }
 
-interface PredecessorVersion {
+export interface PredecessorVersion {
   id: number;
   href: string;
 }
 
-interface WpTerm {
+export interface WpTerm {
   taxonomy: string;
   embeddable: boolean;
   href: string;
 }
 
-interface Curie {
+export interface Curie {
   name: string;
   href: string;
   templated: boolean;
@@ -475,7 +480,7 @@ interface Curie {
 type PropertyList = PropertyResponse[];
 
 // History
-interface History extends WPEntity {
+export interface History extends WPEntity {
   type: "history";
   title: RenderedTitle;
   content: RenderedContent;
@@ -494,7 +499,7 @@ interface History extends WPEntity {
 }
 
 // Social Profile
-interface SocialProfile extends WPEntity {
+export interface SocialProfile extends WPEntity {
   type: "social_profile";
   title: RenderedTitle;
   template: string;
@@ -510,7 +515,7 @@ interface SocialProfile extends WPEntity {
 }
 
 // Inmo360
-interface Inmo360 extends WPEntity {
+export interface Inmo360 extends WPEntity {
   type: "inmo360";
   title: RenderedTitle;
   content: RenderedContent;
@@ -529,7 +534,7 @@ interface Inmo360 extends WPEntity {
 }
 
 // Client
-interface Client extends WPEntity {
+export interface Client extends WPEntity {
   type: "clients";
   title: RenderedTitle;
   featured_media: number;
@@ -546,7 +551,7 @@ interface Client extends WPEntity {
 }
 
 // Podcast
-interface Podcast extends WPEntity {
+export interface Podcast extends WPEntity {
   type: "clients";
   title: RenderedTitle;
   featured_media: number;
@@ -562,4 +567,27 @@ interface Podcast extends WPEntity {
     "wp:attachment": Link[];
     curies: Curie[];
   };
+}
+
+export interface TaxonomyTerm {
+  id: number;
+  count: number;
+  description: string;
+  link: string;
+  name: string;
+  slug: string;
+  meta: Record<string, unknown>;
+}
+
+export interface Term {
+  id?: number;
+  name?: string;
+  slug?: string;
+}
+
+export interface ClassInfoResponse {
+  stateType?: Term;
+  mode?: Term;
+  location?: Term;
+  project?: Term;
 }
