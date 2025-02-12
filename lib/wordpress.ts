@@ -658,3 +658,30 @@ export async function extendPropertyResponse(
     frontend,
   };
 }
+
+export async function getAllFromCustomPostType<T>(
+  type: string,
+  per_page: number = 100
+): Promise<T[]> {
+  const baseUrl = process.env.WORDPRESS_URL;
+  const url = `${baseUrl}/wp-json/wp/v2/${type}?per_page=${per_page}`;
+
+  try {
+    const response = await fetch(url, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      next: { revalidate: 3600 },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Properties API failed: ${response.statusText}`);
+    }
+
+    const items = await response.json();
+    return items;
+  } catch (error) {
+    console.error("Error fetching properties:", error);
+    throw error;
+  }
+}

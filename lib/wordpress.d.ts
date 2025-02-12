@@ -473,3 +473,74 @@ interface Curie {
 
 // Type for array of properties
 type PropertyList = PropertyResponse[];
+
+// History
+interface History extends WPEntity {
+  type: "history";
+  title: RenderedTitle;
+  content: RenderedContent;
+  featured_media: number;
+  template: string;
+  featured_image_url: string;
+  year: number;
+  _links: {
+    self: Link[];
+    collection: Link[];
+    about: Link[];
+    "wp:featuredmedia": WpTerm[];
+    "wp:attachment": Link[];
+    curies: Curie[];
+  };
+}
+
+// Social Profile
+interface SocialProfile extends WPEntity {
+  type: "social_profile";
+  title: RenderedTitle;
+  template: string;
+  profile_url: string;
+  handler: string;
+  _links: {
+    self: Link[];
+    collection: Link[];
+    about: Link[];
+    "wp:attachment": Link[];
+    curies: Curie[];
+  };
+}
+
+// Inmo360
+interface Inmo360 extends WPEntity {
+  type: "inmo360";
+  title: RenderedTitle;
+  content: RenderedContent;
+  featured_media: number;
+  template: string;
+  featured_image_url: string;
+  icon: string;
+  _links: {
+    self: Link[];
+    collection: Link[];
+    about: Link[];
+    "wp:featuredmedia": WpTerm[];
+    "wp:attachment": Link[];
+    curies: Curie[];
+  };
+}
+
+// Client
+interface Client extends WPEntity {
+  type: "clients";
+  title: RenderedTitle;
+  featured_media: number;
+  template: string;
+  featured_image_url: string;
+  _links: {
+    self: Link[];
+    collection: Link[];
+    about: Link[];
+    "wp:featuredmedia": WpTerm[];
+    "wp:attachment": Link[];
+    curies: Curie[];
+  };
+}
