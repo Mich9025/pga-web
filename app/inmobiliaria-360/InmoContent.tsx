@@ -77,7 +77,7 @@ export default function InmoContent({
 
   useEffect(() => {
     setSelected(immo.find((item) => item.slug === selectedSlug) || immo[0]);
-  }, [selectedSlug]);
+  }, [searchParams, immo, setSelected, selectedSlug]);
 
   return (
     <>
@@ -252,7 +252,7 @@ const OtherServices = ({ inmo }: { inmo: Inmo360[] }) => {
                       <Image
                         src={String(featured_image_url)}
                         alt={title.rendered}
-                        className="absolute inset-0 transform scale-100 group-hover:scale-110 group-hover:opacity-40 opacity-70 object-cover w-full h-full transition-all duration-150 hover:duration-[10s] ease-in-out"
+                        className="absolute inset-0 transform scale-100 group-hover:scale-110 group-hover:opacity-40 opacity-70 object-cover w-full h-full transition-all duration-150 ease-in-out"
                         width={470}
                         height={688}
                       />

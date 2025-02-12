@@ -14,7 +14,7 @@ import { Slider } from "@/components/ui/slider";
 import debounce from "lodash/debounce";
 import { ChevronDown, Search } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 
 interface FilterOption {
   label: string;
@@ -74,11 +74,10 @@ export function PropertiesFilter() {
   }, [search, selectedLocations, selectedTypes, priceRange, area, router]);
 
   // Debounce the update for inputs that change frequently
-  const debouncedUpdate = useCallback(
-    debounce(() => updateFilters(), 500),
+  const debouncedUpdate = useMemo(
+    () => debounce(() => updateFilters(), 500),
     [updateFilters]
   );
-
   // Use different update strategies for different inputs
   const handleSearchChange = (value: string) => {
     setSearch(value);
