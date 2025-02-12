@@ -16,8 +16,8 @@ import { getAllFromCustomPostType } from "@/lib/wordpress";
 import { Inmo360 } from "@/lib/wordpress.d";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { ImmoCard } from "./inmobiliaria-360/ImmoCard";
 import LandingSearchSection from "./inmuebles/LandingSearchSection";
-// This page is using the craft.tsx component and design system
 export default async function Home() {
   const inmo = await getAllFromCustomPostType<Inmo360>("inmo-360");
 
@@ -47,15 +47,15 @@ export default async function Home() {
 
 const SectionInmobiliario = () => {
   return (
-    <Section className="!py-0">
+    <Section className="!py-0 bg-primary">
       <div className="grid grid-cols-1 lg:grid-cols-2 lg:items-start items-center">
         <div className="bg-primary text-secondary">
           <Container className="py-4 md:py-24 lg:py-48 flex flex-col gap-y-6 md:gap-y-20 lg:gap-y-28 max-w-md mx-auto">
             <h2 className="py-8 text-3xl font-medium tracking-tight sm:text-6xl md:text-7xl lg:text-[5rem]">
-              Arrienda o vende en 5 días
+              Arrienda o vende
             </h2>
             <Link
-              href={`inmobiliaria-360`}
+              href={`inmobiliaria-360?s=consigna-tu-inmueble#inmo-360`}
               className="group flex items-center gap-2 mt-6 text-lg md:text-2xl lg:text-3xl hover:opacity-100 opacity-80 transition-all duration-150 ease-in-out"
             >
               <span>Leer más</span>
@@ -79,7 +79,7 @@ const SectionAcompanamiento = ({ inmo }: { inmo: Inmo360[] }) => {
     <Section className="bg-secondary text-primary">
       <Container className="flex flex-col gap-y-6 md:gap-y-8 lg:gap-y-10">
         <h2 className="py-8 text-3xl font-medium tracking-tight sm:text-6xl md:text-7xl lg:text-[5rem]">
-          Te acompañamos en cada paso de tu camino inmobiliario
+          Te acompañamos en cada paso de tu proyecto inmobiliario
         </h2>
         <Carousel
           opts={{
@@ -88,39 +88,13 @@ const SectionAcompanamiento = ({ inmo }: { inmo: Inmo360[] }) => {
           className="w-full"
         >
           <CarouselContent className="!m-0">
-            {inmo.map(({ id, title, content, slug, featured_image_url }) => (
+            {inmo.map((item) => (
               <CarouselItem
-                key={`carousel-acompanamiento-item-${id}`}
+                key={`carousel-acompanamiento-item-${item.id}`}
                 className="md:basis-1/2 lg:basis-1/3 !p-0 relative"
               >
                 <div className="p-1">
-                  <Card className="group relative bg-primary text-primary-foreground overflow-hidden lg:p-6 border-none hover:shadow-lg">
-                    <Link href={`/inmobiliaria-360?s=${slug}`}>
-                      <Image
-                        src={String(featured_image_url)}
-                        alt={title.rendered}
-                        className="absolute inset-0 transform scale-100 group-hover:scale-110 group-hover:opacity-40 opacity-70 object-cover w-full h-full transition-all duration-150 ease-in-out"
-                        width={470}
-                        height={688}
-                      />
-                      <CardContent className="flex flex-col  aspect-[6/10] items-start justify-center p-6 relative z-10">
-                        <h2 className="text-lg md:text-2xl font-semibold flex-none">
-                          {title.rendered}
-                        </h2>
-                        <div className="flex grow flex-col items-center justify-center">
-                          <div
-                            dangerouslySetInnerHTML={{
-                              __html: content.rendered,
-                            }}
-                            className="text-sm md:text-xl font-semibold transform translate-y-10 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-150 hover:duration-75 ease-in-out"
-                          />
-                        </div>
-                        <span className="font-semibold flex-none">
-                          Leer más
-                        </span>
-                      </CardContent>
-                    </Link>
-                  </Card>
+                  <ImmoCard inmo={item} />
                 </div>
               </CarouselItem>
             ))}

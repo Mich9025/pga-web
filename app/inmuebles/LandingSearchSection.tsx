@@ -28,6 +28,27 @@ export default function LandingSearchSection() {
       </h2>
       <div className="flex flex-col gap-3">
         <form onSubmit={handleSearch}>
+          <div className="relative">Venta o Arriendo (mode)</div>
+          <div className="relative">
+            Tipo de inmueble (tax: state_type)
+            <ul>
+              <li>oficinas</li>
+              <li>locales</li>
+              <li>depositos o bodegas</li>
+              <li>apartamentos</li>
+              <li>lotes</li>
+            </ul>
+          </div>
+          <div className="relative">
+            Ubicacion Localidad (tax: location)
+            <ul>
+              <li>usaquen</li>
+              <li>suba</li>
+              <li>...</li>
+            </ul>
+          </div>
+          <div className="relative">Area Rango (mode)</div>
+
           <div className="relative">
             <IoMdPin className="absolute left-4 top-3 mr-2 opacity-50 size-6" />
             <Input

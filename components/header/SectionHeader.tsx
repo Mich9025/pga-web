@@ -8,6 +8,7 @@ interface SectionHeaderProps {
   descriptionHtml?: string;
   image?: string;
   className?: string;
+  children?: React.ReactNode;
 }
 
 export const SectionHeader = ({
@@ -16,6 +17,7 @@ export const SectionHeader = ({
   descriptionHtml,
   image,
   className,
+  children,
 }: SectionHeaderProps) => {
   const classes = cn(
     "bg-primary text-primary-foreground min-h-[50vh] pt-8 md:pt-24 max-h-[80vh] flex items-center overflow-hidden relative",
@@ -50,6 +52,7 @@ export const SectionHeader = ({
               dangerouslySetInnerHTML={{ __html: descriptionHtml }}
             />
           )}
+          {children}
         </div>
       </Container>
     </Section>

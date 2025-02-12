@@ -1,6 +1,5 @@
 import { Container, Section } from "@/components/craft";
 import { SectionHeader } from "@/components/header/SectionHeader";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Carousel,
@@ -10,10 +9,9 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { getAllFromCustomPostType } from "@/lib/wordpress";
-import { History } from "@/lib/wordpress.d";
+import { Client, History } from "@/lib/wordpress.d";
 import Image from "next/image";
 
-import Link from "next/link";
 import { Video } from "./Video";
 
 import { generateMetadataFromContent } from "@/lib/metadata";
@@ -29,38 +27,27 @@ export const metadata = generateMetadataFromContent({
 
 export default async function Page() {
   const history = await getAllFromCustomPostType<History>("history");
+  const clients = await getAllFromCustomPostType<Client>("clients");
 
-  return (
-    <>
-      <SectionHeader title={"Nosotros"} className="min-h-[400px]" />
-
-      <Section className="bg-background !pb-0">
-        <Container className="text-center">
-          <div className="max-w-4xl mx-auto flex flex-col gap-6">
-            <h2 className="text-2xl md:text-3xl lg:text-6xl font-bold py-6">
-              Quienes Somos
-            </h2>
-            <div className="prose prose-lg max-w-none">
-              <p>
-                Somos un Grupo Empresarial con más de 38 años de trayectoria en
+  const aboutContent = `                Somos un Grupo Empresarial con más de 38 años de trayectoria en
                 la Estructuración, Gerencia, Diseño, Construcción, Venta,
                 Arrendamiento, Administración, Mantenimiento y Operación de
                 Proyectos Inmobiliarios. Somos reconocidos por nuestra solidez,
                 por nuestros valores, organización, eficiencia, cumplimiento,
                 por la calidad de nuestros productos y servicios y por la
                 creación de valor a nuestros accionistas, clientes,
-                colaboradores y a la sociedad.
-              </p>
-            </div>
-            <Link
-              href="https://isarco.com.co/wp-content/uploads/BROCHURE-ISARCO.pdf"
-              target="_blank"
-            >
-              <Button className="w-fit">Descargar Brochure</Button>
-            </Link>
-          </div>
-        </Container>
-      </Section>
+                colaboradores y a la sociedad.`;
+
+  return (
+    <>
+      <SectionHeader
+        title={"Nosotros"}
+        className="min-h-[70vh]"
+        description={aboutContent}
+      />
+
+      {/* Video Section */}
+      <Video />
 
       {/* History Section */}
       <Section className="bg-background !pb-0">
@@ -135,9 +122,34 @@ export default async function Page() {
           </h2>
         </Container>
       </Section>
-
-      {/* Video Section */}
-      <Video />
+      <Section className="bg-background">
+        <Container className="text-center">
+          <div className="max-w-4xl mx-auto">
+            <p className="text-xl md:text-2xl: lg:text-3xl text-muted-foreground uppercase">
+              Ellos y muchos más confiaron en nosotros.
+            </p>
+            <h2 className="text-2xl md:text-3xl lg:text-6xl font-bold py-6 uppercase">
+              Solo Faltas Tú
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 items-center pt-6 md:pt-16">
+            {clients.map((client: any) => (
+              <div
+                key={`client-${client.id}`}
+                className="aspect-[3/2] relative grayscale hover:grayscale-0 transition-all min-w-52 flex items-center justify-center opacity-60 hover:opacity-100 cursor-pointer"
+              >
+                <Image
+                  src={String(client.featured_image_url)}
+                  alt={String(client.title.rendered)}
+                  fill
+                  className="object-contain invert p-6"
+                />
+                <span className="sr-only">{String(client.title.rendered)}</span>
+              </div>
+            ))}
+          </div>
+        </Container>
+      </Section>
     </>
   );
 }

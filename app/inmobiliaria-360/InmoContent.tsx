@@ -15,6 +15,13 @@ import {
 } from "@/components/ui/carousel";
 import { Input } from "@/components/ui/input";
 import Marquee from "@/components/ui/marquee";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Client, Inmo360 } from "@/lib/wordpress.d";
 import Image from "next/image";
 import Link from "next/link";
@@ -135,14 +142,39 @@ export default function InmoContent({
             <div className="relative flex items-center">
               <div className="absolute bg-secondary inset-y-0 left-0 hidden md:block w-20 lg:w-32 pointer-events-none select-none"></div>
               <div className="bg-white p-8 md:p-16 lg:p-24 relative z-10 border-l-0 border-8 border-secondary w-full">
-                <h2 className="text-2xl font-bold mb-6 md:text-4xl md:mb-8 lg:mb-12">
-                  Formulario
+                <h2 className="text-2xl font-regular mb-6 md:text-4xl md:mb-8 lg:mb-12">
+                  Déjanos tus datos y recibe asesoría personalizada
                 </h2>
                 <form className="space-y-4 md:space-y-8 lg:space-y-10">
                   <Input placeholder="Nombre" />
                   <Input placeholder="Email" type="email" />
                   <Input placeholder="Teléfono" type="tel" />
-                  <Input placeholder="Asunto" />
+                  <Select>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Servicios de interés" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="propiedades">
+                        Administración de Propiedades
+                      </SelectItem>
+                      <SelectItem value="consignar">
+                        Consignar Inmueble
+                      </SelectItem>
+                      <SelectItem value="buscar">Buscar Inmueble</SelectItem>
+                      <SelectItem value="remodelacion">
+                        Adecuación y Remodelación
+                      </SelectItem>
+                      <SelectItem value="construccion">
+                        Construcción de Proyectos
+                      </SelectItem>
+                      <SelectItem value="operaciones">
+                        Operaciones Inmobiliarias
+                      </SelectItem>
+                      <SelectItem value="proyectos">
+                        Estructuración de Proyectos
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
                   <Button className="w-full">Enviar</Button>
                 </form>
               </div>
@@ -160,7 +192,7 @@ export default function InmoContent({
                 alt={String(selected.title.rendered)}
                 width={1200}
                 height={800}
-                className="rounded-lg object-cover"
+                className="object-cover"
               />
             </div>
             <div className="flex flex-col gap-6 md:gap-8 lg:gap-10 md:col-span-2 py-6 md:py-12 md:px-12 lg:px-20">
