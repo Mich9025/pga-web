@@ -95,7 +95,7 @@ export function PropertyCard({ property }: PropertyCardProps) {
     "flex flex-col md:flex-row w-full justify-between [&>*]:grow [&>*]:p-4 [&>*]:-mr-px [&>*]:-mt-px [&>*]:border [&>*]:border-border [&>*]:flex  [&>*]:flex-col [&>*]:text-center  [&>*]:items-center [&>*]:gap-3";
   return (
     <Card className="group overflow-hidden">
-      <Link href={`/${property.frontend?.path}`}>
+      <Link href={`${property.frontend?.path}`}>
         <CardHeader className="p-0 relative aspect-square">
           {/* Main Image */}
           <Image
