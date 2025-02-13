@@ -1,65 +1,65 @@
 "use client";
 
-import { Map, Marker } from "pigeon-maps";
-import { useEffect, useState } from "react";
+import { PropertyResponse } from "@/lib/wordpress.d";
+import { Map, Marker, ZoomControl } from "pigeon-maps";
+import { useState } from "react";
 
-interface MapProps {
-  address: string;
-}
+export function PropertyMap({ property }: { property: PropertyResponse }) {
+  const coordinates_lat = parseFloat(String(property.coordinates?.lat));
+  const coordinates_long = parseFloat(String(property.coordinates?.lon));
 
-export function PropertyMap({ address }: MapProps) {
-  const [coordinates, setCoordinates] = useState<{
-    lat: number;
-    lon: number;
-  } | null>(null);
+  const [zoom, setZoom] = useState(17);
+  const [center, setCenter] = useState<[number, number]>(
+    coordinates_lat && coordinates_long
+      ? [coordinates_lat, coordinates_long]
+      : [0, 0]
+  );
 
-  useEffect(() => {
-    const getCoordinates = async () => {
-      try {
-        const searchAddress = `${address}, Bogotá, Colombia`;
-        const encodedAddress = encodeURIComponent(searchAddress);
-
-        const response = await fetch(
-          `https://nominatim.openstreetmap.org/search?format=json&q=${encodedAddress}&limit=1`
-        );
-
-        const data = await response.json();
-
-        if (data && data[0]) {
-          setCoordinates({
-            lat: parseFloat(data[0].lat),
-            lon: parseFloat(data[0].lon),
-          });
-        }
-      } catch (error) {
-        console.error("Error getting coordinates:", error);
-      }
-    };
-
-    getCoordinates();
-  }, [address]);
-
-  if (!coordinates) {
+  if (!coordinates_lat || !coordinates_long) {
     return (
       <div className="w-full h-[50vh] bg-gray-100 rounded-lg animate-pulse" />
     );
   }
 
-  // const maptilerProvider = maptiler("MY_API_KEY", "streets");
+  const position: [number, number] = [coordinates_lat, coordinates_long];
+
   return (
     <div className="w-full h-[50vh] relative rounded-lg overflow-hidden shadow-md">
+      {/*
+      <pre className="text-xs fixed bg-foreground text-background z-50 top-3 right-3 p-4 font-bold">
+        {JSON.stringify(
+          {
+            coordinates_lat,
+            coordinates_long,
+            center,
+            zoom,
+            position,
+          },
+          null,
+          2
+        )}
+      </pre> 
+      */}
       <Map
-        // provider={maptilerProvider}
-        defaultCenter={[coordinates.lat, coordinates.lon]}
-        defaultZoom={17}
-        dprs={[1, 2]} // this provider supports HiDPI tiles
+        center={center}
+        zoom={zoom}
+        onBoundsChanged={({ center, zoom }) => {
+          setCenter(center);
+          setZoom(zoom);
+        }}
+        dprs={[1, 2]}
         attribution={false}
       >
-        <Marker
-          width={50}
-          anchor={[coordinates.lat, coordinates.lon]}
-          color="#ff4444"
-        />
+        <ZoomControl />
+
+        {coordinates_lat && coordinates_long && (
+          <Marker
+            width={50}
+            anchor={position}
+            color="#ff4444"
+            key="property-marker"
+          />
+        )}
       </Map>
     </div>
   );

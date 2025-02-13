@@ -61,7 +61,11 @@ function Slider({ alt, id: altId, images }: SliderProps) {
 
   return (
     <div className="md:pr-12">
-      <Carousel className="w-full max-w-3xl mx-auto" setApi={setApi}>
+      <Carousel
+        className="w-full max-w-3xl mx-auto"
+        setApi={setApi}
+        draggable={images?.length > 1}
+      >
         <CarouselContent
           className="transition-[height] duration-300 ease-in-out"
           style={{ height: currentHeight }}
@@ -84,27 +88,31 @@ function Slider({ alt, id: altId, images }: SliderProps) {
           ))}
         </CarouselContent>
 
-        <div className="relative mt-2 flex items-center justify-center">
-          <CarouselPrevious className="static translate-y-0 translate-x-0 mr-2" />
-          <CarouselNext className="static translate-y-0 translate-x-0" />
-        </div>
-
-        <CarouselThumbnails className="mt-4">
-          {images.map(({ id, url, width, height }, index) => (
-            <div
-              key={`${altId}-thumb-${id}-${index}`}
-              className="relative min-w-[100px] aspect-square"
-            >
-              <Image
-                src={url}
-                width={width}
-                height={height}
-                alt={`Thumbnail ${index + 1}`}
-                className="w-full h-full object-cover rounded-md"
-              />
+        {images?.length > 1 && (
+          <>
+            <div className="relative mt-2 flex items-center justify-center">
+              <CarouselPrevious className="static translate-y-0 translate-x-0 mr-2" />
+              <CarouselNext className="static translate-y-0 translate-x-0" />
             </div>
-          ))}
-        </CarouselThumbnails>
+
+            <CarouselThumbnails className="mt-4">
+              {images.map(({ id, url, width, height }, index) => (
+                <div
+                  key={`${altId}-thumb-${id}-${index}`}
+                  className="relative min-w-[100px] aspect-square"
+                >
+                  <Image
+                    src={url}
+                    width={width}
+                    height={height}
+                    alt={`Thumbnail ${index + 1}`}
+                    className="w-full h-full object-cover rounded-md"
+                  />
+                </div>
+              ))}
+            </CarouselThumbnails>
+          </>
+        )}
       </Carousel>
     </div>
   );

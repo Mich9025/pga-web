@@ -697,29 +697,32 @@ export async function extendPropertyResponse(
 ): Promise<PropertyResponse> {
   const address = property.direccion;
 
-  let coordinates;
+  const coordinates = {
+    lat: property.coordinates_lat || 4.711,
+    lon: property.coordinates_long || 74.0721,
+  };
 
-  if (address) {
-    try {
-      const searchAddress = `${address}, Bogotá, Colombia`;
-      const encodedAddress = encodeURIComponent(searchAddress);
+  // if (address) {
+  //   try {
+  //     const searchAddress = `${address}, Bogotá, Colombia`;
+  //     const encodedAddress = encodeURIComponent(searchAddress);
 
-      const response = await fetch(
-        `https://nominatim.openstreetmap.org/search?format=json&q=${encodedAddress}&limit=1`
-      );
+  //     const response = await fetch(
+  //       `https://nominatim.openstreetmap.org/search?format=json&q=${encodedAddress}&limit=1`
+  //     );
 
-      const data = await response.json();
+  //     const data = await response.json();
 
-      if (data && data[0]) {
-        coordinates = {
-          lat: parseFloat(data[0].lat),
-          lon: parseFloat(data[0].lon),
-        };
-      }
-    } catch (error) {
-      console.error("Error getting coordinates:", error);
-    }
-  }
+  //     if (data && data[0]) {
+  //       coordinates = {
+  //         lat: parseFloat(data[0].lat),
+  //         lon: parseFloat(data[0].lon),
+  //       };
+  //     }
+  //   } catch (error) {
+  //     console.error("Error getting coordinates:", error);
+  //   }
+  // }
 
   const classInfo = await extractClassInfo(property.class_list);
 

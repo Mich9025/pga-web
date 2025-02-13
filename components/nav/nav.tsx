@@ -33,27 +33,27 @@ import {
 const components: { title: string; href: string; description: string }[] = [
   {
     title: "Apartamentos",
-    href: "/inmuebles?t=apartamentos",
+    href: "/inmuebles?types=apartamentos",
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
   },
   {
     title: "Oficinas",
-    href: "/inmuebles?t=oficinas",
+    href: "/inmuebles?types=oficinas",
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
   },
   {
     title: "Locales Comerciales",
-    href: "/inmuebles?t=locales-comerciales",
+    href: "/inmuebles?types=locales-comerciales",
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
   },
   {
     title: "Bodegas",
-    href: "/inmuebles?t=bodegas",
+    href: "/inmuebles?types=bodegas",
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
   },
   {
     title: "Depósitos",
-    href: "/inmuebles?t=depositos",
+    href: "/inmuebles?types=deposito",
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
   },
   // {

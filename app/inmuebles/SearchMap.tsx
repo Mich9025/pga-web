@@ -3,7 +3,7 @@
 import { PropertyResponse } from "@/lib/wordpress.d";
 import Image from "next/image";
 import Link from "next/link";
-import { Map, Marker } from "pigeon-maps";
+import { Map, Marker, ZoomControl } from "pigeon-maps";
 import { useEffect, useState } from "react";
 
 interface SearchMapProps {
@@ -15,12 +15,8 @@ export function SearchMap({ properties }: SearchMapProps) {
     lat: number;
     lon: number;
   } | null>(null);
-  const [propertiesWithCoords, setPropertiesWithCoords] = useState<
-    PropertyResponse[]
-  >([]);
   const [selectedProperty, setSelectedProperty] =
     useState<PropertyResponse | null>(null);
-  const [isLoadingCoords, setIsLoadingCoords] = useState(true);
 
   // Get user's location
   useEffect(() => {
@@ -41,52 +37,7 @@ export function SearchMap({ properties }: SearchMapProps) {
     }
   }, []);
 
-  // Get coordinates for all properties
-  useEffect(() => {
-    const getCoordinates = async (property: PropertyResponse) => {
-      if (property.coordinates) return property; // Use cached coordinates if available
-
-      try {
-        const searchAddress = `${property.direccion}, Bogotá, Colombia`;
-        const encodedAddress = encodeURIComponent(searchAddress);
-        const response = await fetch(
-          `https://nominatim.openstreetmap.org/search?format=json&q=${encodedAddress}&limit=1`
-        );
-        const data = await response.json();
-
-        if (data && data[0]) {
-          return {
-            ...property,
-            coordinates: {
-              lat: parseFloat(data[0].lat),
-              lon: parseFloat(data[0].lon),
-            },
-          };
-        }
-        return property;
-      } catch (error) {
-        console.error("Error getting coordinates for property:", error);
-        return property;
-      }
-    };
-
-    const getAllCoordinates = async () => {
-      setIsLoadingCoords(true);
-      // Add delay between requests to avoid rate limiting
-      const updatedProperties = [];
-      for (const property of properties) {
-        const updatedProperty = await getCoordinates(property);
-        updatedProperties.push(updatedProperty);
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // 1 second delay
-      }
-      setPropertiesWithCoords(updatedProperties.filter((p) => p.coordinates));
-      setIsLoadingCoords(false);
-    };
-
-    getAllCoordinates();
-  }, [properties]);
-
-  if (!userLocation || isLoadingCoords) {
+  if (!userLocation) {
     return (
       <div className="w-full h-[70vh] bg-gray-100 rounded-lg animate-pulse" />
     );
@@ -94,10 +45,12 @@ export function SearchMap({ properties }: SearchMapProps) {
 
   const handleMarkerClick = (property: PropertyResponse) => {
     setSelectedProperty(property);
-    // if (onSelectProperty) {
-    //   onSelectProperty(property);
-    // }
   };
+
+  // Filter properties that have coordinates
+  const propertiesWithCoords = properties.filter(
+    (property) => property.coordinates?.lat && property.coordinates?.lon
+  );
 
   return (
     <div className="w-full h-[70vh] relative rounded-lg overflow-hidden shadow-md bg-secondary">
@@ -106,12 +59,18 @@ export function SearchMap({ properties }: SearchMapProps) {
         defaultZoom={13}
         dprs={[1, 2]}
         attribution={false}
+        onClick={(e) => {
+          // set properties to null if clicked outside of markers
+          setSelectedProperty(null);
+        }}
       >
+        <ZoomControl />
+
         {/* User location marker */}
         <Marker
           width={50}
           anchor={[userLocation.lat, userLocation.lon]}
-          color="#4A90E2"
+          className="relative inline-flex size-5 rounded-full bg-blue-600  border-2 border-white after:absolute  after:inset-0  after:-z-10 after:size-full after:rounded-full  after:bg-blue-600  after:opacity-90  after:animate-ping  after:[animation-duration:3s]  after:content-['']"
         />
 
         {/* Property markers */}
@@ -119,7 +78,10 @@ export function SearchMap({ properties }: SearchMapProps) {
           <Marker
             key={property.id}
             width={50}
-            anchor={[property.coordinates!.lat, property.coordinates!.lon]}
+            anchor={[
+              parseFloat(String(property.coordinates!.lat)),
+              parseFloat(String(property.coordinates!.lon)),
+            ]}
             color={selectedProperty?.id === property.id ? "#ff4444" : "#2ECC71"}
             onClick={() => handleMarkerClick(property)}
           />

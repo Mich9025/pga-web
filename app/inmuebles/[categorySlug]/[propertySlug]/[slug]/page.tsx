@@ -187,15 +187,9 @@ export default async function PropertyPage({ params }: PageParams) {
       },
     ];
 
-    const title =
-      propertySlug.charAt(0).toUpperCase() +
-      propertySlug.replace("-", " ").slice(1) +
-      " " +
-      property.title.rendered;
+    const title = property.frontend?.title;
 
-    const propertyType =
-      categorySlug.charAt(0).toUpperCase() +
-      categorySlug.replace("-", " ").slice(1);
+    const propertyType = property.frontend?.propertyType;
 
     let propertyTypeIcon = <LuBuilding />;
     switch (property.type) {
@@ -226,6 +220,15 @@ export default async function PropertyPage({ params }: PageParams) {
     const propsClassName =
       "flex flex-col gap-5 md:grid md:grid-cols-3 md:gap-0 [&>*]:p-4 [&>*]:-mr-px [&>*]:-mt-px [&>*]:border [&>*]:border-border [&>*]:flex [&>*]:items-center [&>*]:gap-3";
 
+    const slides = [
+      {
+        id: 999999999,
+        url: String(property?.featured_image_url),
+        width: 800,
+        height: 800,
+      },
+      ...property?.gallery_images,
+    ];
     return (
       <>
         <SectionHeader
@@ -239,24 +242,29 @@ export default async function PropertyPage({ params }: PageParams) {
             <div className="flex flex-col md:flex-row h-full md:grid md:grid-cols-2">
               <div className="flex flex-col gap-6">
                 <div className="">
-                  {property?.gallery_images?.length > 0 && (
-                    <Slider
-                      id="property-gallery"
-                      alt={title}
-                      images={[
-                        {
-                          id: 999999999,
-                          url: String(property?.featured_image_url),
-                          width: 800,
-                          height: 800,
-                        },
-                        ...property?.gallery_images,
-                      ]}
-                    />
+                  {/* <pre className="text-xs fixed bg-foreground text-background z-50 top-3 right-3 p-4 font-bold">
+                    {JSON.stringify(
+                      {
+                        images: [
+                          {
+                            id: 999999999,
+                            url: String(property?.featured_image_url),
+                            width: 800,
+                            height: 800,
+                          },
+                          ...property?.gallery_images,
+                        ],
+                      },
+                      null,
+                      2
+                    )}
+                  </pre> */}
+                  {slides?.length > 0 && (
+                    <Slider id="property-gallery" alt={title} images={slides} />
                   )}
                 </div>
                 <div className="flex flex-col gap-6 md:pr-12">
-                  <PropertyMap address={property.direccion} />
+                  <PropertyMap property={property} />
                 </div>
               </div>
               {/* Property Details Section */}

@@ -112,27 +112,27 @@ const SectionSolutions = () => {
     {
       title: "Locales",
       imageUrl: "https://isarco.com.co/wp-content/uploads/locales.jpg",
-      href: "/inmuebles?t=locales-comerciales",
+      href: "/inmuebles?types=locales-comerciales",
     },
     {
       title: "Apartamentos",
       imageUrl: "https://isarco.com.co/wp-content/uploads/apartamentos.jpg",
-      href: "/inmuebles?t=apartamentos",
+      href: "/inmuebles?types=apartamentos",
     },
     {
       title: "Bodegas",
       imageUrl: "https://isarco.com.co/wp-content/uploads/minibodegas.jpg",
-      href: "/inmuebles?t=bodegas",
+      href: "/inmuebles?types=bodegas",
     },
     {
       title: "Oficinas",
       imageUrl: "https://isarco.com.co/wp-content/uploads/coworking-1.jpg",
-      href: "/inmuebles?t=oficinas",
+      href: "/inmuebles?types=oficinas",
     },
     {
       title: "Co-working",
       imageUrl: "https://isarco.com.co/wp-content/uploads/coworking-2.jpg",
-      href: "/inmuebles?t=oficinas",
+      href: "/inmuebles?types=oficinas",
     },
   ];
   return (

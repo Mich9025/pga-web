@@ -354,6 +354,8 @@ export interface WooProduct {
 
 export interface PropertyResponse {
   coordinates?: { lat: number; lon: number }; // Cached coordinates
+  coordinates_lat?: number;
+  coordinates_long?: number;
   frontend: {
     title: string;
     path: string;
