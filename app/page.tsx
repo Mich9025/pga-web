@@ -12,14 +12,17 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
-import { getAllFromCustomPostType } from "@/lib/wordpress";
-import { Inmo360 } from "@/lib/wordpress.d";
+import { getAllFromCustomPostType, getTaxonomyTerms } from "@/lib/wordpress";
+import { Inmo360, TaxonomyTerm } from "@/lib/wordpress.d";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { ImmoCard } from "./inmobiliaria-360/ImmoCard";
 import LandingSearchSection from "./inmuebles/LandingSearchSection";
 export default async function Home() {
   const inmo = await getAllFromCustomPostType<Inmo360>("inmo-360");
+  const taxonomies_locations = await getTaxonomyTerms("location");
+  const taxonomies_types = await getTaxonomyTerms("state_types");
+  const taxonomies_modes = await getTaxonomyTerms("mode");
 
   const bgImages = [
     "https://isarco.com.co/wp-content/uploads/BANNER-OFICINAS-EQUIPADAS-scaled.jpg",
@@ -38,14 +41,22 @@ export default async function Home() {
           </Container>
         </Banner>
       </div>
-      <SectionInmobiliario />
+      <SectionInmobiliario
+        locations={taxonomies_locations}
+        propertyTypes={taxonomies_types}
+        modes={taxonomies_modes}
+      />
       <SectionAcompanamiento inmo={inmo} />
       <SectionSolutions />
     </>
   );
 }
 
-const SectionInmobiliario = () => {
+const SectionInmobiliario = (taxonomies: {
+  locations: TaxonomyTerm[];
+  propertyTypes: TaxonomyTerm[];
+  modes: TaxonomyTerm[];
+}) => {
   return (
     <Section className="!py-0 bg-primary">
       <div className="grid grid-cols-1 lg:grid-cols-2 lg:items-start items-center">
@@ -67,7 +78,7 @@ const SectionInmobiliario = () => {
           </Container>
         </div>
         <div className="bg-background text-foreground h-full flex items-center lg:items-start">
-          <LandingSearchSection />
+          <LandingSearchSection {...taxonomies} />
         </div>
       </div>
     </Section>

@@ -478,9 +478,9 @@ export interface PropertyFilters {
   price_min?: number;
   price_max?: number;
 }
-function cleanPriceValue(price: string): number {
-  return parseInt(price.replace(/[^0-9]/g, ""));
-}
+// function cleanPriceValue(price: string): number {
+//   return parseInt(price.replace(/[^0-9]/g, ""));
+// }
 
 export async function getAllProperties(
   filters?: PropertyFilters

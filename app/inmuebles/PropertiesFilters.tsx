@@ -63,7 +63,7 @@ export function PropertiesFilter({
     useState<string[]>(selectedLocations);
   const [tempTypes, setTempTypes] = useState<string[]>([]);
   const [tempModes, setTempModes] = useState<string[]>([]);
-  const [tempPriceRange, setTempPriceRange] = useState([]);
+  const [tempPriceRange, setTempPriceRange] = useState(priceRange);
   const [tempArea, setTempArea] = useState(area);
 
   const updateFilters = useCallback(() => {

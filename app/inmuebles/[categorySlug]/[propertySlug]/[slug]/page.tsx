@@ -26,8 +26,10 @@ import {
   LuClock,
   LuFactory,
   LuFlame,
+  LuLandPlot,
   LuMapPin,
   LuSquareParking,
+  LuStore,
   LuWarehouse,
   LuWind,
   LuWrench,
@@ -192,7 +194,20 @@ export default async function PropertyPage({ params }: PageParams) {
     const propertyType = property.frontend?.propertyType;
 
     let propertyTypeIcon = <LuBuilding />;
+
     switch (property.type) {
+      case "local":
+        propertyTypeIcon = <LuStore />;
+        break;
+      case "deposito":
+        propertyTypeIcon = <LuWarehouse />;
+        break;
+      case "apartamento":
+        propertyTypeIcon = <LuBed />;
+        break;
+      case "lote":
+        propertyTypeIcon = <LuLandPlot />;
+        break;
       case "residencial":
         propertyTypeIcon = <LuBed />;
         break;

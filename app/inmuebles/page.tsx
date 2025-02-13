@@ -11,6 +11,7 @@ import { PropertyCard } from "./PropertyCard";
 import { SearchMap } from "./SearchMap";
 
 import { generateMetadataFromContent } from "@/lib/metadata";
+import { PropertiesNotFound } from "./PropertiesNotFound";
 
 export const metadata = generateMetadataFromContent({
   title: "Buscador de Inmuebles",
@@ -73,11 +74,15 @@ export default async function Page({ searchParams }: SearchProps) {
         </Container>
         <TabsContent value="list">
           <Container className="!pt-0">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {properties.map((property) => (
-                <PropertyCard key={property.id} property={property} />
-              ))}
-            </div>
+            {properties.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {properties.map((property) => (
+                  <PropertyCard key={property.id} property={property} />
+                ))}
+              </div>
+            ) : (
+              <PropertiesNotFound />
+            )}
           </Container>
         </TabsContent>
         <TabsContent value="map">
