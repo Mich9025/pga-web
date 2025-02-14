@@ -16,6 +16,7 @@ import { NavProvider } from "./context/NavContext";
 
 const font = FontSans({
   weight: ["200", "400", "500", "600", "700"],
+  subsets: ["latin"],
   variable: "--font-sans",
 });
 
