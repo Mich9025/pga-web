@@ -180,7 +180,7 @@ const styles = {
   layout: {
     spacing: "[&>*+*]:mt-6",
     article: "max-w-prose",
-    container: "max-w-screen-2xl mx-auto p-6 sm:p-8",
+    container: "max-w-screen-[100vw] mx-auto p-6 sm:p-8 md:p-12 lg:p-16",
     section: "py-8 md:py-12",
   },
 };

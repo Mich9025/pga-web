@@ -46,7 +46,7 @@ export function Banner({
   };
 
   return (
-    <div className="overflow-hidden relative bg-primary px-6 py-24 sm:py-32 lg:px-8 min-h-[95vh] flex items-center ">
+    <div className="overflow-hidden relative bg-primary px-6 py-24 sm:py-32 lg:px-8 min-h-[99vh] flex items-center justify-left">
       <Carousel
         setApi={setCarouselApi}
         opts={{ loop: true }}
@@ -65,7 +65,7 @@ export function Banner({
           ))}
         </CarouselContent>
       </Carousel>
-      <div className="vignette"></div>
+      {/* <div className="vignette"></div> */}
 
       {children}
 
@@ -93,7 +93,7 @@ export function Banner({
           <button
             key={index}
             onClick={() => scrollToIndex(index)}
-            className={`size-3 md:size-5 rounded-full border-[3px] border-white opacity-80 hover:opacity-100 ${
+            className={`size-2 md:size-3 rounded-full border-2 border-white opacity-80 hover:opacity-100 ${
               currentIndex === index ? "bg-white" : "bg-white/10"
             }`}
           />

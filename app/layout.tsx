@@ -4,18 +4,18 @@ import { ThemeProvider } from "@/components/theme/theme-provider";
 import { siteConfig } from "@/site.config";
 import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
-import { Montserrat as FontSans } from "next/font/google";
+import { Poppins as FontSans } from "next/font/google";
 
 // import { NavProvider } from "@/app/context/NavContext";
 import { cn } from "@/lib/utils";
 
 import { Footer } from "@/components/footer/Footer";
 
-import { NavigationMenu } from "@/components/nav/nav";
+// import { NavigationMenu } from "@/components/nav/nav";
 import { NavProvider } from "./context/NavContext";
 
 const font = FontSans({
-  subsets: ["latin"],
+  weight: ["200", "400", "500", "600", "700"],
   variable: "--font-sans",
 });
 
@@ -44,8 +44,8 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <NavProvider>
-            <NavigationMenu />
-            {children}
+            {/* <NavigationMenu /> */}
+            <main className="min-h-screen">{children}</main>
             <Footer />
           </NavProvider>
         </ThemeProvider>

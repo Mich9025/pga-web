@@ -11,13 +11,13 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "isarco.com.co",
+        hostname: "pgaconstructores.co",
         port: "",
         pathname: "/**",
       },
       {
         protocol: "https",
-        hostname: "api.isarco.com.co",
+        hostname: "api.pgaconstructores.co",
         port: "",
         pathname: "/**",
       },

@@ -26,9 +26,9 @@ export const Footer = async () => {
   );
 
   return (
-    <footer className="bg-primary text-primary-foreground py-4 md:py-8 lg:py-12">
-      <Section>
-        <Container className="grid md:grid-cols-[2.2fr_1fr_1fr_1fr] gap-12">
+    <footer className="bg-black text-primary-foreground py-4 md:py-8 lg:py-12">
+      <Section className="">
+        <Container className="gridX md:grid-cols-[2.2fr_1fr_1fr_1fr] gap-12 hidden">
           <div className="flex flex-col gap-6 not-prose">
             <div className="text-center max-w-80 flex flex-col gap-6">
               <Link href="/">
@@ -133,11 +133,11 @@ export const Footer = async () => {
                 </p>
                 <p>
                   <a
-                    href="mailto:contacto@isarco.com.co"
+                    href="mailto:contacto@pgaconstructores.co"
                     aria-label="Email Address"
                   >
                     <span className="sr-only">Email: </span>
-                    contacto@isarco.com.co
+                    contacto@pgaconstructores.co
                   </a>
                 </p>
               </div>
@@ -151,7 +151,7 @@ export const Footer = async () => {
             <div className="aspect-square p-2 mt-4 rounded-sm bg-white max-w-[200px]">
               <Image
                 src={
-                  "https://isarco.com.co/wp-content/uploads/Codigo-QR-para-PQRS-q1mmsl745h1ba527tjeae7lr7dzieqqj8fb0yigc7g.png"
+                  "https://pgaconstructores.co/wp-content/uploads/Codigo-QR-para-PQRS-q1mmsl745h1ba527tjeae7lr7dzieqqj8fb0yigc7g.png"
                 }
                 alt="Codigo QR para PQRS"
                 className="w-full h-full"
@@ -165,7 +165,7 @@ export const Footer = async () => {
           {/* <ThemeToggle /> */}
           <p className="text-primary-foreground/70">
             &copy; {new Date().getFullYear()}{" "}
-            <a className="hover:underline" href="https://isarco.com.co">
+            <a className="hover:underline" href="https://pgaconstructores.co">
               Isarco
             </a>
             . Todos los derechos reservados.
@@ -173,7 +173,7 @@ export const Footer = async () => {
           <p className="text-primary-foreground/70">
             <a
               className="hover:underline"
-              href="http://isarco.com.co/politicas-de-datos/"
+              href="http://pgaconstructores.co/politicas-de-datos/"
             >
               Políticas de tratamiento de datos personales
             </a>

@@ -55,26 +55,19 @@ export type SiteConfig = {
   };
 };
 
+// TODO: Add more SEO config & metadata
 export const siteConfig: SiteConfig = {
-  name: "Isarco",
+  name: "PGA",
   description:
     "Con nuestros proyectos y servicios, construimos país, garantizamos futuro.",
-  domain: "https://isarco.com.co/",
+  domain: "https://pgaconstructores.co/",
 
   seo: {
-    titleTemplate: "%s | Isarco",
-    defaultTitle: "Isarco - Inmobiliaria y Construcción",
+    titleTemplate: "%s | PGA",
+    defaultTitle: "PGA Constructores",
     defaultDescription:
       "Con nuestros proyectos y servicios, construimos país, garantizamos futuro.",
-    defaultKeywords: [
-      "inmobiliaria",
-      "construcción",
-      "propiedades",
-      "bogotá",
-      "colombia",
-      "bienes raíces",
-      "proyectos inmobiliarios",
-    ],
+    defaultKeywords: [],
     defaultImage: "/images/og-image.jpg",
     locale: "es_CO",
     type: "website",
@@ -88,17 +81,17 @@ export const siteConfig: SiteConfig = {
   },
 
   contact: {
-    email: "info@isarco.com.co",
-    phone: "+57 (601) 555-0123",
-    address: "Carrera 7 # 71-21, Torre B, Piso 13, Bogotá",
-    whatsapp: "+57 300 555-0123",
+    email: "",
+    phone: "",
+    address: "",
+    whatsapp: "",
   },
 
   social: {
-    facebook: "https://facebook.com/isarco",
-    instagram: "https://instagram.com/isarco",
-    linkedin: "https://linkedin.com/company/isarco",
-    youtube: "https://youtube.com/@isarco",
+    facebook: "https://facebook.com/pga",
+    instagram: "https://instagram.com/pga",
+    linkedin: "https://linkedin.com/company/pga",
+    youtube: "https://youtube.com/@pga",
   },
 
   navigation: {
