@@ -26,7 +26,7 @@ export const Footer = async () => {
   );
 
   return (
-    <footer className="bg-black text-primary-foreground py-4 md:py-8 lg:py-12">
+    <footer className="bg-black text-primary-foreground py-4 ">
       <Section className="">
         <Container className="gridX md:grid-cols-[2.2fr_1fr_1fr_1fr] gap-12 hidden">
           <div className="flex flex-col gap-6 not-prose">
@@ -48,9 +48,9 @@ export const Footer = async () => {
               <p className="text-center">
                 <a
                   className="hover:underline md:text-lg"
-                  href="https://www.instagram.com/isarco.oficial/"
+                  href="https://www.instagram.com/pga.oficial/"
                 >
-                  @isarco.oficial
+                  @pga.oficial
                 </a>
               </p>
               <div className="flex gap-3 max-w-80 items-center justify-center">
@@ -161,22 +161,19 @@ export const Footer = async () => {
             </div>
           </div>
         </Container>
-        <Container className="border-t border-muted-foreground not-prose flex flex-col md:flex-row md:gap-2 gap-6 justify-between md:items-center">
+        <Container className="not-prose flex flex-col md:flex-row md:gap-2 gap-6 justify-between md:items-center !py-0 text-xs tracking-wider font-semibold">
           {/* <ThemeToggle /> */}
           <p className="text-primary-foreground/70">
             &copy; {new Date().getFullYear()}{" "}
             <a className="hover:underline" href="https://pgaconstructores.co">
-              Isarco
+              PGA Constructores
             </a>
             . Todos los derechos reservados.
           </p>
           <p className="text-primary-foreground/70">
-            <a
-              className="hover:underline"
-              href="http://pgaconstructores.co/politicas-de-datos/"
-            >
+            <Link className="hover:underline" href="/tos">
               Políticas de tratamiento de datos personales
-            </a>
+            </Link>
           </p>
         </Container>
       </Section>

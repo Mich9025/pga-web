@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 
 import { Footer } from "@/components/footer/Footer";
 
-// import { NavigationMenu } from "@/components/nav/nav";
+import { NavigationMenu } from "@/components/nav/nav";
 import { NavProvider } from "./context/NavContext";
 
 const font = FontSans({
@@ -45,7 +45,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <NavProvider>
-            {/* <NavigationMenu /> */}
+            <NavigationMenu />
             <main className="min-h-screen">{children}</main>
             <Footer />
           </NavProvider>

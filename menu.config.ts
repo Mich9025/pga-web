@@ -4,7 +4,7 @@ export const mainMenu = {
   // "Nuestros proyectos": "/proyectos",
   inmuebles: "/inmuebles",
   "inmmobiliaria 360": "/inmobiliaria-360",
-  "acerca de Isarco": "/acerca",
+  "acerca de PGA": "/acerca",
   podcast: "/podcast",
   blog: "/blog",
   contacto: "/contacto",
@@ -17,16 +17,16 @@ export const contentMenu = {
 };
 
 export const blogMenu = {
-  "Descubre el compromiso integral de isarco": "https://isarco.com.co/blog/",
+  "Descubre el compromiso integral de pga": "https://pga.com.co/blog/",
   "Vivienda No VIS en Bogotá: Una inversión con Potencial y calidad de vida":
-    "https://isarco.com.co/blog/vivienda-no-vis-en-bogota-una-inversion-con-potencial-y-calidad-de-vida/",
+    "https://pga.com.co/blog/vivienda-no-vis-en-bogota-una-inversion-con-potencial-y-calidad-de-vida/",
   "Prácticas Urbanísticas Sostenibles: Hacias Ciudades Verders y Sostenibles":
-    "https://isarco.com.co/blog/practicas-urbanisticas-sostenibles-hacias-ciudades-verders-y-sostenibles/",
+    "https://pga.com.co/blog/practicas-urbanisticas-sostenibles-hacias-ciudades-verders-y-sostenibles/",
 };
 
 export const menuSocials = {
-  Instagram: "https://www.instagram.com/isarco.com.co/",
-  Facebook: "https://www.facebook.com/IsarcoOficial/",
-  LinkedIn: "https://www.linkedin.com/company/isarco/",
+  Instagram: "https://www.instagram.com/pga.com.co/",
+  Facebook: "https://www.facebook.com/PGAOficial/",
+  LinkedIn: "https://www.linkedin.com/company/pga/",
   YouTube: "https://www.youtube.com/channel/UC-Hee0eAUawvbHWSoKGqxAQ",
 };

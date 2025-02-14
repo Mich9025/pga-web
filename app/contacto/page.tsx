@@ -124,10 +124,10 @@ export default async function Page() {
                     </dt>
                     <dd>
                       <a
-                        href="mailto:contacto@isarco.com.co"
+                        href="mailto:contacto@pga.com.co"
                         className="hover:text-gray-900"
                       >
-                        contacto@isarco.com.co
+                        contacto@pga.com.co
                       </a>
                     </dd>
                   </div>
@@ -172,7 +172,7 @@ export default async function Page() {
                         aria-hidden="true"
                         className="size-5 text-gray-400"
                       />
-                      <span className="font-bold">IsarcoWorking</span>
+                      <span className="font-bold">PGAWorking</span>
                     </dt>
                     <dd>
                       <a
