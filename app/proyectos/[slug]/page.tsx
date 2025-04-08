@@ -16,7 +16,7 @@ interface PageParams {
   };
 }
 
-export async function generateMetadata({ params }: PageParams) {
+export async function generateMetadata({ params }: any) {
   try {
     const slug = (await params).slug;
     const project = await getProjectBySlug(slug);
@@ -50,7 +50,7 @@ export async function generateMetadata({ params }: PageParams) {
   }
 }
 
-export default async function projectPage({ params }: PageParams) {
+export default async function projectPage({ params }: any) {
   try {
     const slug = (await params).slug;
     const project = await getProjectBySlug(slug);
