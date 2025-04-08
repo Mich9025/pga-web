@@ -71,11 +71,11 @@ const navItems = [
     href: "/proyectos",
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
   },
-  {
-    title: "Servicios",
-    href: "/servicios",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-  },
+  // {
+  //   title: "Servicios",
+  //   href: "/servicios",
+  //   description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+  // },
   {
     title: "Nosotros",
     href: "/nosotros",
