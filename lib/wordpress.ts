@@ -19,7 +19,8 @@ import {
 } from "./wordpress.d";
 
 // WordPress Config
-const baseUrl = process.env.WORDPRESS_URL;
+const WORDPRESS_URL = "https://slategray-mosquito-366047.hostingersite.com"; // process.env.WORDPRESS_URL;
+const baseUrl = WORDPRESS_URL;
 
 if (!baseUrl) {
   throw new Error("WORDPRESS_URL environment variable is not defined");
@@ -556,7 +557,7 @@ export async function getAllProperties(
 
   queryParams.append("per_page", "100");
 
-  const baseUrl = process.env.WORDPRESS_URL;
+  const baseUrl = WORDPRESS_URL;
   const url = `${baseUrl}/wp-json/wp/v2/states?${queryParams.toString()}`;
 
   console.log("Fetching URL:", url); // For debugging
@@ -609,7 +610,7 @@ export async function getAllProperties(
 export async function getPropertyBySlug(
   slug: string
 ): Promise<PropertyResponse> {
-  const baseUrl = process.env.WORDPRESS_URL;
+  const baseUrl = WORDPRESS_URL;
   const url = `${baseUrl}/wp-json/wp/v2/states?slug=${slug}`;
   console.log("Fetching URL:", url); // For debugging
 
@@ -650,7 +651,7 @@ export async function extractClassInfo(
   ): Promise<Term | undefined> {
     if (!slug) return undefined;
 
-    const baseUrl = process.env.WORDPRESS_URL;
+    const baseUrl = WORDPRESS_URL;
     const url = `${baseUrl}/wp-json/wp/v2/${taxonomy}?slug=${slug}`;
 
     try {
@@ -776,7 +777,7 @@ export async function getAllFromCustomPostType<T>(
   type: string,
   per_page: number = 100
 ): Promise<T[]> {
-  const baseUrl = process.env.WORDPRESS_URL;
+  const baseUrl = WORDPRESS_URL;
   const url = `${baseUrl}/wp-json/wp/v2/${type}?per_page=${per_page}`;
 
   try {
@@ -800,7 +801,7 @@ export async function getAllFromCustomPostType<T>(
 }
 
 export async function getTaxonomies() {
-  const baseUrl = process.env.WORDPRESS_URL;
+  const baseUrl = WORDPRESS_URL;
   const url = `${baseUrl}/wp-json/wp/v2/taxonomies`;
 
   try {
@@ -824,7 +825,7 @@ export async function getTaxonomies() {
 }
 
 export async function getTaxonomy(slug: string) {
-  const baseUrl = process.env.WORDPRESS_URL;
+  const baseUrl = WORDPRESS_URL;
   const url = `${baseUrl}/wp-json/wp/v2/taxonomies/${slug}`;
 
   try {
@@ -848,7 +849,7 @@ export async function getTaxonomy(slug: string) {
 }
 
 export async function getTaxonomyTerms(taxonomy: string) {
-  const baseUrl = process.env.WORDPRESS_URL;
+  const baseUrl = WORDPRESS_URL;
   const url = `${baseUrl}/wp-json/wp/v2/${taxonomy}`;
 
   try {
@@ -877,7 +878,7 @@ async function getTermIdFromSlug(
   taxonomy: string,
   slug: string
 ): Promise<number | null> {
-  const baseUrl = process.env.WORDPRESS_URL;
+  const baseUrl = WORDPRESS_URL;
   const url = `${baseUrl}/wp-json/wp/v2/${taxonomy}?slug=${slug}`;
 
   try {
@@ -899,7 +900,7 @@ async function getTermIdFromSlug(
 }
 
 export async function getAllProjects() {
-  const baseUrl = process.env.WORDPRESS_URL;
+  const baseUrl = WORDPRESS_URL;
   const url = `${baseUrl}/wp-json/wp/v2/proyectos`;
 
   console.log("Fetching URL:", url); // For debugging
@@ -924,9 +925,8 @@ export async function getAllProjects() {
   }
 }
 
-export async function getProject(slug: string) {
-  const baseUrl = process.env.WORDPRESS_URL;
-  const url = `${baseUrl}/wp-json/wp/v2/proyectos/${slug}`;
+export async function getProjectBySlug(slug: string) {
+  const url = getUrl("/wp-json/wp/v2/proyectos", { slug });
 
   try {
     const response = await fetch(url, {
@@ -949,7 +949,7 @@ export async function getProject(slug: string) {
 }
 
 export async function getAllServices() {
-  const baseUrl = process.env.WORDPRESS_URL;
+  const baseUrl = WORDPRESS_URL;
   const url = `${baseUrl}/wp-json/wp/v2/servicios`;
 
   try {
@@ -973,7 +973,7 @@ export async function getAllServices() {
 }
 
 export async function getService(slug: string) {
-  const baseUrl = process.env.WORDPRESS_URL;
+  const baseUrl = WORDPRESS_URL;
   const url = `${baseUrl}/wp-json/wp/v2/servicios/${slug}`;
 
   try {
