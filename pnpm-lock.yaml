@@ -107,6 +107,9 @@ importers:
       react-map-gl:
         specifier: ^8.0.1
         version: 8.0.1(maplibre-gl@5.1.0)(react-dom@19.0.0-rc.1(react@19.0.0-rc.1))(react@19.0.0-rc.1)
+      react-medium-image-zoom:
+        specifier: ^5.2.14
+        version: 5.2.14(react-dom@19.0.0-rc.1(react@19.0.0-rc.1))(react@19.0.0-rc.1)
       react-player:
         specifier: ^2.16.0
         version: 2.16.0(react@19.0.0-rc.1)
@@ -2419,6 +2422,12 @@ packages:
         optional: true
       maplibre-gl:
         optional: true
+
+  react-medium-image-zoom@5.2.14:
+    resolution: {integrity: sha512-nfTVYcAUnBzXQpPDcZL+cG/e6UceYUIG+zDcnemL7jtAqbJjVVkA85RgneGtJeni12dTyiRPZVM6Szkmwd/o8w==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
   react-player@2.16.0:
     resolution: {integrity: sha512-mAIPHfioD7yxO0GNYVFD1303QFtI3lyyQZLY229UEAp/a10cSW+hPcakg0Keq8uWJxT2OiT/4Gt+Lc9bD6bJmQ==}
@@ -5265,6 +5274,11 @@ snapshots:
       react-dom: 19.0.0-rc.1(react@19.0.0-rc.1)
     optionalDependencies:
       maplibre-gl: 5.1.0
+
+  react-medium-image-zoom@5.2.14(react-dom@19.0.0-rc.1(react@19.0.0-rc.1))(react@19.0.0-rc.1):
+    dependencies:
+      react: 19.0.0-rc.1
+      react-dom: 19.0.0-rc.1(react@19.0.0-rc.1)
 
   react-player@2.16.0(react@19.0.0-rc.1):
     dependencies:

@@ -941,7 +941,7 @@ export async function getProjectBySlug(slug: string) {
     }
 
     const items = await response.json();
-    return items;
+    return items[0];
   } catch (error) {
     console.error("Error fetching properties:", error);
     throw error;
