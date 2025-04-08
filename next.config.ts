@@ -27,6 +27,12 @@ const nextConfig: NextConfig = {
         port: "",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "slategray-mosquito-366047.hostingersite.com",
+        port: "",
+        pathname: "/**",
+      },
     ],
   },
   async redirects() {

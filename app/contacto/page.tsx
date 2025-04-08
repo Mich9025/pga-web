@@ -1,7 +1,5 @@
-import { Section } from "@/components/craft";
-import { SectionHeader } from "@/components/header/SectionHeader";
+import { Container, Section } from "@/components/craft";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -13,190 +11,128 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { HiBuildingOffice2, HiEnvelope, HiPhone } from "react-icons/hi2";
-
 import { generateMetadataFromContent } from "@/lib/metadata";
+import { getAllProjects } from "@/lib/wordpress";
+import { Mail, MapPin, Phone } from "lucide-react";
 
-// contact/page.tsx
 export const metadata = generateMetadataFromContent({
   title: "Contacto",
-  description: "Ponte en contacto con nuestro equipo de expertos inmobiliarios",
-  path: "/contacto",
-  keywords: ["contacto", "ubicación", "teléfono", "email"],
+  description: "Contacto de PGA",
+  path: "/proyectos",
+  keywords: ["proyectos", "PGA", "diseño", "arquitectura", "inmobiliaria"],
 });
 
 export default async function Page() {
-  // const pages = await getAllPages();
+  const wpProjects = await getAllProjects();
 
+  // proyectos disponibles
+  const proyectosDisponibles = wpProjects.filter((proyecto: any) => {
+    const disponibilidad = proyecto.meta.disponibilidad;
+    const split = disponibilidad.split(" ");
+    const num = parseInt(split[0]);
+    return num > 0;
+  });
+
+  const cta = {
+    title: "Encuentra tu espacio ideal",
+    description:
+      // "Porque sabemos que la calidad de vida comienza en casa, nos aseguramos de que cada detalle, cada rincón y cada ambiente sean perfectos para que disfrutes de un hogar único, cómodo y lleno de bienestar.",
+      // "Diseñamos cada rincón pensando en tu bienestar y estilo de vida. Contáctanos hoy y descubre cómo hacemos realidad el hogar que siempre has soñado."
+      "Contáctanos para conocer nuestros proyectos exclusivos y ayudarte a encontrar tu espacio ideal, donde cada detalle refleja la calidad y el confort que mereces.",
+    buttons: [
+      // {
+      //   label: "Contacto",
+      //   href: "/contacto",
+      // },
+      {
+        label: "Agenda con un asesor",
+        href: "/contacto",
+      },
+    ],
+  };
   return (
     <>
-      <SectionHeader title={"Contacto"} className="min-h-[400px]" />
-      <Section className="!mb-0 !pb-0">
-        <div className="relative isolate bg-white">
-          <div className="mx-auto grid max-w-7xl grid-cols-1 lg:grid-cols-2">
-            <div className="relative px-6 pb-20 pt-24 sm:pt-32 lg:static lg:px-8 lg:py-48">
-              <div className="mx-auto max-w-xl lg:mx-0 lg:max-w-lg">
-                <div className="absolute inset-y-0 left-0 -z-10 w-full overflow-hidden bg-gray-100 ring-1 ring-gray-900/10 lg:w-1/2">
-                  <svg
-                    aria-hidden="true"
-                    className="absolute inset-0 size-full stroke-gray-200 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]"
-                  >
-                    <defs>
-                      <pattern
-                        x="100%"
-                        y={-1}
-                        id="83fd4e5a-9d52-42fc-97b6-718e5d7ee527"
-                        width={200}
-                        height={200}
-                        patternUnits="userSpaceOnUse"
-                      >
-                        <path d="M130 200V.5M.5 .5H200" fill="none" />
-                      </pattern>
-                    </defs>
-                    <rect
-                      fill="white"
-                      width="100%"
-                      height="100%"
-                      strokeWidth={0}
-                    />
-                    <svg
-                      x="100%"
-                      y={-1}
-                      className="overflow-visible fill-gray-50"
+      <Section>
+        <div className="lg:fixed lg:inset-0 lg:left-1/2 -z-10">
+          <img
+            alt=""
+            src="https://slategray-mosquito-366047.hostingersite.com/wp-admin/upload.php?item=128"
+            className="h-64 w-full bg-foreground/20 object-cover sm:h-80 lg:absolute lg:h-full"
+          />
+        </div>
+        <Container>
+          <div className="px-6 lg:px-8 w-1/2 flex justify-center">
+            <div className="mx-auto max-w-xl lg:mx-0 lg:max-w-2xl w-full">
+              <h2 className="text-pretty text-4xl font-semibold tracking-tight text-foreground sm:text-5xl lg:text-7xl mb-8 md:mb-12">
+                {cta.title}
+              </h2>
+              <p className="mt-2 text-lg/8 text-foreground/70">
+                {cta.description}
+              </p>
+              <div className="grid md:grid-cols-2 gap-4 py-8">
+                <div className="grid grid-cols-1 gap-5">
+                  <h3 className="font-bold uppercase text-xs tracking-wider">
+                    Contacto
+                  </h3>
+                  <p>
+                    <a
+                      href="mailto:contacto@pgaconstructores.co"
+                      aria-label="Email Address"
+                      className="link-underline"
                     >
-                      <path d="M-470.5 0h201v201h-201Z" strokeWidth={0} />
-                    </svg>
-                    <rect
-                      fill="url(#83fd4e5a-9d52-42fc-97b6-718e5d7ee527)"
-                      width="100%"
-                      height="100%"
-                      strokeWidth={0}
+                      <span className="sr-only">Email: </span>
+                      <Mail
+                        className="inline-block w-4 h-4 mr-2 opacity-60"
+                        aria-hidden="true"
+                      />
+                      contacto@pgaconstructores.co
+                    </a>
+                  </p>
+                  <address className="not-prose not-italic flex">
+                    <MapPin
+                      className="inline-block w-4 h-4 mr-2 opacity-60"
+                      aria-hidden="true"
                     />
-                  </svg>
+                    <div className="location" aria-label="Physical Address">
+                      <p>Cra 7 # 83 – 29. OF 701</p>
+                      <p>Bogotá, D.C. Colombia</p>
+                    </div>
+                  </address>
                 </div>
-                <h2 className="text-pretty text-4xl font-semibold tracking-tight sm:text-5xl">
-                  Contacto
-                </h2>
-                {/* <p className="mt-6 text-lg/8 text-gray-600">
-                  Proin volutpat consequat porttitor cras nullam gravida at.
-                  Orci molestie a eu arcu. Sed ut tincidunt integer elementum id
-                  sem. Arcu sed malesuada et magna.
-                </p> */}
-                <dl className="mt-10 space-y-4 text-base/7 text-gray-600">
-                  <div className="flex gap-x-4">
-                    <dt className="flex-none">
-                      <span className="sr-only">Dirección</span>
-                      <HiBuildingOffice2
-                        aria-hidden="true"
-                        className="h-7 w-6 text-gray-400"
-                      />
-                    </dt>
-                    <dd>
-                      Calle 103 No. 19-60 Piso 4
-                      <br />
-                      Bogotá, D.C. Colombia
-                    </dd>
-                  </div>
-                  <div className="flex gap-x-4">
-                    <dt className="flex-none">
-                      <span className="sr-only">Teléfono</span>
-                      <HiPhone
-                        aria-hidden="true"
-                        className="h-7 w-6 text-gray-400"
-                      />
-                    </dt>
-                    <dd>
+                <div className="contact" aria-label="Contact Details">
+                  <h3 className="font-bold uppercase text-xs tracking-wider mb-5">
+                    Teléfonos
+                  </h3>
+                  {[
+                    "+57 601 383 6269",
+                    "+57 315 397 7603",
+                    "+57 315 852 2596",
+                    "+57 310 222 5636",
+                  ].map((phone) => (
+                    <p key={phone}>
                       <a
-                        href="tel:+57 1 822 222 22"
-                        className="hover:text-gray-900"
+                        href={`tel:${phone.replace(" ", "")}`}
+                        aria-label="Phone Number"
+                        className="link-underline"
                       >
-                        +57 1 822 222 22
+                        <span className="sr-only">Teléfono: </span>
+                        <Phone
+                          className="inline-block w-4 h-4 mr-2 opacity-60"
+                          aria-hidden="true"
+                        />
+                        {phone}
                       </a>
-                    </dd>
-                  </div>
-                  <div className="flex gap-x-4">
-                    <dt className="flex-none">
-                      <span className="sr-only">Email</span>
-                      <HiEnvelope
-                        aria-hidden="true"
-                        className="h-7 w-6 text-gray-400"
-                      />
-                    </dt>
-                    <dd>
-                      <a
-                        href="mailto:contacto@pga.com.co"
-                        className="hover:text-gray-900"
-                      >
-                        contacto@pga.com.co
-                      </a>
-                    </dd>
-                  </div>
-
-                  <div className="flex gap-x-4 items-center pt-8">
-                    <dt className="flex items-center w-[190px] gap-2">
-                      <HiPhone
-                        aria-hidden="true"
-                        className="size-5 text-gray-400"
-                      />
-                      <span className="font-bold">Apartamentos</span>
-                    </dt>
-                    <dd>
-                      <a
-                        href="tel:+57 3214633905"
-                        className="hover:text-gray-900"
-                      >
-                        +57 3214633905
-                      </a>
-                    </dd>
-                  </div>
-                  <div className="flex gap-x-4 items-center">
-                    <dt className="flex items-center w-[190px] gap-2">
-                      <HiPhone
-                        aria-hidden="true"
-                        className="size-5 text-gray-400"
-                      />
-                      <span className="font-bold">Locales y Oficinas</span>
-                    </dt>
-                    <dd>
-                      <a
-                        href="tel:+57 3226285433"
-                        className="hover:text-gray-900"
-                      >
-                        +57 3226285433
-                      </a>
-                    </dd>
-                  </div>
-                  <div className="flex gap-x-4 items-center">
-                    <dt className="flex items-center w-[190px] gap-2">
-                      <HiPhone
-                        aria-hidden="true"
-                        className="size-5 text-gray-400"
-                      />
-                      <span className="font-bold">PGAWorking</span>
-                    </dt>
-                    <dd>
-                      <a
-                        href="tel:+57 13232235837"
-                        className="hover:text-gray-900"
-                      >
-                        +57 13232235837
-                      </a>
-                    </dd>
-                  </div>
-                </dl>
+                    </p>
+                  ))}
+                </div>
               </div>
-            </div>
-            <form
-              action="#"
-              method="POST"
-              className="px-6 pb-24 pt-20 sm:pb-32 lg:px-8 lg:py-48"
-            >
-              <div className="mx-auto max-w-xl lg:mr-0 lg:max-w-lg">
-                <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+              <hr className="mt-6" />
+              <form action="#" method="POST" className="mt-16">
+                <div className="grid grid-cols-1 gap-2 gap-y-4 sm:grid-cols-2">
                   <div>
                     <label
                       htmlFor="first-name"
-                      className="block text-sm/6 font-semibold text-gray-900"
+                      className="font-bold uppercase text-xs tracking-wider"
                     >
                       Nombre
                     </label>
@@ -212,7 +148,7 @@ export default async function Page() {
                   <div>
                     <label
                       htmlFor="last-name"
-                      className="block text-sm/6 font-semibold text-gray-900"
+                      className="font-bold uppercase text-xs tracking-wider"
                     >
                       Apellido
                     </label>
@@ -225,12 +161,12 @@ export default async function Page() {
                       />
                     </div>
                   </div>
-                  <div className="sm:col-span-2">
+                  <div className="sm:col-span-1">
                     <label
                       htmlFor="email"
-                      className="block text-sm/6 font-semibold text-gray-900"
+                      className="font-bold uppercase text-xs tracking-wider"
                     >
-                      Correo Electrónico
+                      Correo electrónico
                     </label>
                     <div className="mt-2.5">
                       <Input
@@ -241,96 +177,99 @@ export default async function Page() {
                       />
                     </div>
                   </div>
-                  <div className="sm:col-span-2">
-                    <label
-                      htmlFor="phone-number"
-                      className="block text-sm/6 font-semibold text-gray-900"
-                    >
-                      Teléfono
-                    </label>
+                  <div className="sm:col-span-1">
+                    <div className="flex justify-between text-sm/6">
+                      <label
+                        htmlFor="phone"
+                        className="font-bold uppercase text-xs tracking-wider"
+                      >
+                        Teléfono
+                      </label>
+                      <p id="phone-description" className="text-foreground/40">
+                        Opcional
+                      </p>
+                    </div>
                     <div className="mt-2.5">
                       <Input
-                        id="phone-number"
-                        name="phone-number"
+                        id="phone"
+                        name="phone"
                         type="tel"
                         autoComplete="tel"
+                        aria-describedby="phone-description"
                       />
                     </div>
                   </div>
                   <div className="sm:col-span-2">
-                    <label
-                      htmlFor="property-type"
-                      className="block text-sm/6 font-semibold text-gray-900"
-                    >
-                      Tipo de Inmueble
-                    </label>
+                    <div className="flex justify-between text-sm/6">
+                      <label
+                        htmlFor="phone"
+                        className="font-bold uppercase text-xs tracking-wider"
+                      >
+                        ¿Cómo podemos ayudarte?
+                      </label>
+                    </div>
                     <div className="mt-2.5">
                       <Select>
-                        <SelectTrigger className="w-full">
-                          <SelectValue placeholder="Seleccionar" />
+                        <SelectTrigger className="">
+                          <SelectValue placeholder="Seleccionar..." />
                         </SelectTrigger>
                         <SelectContent>
                           <SelectGroup>
-                            <SelectLabel>Tipo de Inmueble</SelectLabel>
-                            <SelectItem value="Apartamento">
-                              Apartamento
+                            <SelectLabel>Información de Proyectos</SelectLabel>
+                            {proyectosDisponibles.map((project: any) => (
+                              <SelectItem
+                                value={project.id}
+                                key={`option-${project.id}`}
+                              >
+                                {project.title.rendered}
+                              </SelectItem>
+                            ))}
+                          </SelectGroup>
+                          <SelectGroup>
+                            <SelectLabel>Otras Consultas</SelectLabel>
+                            <SelectItem value="general">
+                              Consulta General
                             </SelectItem>
-                            <SelectItem value="Oficina">Oficina</SelectItem>
-                            <SelectItem value="Locales Comerciales">
-                              Locales Comerciales
-                            </SelectItem>
-                            <SelectItem value="Bodegas">Bodegas</SelectItem>
                           </SelectGroup>
                         </SelectContent>
                       </Select>
                     </div>
                   </div>
                   <div className="sm:col-span-2">
-                    <label
-                      htmlFor="message"
-                      className="block text-sm/6 font-semibold text-gray-900"
-                    >
-                      Message
-                    </label>
+                    <div className="flex justify-between text-sm/6">
+                      <label
+                        htmlFor="message"
+                        className="font-bold uppercase text-xs tracking-wider"
+                      >
+                        Mensaje
+                      </label>
+                      <p
+                        id="message-description"
+                        className="text-foreground/40"
+                      >
+                        Máximo 500 caracteres
+                      </p>
+                    </div>
                     <div className="mt-2.5">
                       <Textarea
                         id="message"
                         name="message"
                         rows={4}
+                        aria-describedby="message-description"
                         defaultValue={""}
                       />
                     </div>
                   </div>
-                  <div className="sm:col-span-2">
-                    <div className="flex items-center space-x-2">
-                      <Checkbox id="terms" />
-                      <label
-                        htmlFor="terms"
-                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                      >
-                        He leído y acepto la política de privacidad
-                      </label>
-                    </div>
-                  </div>
-                  <div className="sm:col-span-2">
-                    <div className="flex items-center space-x-2">
-                      <Checkbox id="subscribe" />
-                      <label
-                        htmlFor="subscribe"
-                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                      >
-                        Acepto recibir comunicaciones comerciales de LA EMPRESA
-                      </label>
-                    </div>
-                  </div>
                 </div>
-                <div className="mt-8 flex justify-end">
-                  <Button type="submit">Send message</Button>
+                <div className="mt-6 flex justify-end">
+                  <Button variant="outline" size="lg">
+                    Enviar
+                  </Button>
                 </div>
-              </div>
-            </form>
+              </form>
+            </div>
           </div>
-        </div>
+        </Container>
       </Section>
     </>
   );

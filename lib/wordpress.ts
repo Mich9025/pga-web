@@ -897,3 +897,101 @@ async function getTermIdFromSlug(
     return null;
   }
 }
+
+export async function getAllProjects() {
+  const baseUrl = process.env.WORDPRESS_URL;
+  const url = `${baseUrl}/wp-json/wp/v2/proyectos`;
+
+  console.log("Fetching URL:", url); // For debugging
+
+  try {
+    const response = await fetch(url, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      next: { revalidate: 3600 },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Properties API failed: ${response.statusText}`);
+    }
+
+    const items = await response.json();
+    return items;
+  } catch (error) {
+    console.error("Error fetching properties:", error);
+    throw error;
+  }
+}
+
+export async function getProject(slug: string) {
+  const baseUrl = process.env.WORDPRESS_URL;
+  const url = `${baseUrl}/wp-json/wp/v2/proyectos/${slug}`;
+
+  try {
+    const response = await fetch(url, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      next: { revalidate: 3600 },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Properties API failed: ${response.statusText}`);
+    }
+
+    const items = await response.json();
+    return items;
+  } catch (error) {
+    console.error("Error fetching properties:", error);
+    throw error;
+  }
+}
+
+export async function getAllServices() {
+  const baseUrl = process.env.WORDPRESS_URL;
+  const url = `${baseUrl}/wp-json/wp/v2/servicios`;
+
+  try {
+    const response = await fetch(url, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      next: { revalidate: 3600 },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Properties API failed: ${response.statusText}`);
+    }
+
+    const items = await response.json();
+    return items;
+  } catch (error) {
+    console.error("Error fetching properties:", error);
+    throw error;
+  }
+}
+
+export async function getService(slug: string) {
+  const baseUrl = process.env.WORDPRESS_URL;
+  const url = `${baseUrl}/wp-json/wp/v2/servicios/${slug}`;
+
+  try {
+    const response = await fetch(url, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      next: { revalidate: 3600 },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Properties API failed: ${response.statusText}`);
+    }
+
+    const items = await response.json();
+    return items;
+  } catch (error) {
+    console.error("Error fetching properties:", error);
+    throw error;
+  }
+}

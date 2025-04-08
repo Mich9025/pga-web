@@ -51,7 +51,7 @@ export function Banner({
         setApi={setCarouselApi}
         opts={{ loop: true }}
         plugins={[Autoplay({ playOnInit: true, delay: 5000 })]}
-        className="absolute inset-0 opacity-50"
+        className="fixed inset-0 opacity-50"
       >
         <CarouselContent className="absolute inset-0 !m-0">
           {images.map((src) => (
@@ -88,7 +88,7 @@ export function Banner({
       )}
 
       {/* Navigation Dots */}
-      <div className="absolute bottom-4 md:bottom-12 inset-x-0 flex justify-center space-x-2 z-20">
+      <div className="absolute bottom-4 md:bottom-12 inset-x-0 flex justify-start space-x-2 z-40 px-4 md:px-24 lg:px-44">
         {Array.from({ length: totalItems }).map((_, index) => (
           <button
             key={index}

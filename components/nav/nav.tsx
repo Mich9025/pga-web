@@ -27,43 +27,43 @@ import {
   useEffect,
 } from "react";
 
-const components: { title: string; href: string; description: string }[] = [
-  {
-    title: "Apartamentos",
-    href: "/inmuebles?types=apartamentos",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-  },
-  {
-    title: "Oficinas",
-    href: "/inmuebles?types=oficinas",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-  },
-  {
-    title: "Locales Comerciales",
-    href: "/inmuebles?types=locales-comerciales",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-  },
-  {
-    title: "Bodegas",
-    href: "/inmuebles?types=bodegas",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-  },
-  {
-    title: "Depósitos",
-    href: "/inmuebles?types=deposito",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-  },
-  // {
-  //   title: "Servicios",
-  //   href: "/inmobiliaria-360",
-  //   description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-  // },
-  // {
-  //   title: "Encuentra el espacio ideal",
-  //   href: "/inmuebles",
-  //   description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-  // },
-];
+// const components: { title: string; href: string; description: string }[] = [
+//   {
+//     title: "Apartamentos",
+//     href: "/inmuebles?types=apartamentos",
+//     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+//   },
+//   {
+//     title: "Oficinas",
+//     href: "/inmuebles?types=oficinas",
+//     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+//   },
+//   {
+//     title: "Locales Comerciales",
+//     href: "/inmuebles?types=locales-comerciales",
+//     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+//   },
+//   {
+//     title: "Bodegas",
+//     href: "/inmuebles?types=bodegas",
+//     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+//   },
+//   {
+//     title: "Depósitos",
+//     href: "/inmuebles?types=deposito",
+//     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+//   },
+//   // {
+//   //   title: "Servicios",
+//   //   href: "/inmobiliaria-360",
+//   //   description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+//   // },
+//   // {
+//   //   title: "Encuentra el espacio ideal",
+//   //   href: "/inmuebles",
+//   //   description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+//   // },
+// ];
 
 const navItems = [
   {
@@ -91,7 +91,7 @@ const navItems = [
 export const NavigationMenu = ({ className, children, id }: NavProps) => {
   // check if home page
   const pathname = usePathname();
-  const isHome = pathname === "/";
+  // const isHome = pathname === "/";
   const { isTransparent, setIsTransparent } = useContext(NavContext);
 
   useEffect(() => {
