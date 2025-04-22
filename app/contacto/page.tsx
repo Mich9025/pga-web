@@ -76,7 +76,7 @@ export default async function Page() {
                   </h3>
                   <p>
                     <a
-                      href="mailto:contacto@pgaconstructores.co"
+                      href="mailto:ventasycartera@pgaconstructores.com"
                       aria-label="Email Address"
                       className="link-underline"
                     >
@@ -85,7 +85,7 @@ export default async function Page() {
                         className="inline-block w-4 h-4 mr-2 opacity-60"
                         aria-hidden="true"
                       />
-                      contacto@pgaconstructores.co
+                      ventasycartera@pgaconstructores.com
                     </a>
                   </p>
                   <address className="not-prose not-italic flex">
@@ -94,7 +94,7 @@ export default async function Page() {
                       aria-hidden="true"
                     />
                     <div className="location" aria-label="Physical Address">
-                      <p>Cra 7 # 83 – 29. OF 701</p>
+                      <p>Carrera 7 #84A - 29</p>
                       <p>Bogotá, D.C. Colombia</p>
                     </div>
                   </address>
@@ -106,7 +106,6 @@ export default async function Page() {
                   {[
                     "+57 601 383 6269",
                     "+57 315 397 7603",
-                    "+57 315 852 2596",
                     "+57 310 222 5636",
                   ].map((phone) => (
                     <p key={phone}>

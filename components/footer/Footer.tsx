@@ -79,7 +79,7 @@ export const Footer = async () => {
               <address className="not-prose not-italic flex">
                 <div className="location" aria-label="Physical Address">
                   <strong className="mr-4">PGA Constructores </strong>
-                  <span>Cra 7 # 83 – 29. OF 701. Bogotá, D.C. Colombia</span>
+                  <span>Carrera 7 #84A - 29. Bogotá, D.C. Colombia</span>
                 </div>
               </address>
               <p className="text-sm tracking-widest ">
@@ -97,7 +97,7 @@ export const Footer = async () => {
                 {[
                   "+57 601 383 6269",
                   "+57 315 397 7603",
-                  "+57 315 852 2596",
+                  // "+57 315 852 2596",
                   "+57 310 222 5636",
                 ].map((phone) => (
                   <a

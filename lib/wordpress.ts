@@ -901,7 +901,7 @@ async function getTermIdFromSlug(
 
 export async function getAllProjects() {
   const baseUrl = WORDPRESS_URL;
-  const url = `${baseUrl}/wp-json/wp/v2/proyectos`;
+  const url = `${baseUrl}/wp-json/wp/v2/proyectos?orderby=date&order=asc`;
 
   console.log("Fetching URL:", url); // For debugging
 

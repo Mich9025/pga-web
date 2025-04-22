@@ -42,14 +42,14 @@ export default async function Home() {
         image:
           "https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/04/19-scaled.jpg",
         content:
-          "Áreas diseñadas a la necesidad del cliente, Vistas inigualables, Cumplimiento en la entrega, respuesta de soporte familiar, zonas sociales exclusivas diseñadas especialmente para cada edificio, sin elementos que encuentres en el mercado.",
+          "Creamos espacios que reflejan su personalidad. Nuestro equipo de diseño trabaja con cada cliente para desarrollar ambientes adaptados a sus necesidades específicas como lo es la distribución de los espacios, queremos que su hogar sea una extensión auténtica de quién es usted.",
       },
       {
         headline: "Confort y Estilo",
         image:
           "https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/04/FOTO-8.png",
         content:
-          "Nos especializamos en diseñar zonas comunes de lujo, perfectas para quienes buscan lo mejor para su calidad de vida. Desde elegantes áreas sociales hasta sofisticadas zonas de recreación, cada espacio está pensado para brindar el máximo confort y estilo.",
+          "Equilibramos funcionalidad con refinamiento estético, cada espacio está cuidadosamente creado para mejorar su experiencia diaria. Materiales premium, soluciones inteligentes y atención meticulosa a los detalles definen nuestro compromiso con su bienestar.<> Desde elegantes áreas sociales hasta sofisticadas zonas de recreación, cada espacio está pensado para brindar el máximo confort y estilo.",
       },
       // {
       //   headline: "Test",
@@ -246,13 +246,13 @@ export default async function Home() {
                       {title}
                     </h3>
                     <p className="max-w-md opacity-60">{description}</p>
-                    <Link
+                    {/*<Link
                       href={`/proyectos/${slug}`}
                       className="link-underline text-primary group opacity-70 transition-opacity duration-300 hover:opacity-100 pb-2"
                     >
                       <span>Conoce más</span>
                       <CgArrowLongRight className="inline-block size-6 ml-3 transform transition-transform duration-300 -translate-x-3 group-hover:translate-x-0 opacity-0 group-hover:opacity-100" />
-                    </Link>
+                    </Link>*/}
                   </div>
                 </div>
               )
