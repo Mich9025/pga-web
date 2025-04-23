@@ -175,19 +175,19 @@ export default async function Page() {
                         {project.title.rendered}
                       </h3>
                     )}
+                    <p className="text-xs/6 font-semibold tracking-wide uppercase opacity-60">
+                      {status}
+                    </p>
                     {/* <h1>{project.featured_image_url}</h1> */}
                     {/* <pre className="text-xs">
                       {JSON.stringify(project, null, 2)}
                       </pre> */}
-                    <p className="max-w-md opacity-60">
+                    <p className="max-w-md text-sm opacity-60">
                       {project.content?.rendered.replace(/<\/?p>/g, "")}
-                    </p>
-                    <p className="text-xs/6 font-semibold tracking-wide uppercase opacity-60">
-                      {status}
                     </p>
                     <Link
                       href={`/proyectos/${project.slug}`}
-                      className="link-underline text-primary group opacity-70 transition-opacity duration-300 hover:opacity-100 pb-2"
+                      className="link-underline text-sm text-primary group opacity-70 transition-opacity duration-300 hover:opacity-100 pb-2"
                     >
                       <span>Conoce más</span>
                       <CgArrowLongRight className="inline-block size-6 ml-3 transform transition-transform duration-300 -translate-x-3 group-hover:translate-x-0 opacity-0 group-hover:opacity-100" />

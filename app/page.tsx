@@ -4,16 +4,14 @@ import { Banner } from "@/components/ui/banner";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
-import { CgArrowLongRight } from "react-icons/cg";
 
 export default async function Home() {
   const bgImages = [
     "https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/04/FOTO-9.png",
-    // "https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/04/FACHADA-2.jpg",
-    "https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/04/FOTO-2-1.jpg ",
+    "https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/04/DSC1669_70_71-scaled.jpg ",
     "https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/04/Captura-de-pantalla-2025-02-18-a-las-2.54.08-p.m.png",
-    "https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/04/Captura-de-pantalla-2025-02-18-a-las-2.55.26-p.m.png",
-    "https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/04/DSC8801_2_3_4_5_tonemapped_1-copy-scaled.jpg",
+    "https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/04/FACHADA-1.jpg",
+    "https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/04/PARK-FACHADA-.png",
     "https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/04/17-1-scaled.jpg",
   ];
 
@@ -314,13 +312,13 @@ export default async function Home() {
                     {headline}
                   </h3>
                   <p className="max-w-xl opacity-60">{content}</p>
-                  <Link
+                  {/* <Link
                     href="#"
                     className="link-underline text-primary group opacity-70 transition-opacity duration-300 hover:opacity-100 pb-2"
                   >
                     <span>Leer más</span>
                     <CgArrowLongRight className="inline-block size-6 ml-3 transform transition-transform duration-300 -translate-x-3 group-hover:translate-x-0 opacity-0 group-hover:opacity-100" />
-                  </Link>
+                  </Link> */}
                 </div>
               </div>
             ))}
