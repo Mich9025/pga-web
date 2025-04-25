@@ -14,11 +14,9 @@ export default async function Home() {
   const homeProjects = wpProjects.slice(0, 3);
 
   const bgImages = [
-    "https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/04/FOTO-9.png",
-    "https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/04/DSC1669_70_71-scaled.jpg ",
+    "https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/04/DSC1669_70_71-editada-scaled.jpg",
+    "https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/04/Diseno-sin-titulo-3.png",
     "https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/04/Captura-de-pantalla-2025-02-18-a-las-2.54.08-p.m.png",
-    "https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/04/FACHADA-1.jpg",
-    "https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/04/PARK-FACHADA-.png",
     "https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/04/17-1-scaled.jpg",
   ];
 
