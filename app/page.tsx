@@ -2,10 +2,17 @@ import { Container, Section } from "@/components/craft";
 
 import { Banner } from "@/components/ui/banner";
 import { Button } from "@/components/ui/button";
+import { getAllProjects } from "@/lib/wordpress";
 import Image from "next/image";
 import Link from "next/link";
+import { CgArrowLongRight } from "react-icons/cg";
 
 export default async function Home() {
+  const wpProjects = await getAllProjects();
+
+  // top 3 projects
+  const homeProjects = wpProjects.slice(0, 3);
+
   const bgImages = [
     "https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/04/FOTO-9.png",
     "https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/04/DSC1669_70_71-scaled.jpg ",
@@ -204,15 +211,37 @@ export default async function Home() {
         </Container>
         <Container className="!pt-4">
           <div className="flex flex-col divide-y divide-foreground/10 grow">
-            {projects.map(
-              ({ id, title, image, description, logo, status, slug }) => (
+            {homeProjects.map((project: any) => {
+              // Get status text from the estado_proyecto taxonomy
+              let status = "";
+              if (project.estado_proyecto?.includes(3)) {
+                status =
+                  project.meta.disponibilidad === "0 unidades"
+                    ? "Construido"
+                    : `Construido - en ventas ${project.meta.disponibilidad}`;
+              } else if (project.estado_proyecto?.includes(4)) {
+                status = "En construcción";
+              } else if (project.estado_proyecto?.includes(5)) {
+                status = "En venta";
+              }
+
+              // Get featured image
+              const image =
+                project.featured_image_url ||
+                // project.gallery_images?.[0]?.url ||
+                "https://pgaconstructores.co/wp-content/uploads/2024/08/TERRAZA-2.png";
+              // project.gallery_images && project.gallery_images.length > 0
+              //   ? project.gallery_images[0].url
+              //   : "";
+
+              return (
                 <div
-                  key={`proyecto-${id}`}
+                  key={`proyecto-${project.id}`}
                   className="flex items-center gap-6 md:gap-12 lg:gap-16 py-6 sticky top-0 z-10 bg-background group"
                 >
                   <Link
-                    href={`/proyectos/${slug}`}
                     className="flex-shrink-0 aspect-[16/12] w-full md:w-1/2 lg:w-4/5 relative overflow-hidden"
+                    href={`/proyectos/${project.slug}`}
                   >
                     <Image
                       src={image}
@@ -227,34 +256,42 @@ export default async function Home() {
                       className="object-cover transform scale-100 group-hover:scale-105 transition-transform duration-300 ease-in-out grayscale opacity-50 group-hover:opacity-0"
                     />
                   </Link>
-                  <div className="flex-1 space-y-2 md:space-y-4 lg:space-y-8 w-full md:w-1/2 lg:w-1/5 text-sm md:text-base lg:text-lg">
-                    <div className="min-h-40 w-full relative -z-10">
-                      <Image
-                        src={logo}
-                        alt={title}
-                        fill
-                        className="object-contain object-left"
-                      />
-                    </div>
-                    <span className="text-sm md:text-sm lg:text-base font-base tracking-wide uppercase">
-                      {/* Category 0{i + 1} */}
+                  <div className="flex-1 space-y-2 md:space-y-4 lg:space-y-6 w-full md:w-1/2 lg:w-1/5 text-sm md:text-base lg:text-lg pb-10 lg:pb-20">
+                    {project.icon ? (
+                      <div className="max-w-64 min-h-40 w-full relative -z-10">
+                        <Image
+                          src={project.icon}
+                          alt={project.title.rendered}
+                          fill
+                          className="object-contain object-left-bottom"
+                        />
+                      </div>
+                    ) : (
+                      <h3 className="text-xl md:text-2xl lg:text-4xl font-semibold tracking-tight">
+                        {project.title.rendered}
+                      </h3>
+                    )}
+                    <p className="text-xs/6 font-semibold tracking-wide uppercase opacity-60">
                       {status}
-                    </span>
-                    <h3 className="text-xl md:text-2xl lg:text-4xl font-semibold tracking-tight">
-                      {title}
-                    </h3>
-                    <p className="max-w-md opacity-60">{description}</p>
-                    {/*<Link
-                      href={`/proyectos/${slug}`}
-                      className="link-underline text-primary group opacity-70 transition-opacity duration-300 hover:opacity-100 pb-2"
+                    </p>
+                    {/* <h1>{project.featured_image_url}</h1> */}
+                    {/* <pre className="text-xs">
+                      {JSON.stringify(project, null, 2)}
+                      </pre> */}
+                    <p className="max-w-md text-sm opacity-60">
+                      {project.content?.rendered.replace(/<\/?p>/g, "")}
+                    </p>
+                    <Link
+                      href={`/proyectos/${project.slug}`}
+                      className="link-underline text-sm text-primary group opacity-70 transition-opacity duration-300 hover:opacity-100 pb-2"
                     >
                       <span>Conoce más</span>
                       <CgArrowLongRight className="inline-block size-6 ml-3 transform transition-transform duration-300 -translate-x-3 group-hover:translate-x-0 opacity-0 group-hover:opacity-100" />
-                    </Link>*/}
+                    </Link>
                   </div>
                 </div>
-              )
-            )}
+              );
+            })}
           </div>
           <Button
             variant="outline"
