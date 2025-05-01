@@ -225,12 +225,7 @@ export default async function Home() {
 
               // Get featured image
               const image =
-                project.featured_image_url ||
-                // project.gallery_images?.[0]?.url ||
-                "https://pgaconstructores.co/wp-content/uploads/2024/08/TERRAZA-2.png";
-              // project.gallery_images && project.gallery_images.length > 0
-              //   ? project.gallery_images[0].url
-              //   : "";
+                project.featured_image_url 
 
               return (
                 <div

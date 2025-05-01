@@ -910,7 +910,7 @@ export async function getAllProjects() {
       headers: {
         "Content-Type": "application/json",
       },
-      next: { revalidate:  1800},
+      next: { revalidate:  0},
     });
 
     if (!response.ok) {

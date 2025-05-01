@@ -103,11 +103,11 @@ export default async function Page() {
           </svg>
         </div>
         {/* <pre className="text-xs">{JSON.stringify(wpProjects, null, 2)}</pre> */}
-        <Container className="w-full flex-col space-y-4 md:space-y-6 lg:space-y-8 relative z-10 md:p-16 md:pb-8 lg:p-36 lg:pb-16">
-          <h2 className="text-3xl md:text-6xl lg:text-8xl font-light tracking-tight">
+        <Container className="w-full flex-col space-y-6 relative z-10 p-6 md:p-16 md:pb-8 lg:p-36 lg:pb-16">
+          <h2 className="text-4xl md:text-6xl lg:text-8xl font-light tracking-tight">
             {projectsSection.title}
           </h2>
-          <p className="text-lg md:text-xl/8 max-w-screen-xl opacity-70 py-4">
+          <p className="text-base/relaxed md:text-xl/8 max-w-screen-xl opacity-70">
             {projectsSection.description}
           </p>
         </Container>
@@ -141,7 +141,7 @@ export default async function Page() {
               return (
                 <div
                   key={`proyecto-${project.id}`}
-                  className="flex items-center gap-6 md:gap-12 lg:gap-16 py-6 sticky top-0 z-10 bg-background group"
+                  className="flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-12 lg:gap-16 py-6 sticky top-0 z-10 bg-background group"
                 >
                   <Link
                     className="flex-shrink-0 aspect-[16/12] w-full md:w-1/2 lg:w-4/5 relative overflow-hidden"
@@ -160,7 +160,7 @@ export default async function Page() {
                       className="object-cover transform scale-100 group-hover:scale-105 transition-transform duration-300 ease-in-out grayscale opacity-50 group-hover:opacity-0"
                     />
                   </Link>
-                  <div className="flex-1 space-y-2 md:space-y-4 lg:space-y-6 w-full md:w-1/2 lg:w-1/5 text-sm md:text-base lg:text-lg pb-10 lg:pb-20">
+                  <div className="flex-1 space-y-4 w-full md:w-1/2 lg:w-1/5 text-base md:text-base lg:text-lg pb-6 md:pb-10 lg:pb-20">
                     {project.icon ? (
                       <div className="max-w-64 min-h-40 w-full relative -z-10">
                         <Image
