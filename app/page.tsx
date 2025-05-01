@@ -150,8 +150,8 @@ export default async function Home() {
       <div id="hero-section" className="relative -z-10">
         <Banner images={bgImages}>
           <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/50 via-transparent to-transparent w-full h-1/2 z-10 select-none pointer-events-none"></div>
-          <div className="flex-col space-y-4 md:space-y-6 lg:space-y-8 relative z-10 md:px-16 lg:px-36 max-w-screen-lg w-full mt-auto pointer-events-none select-none">
-            <h2 className="mt-2 text-lg font-normal tracking-tight text-white md:text-6xl">
+          <div className="flex-col space-y-2 sm:space-y-4 md:space-y-6 lg:space-y-8 relative z-10 px-4 sm:px-8 md:px-16 lg:px-36 max-w-screen-lg w-full mt-auto pointer-events-none select-none">
+            <h2 className="mt-2 text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-normal tracking-tight text-white">
               {heroSection.mainText}
             </h2>
           </div>
@@ -188,10 +188,10 @@ export default async function Home() {
           </svg>
         </div>
         <Container className="w-full flex-col space-y-4 md:space-y-6 lg:space-y-8 relative z-10 md:p-16 lg:p-36">
-          <h2 className="text-3xl md:text-6xl lg:text-8xl font-light tracking-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-6xl lg:text-8xl font-light tracking-tight">
             {heroSection.headline}
           </h2>
-          <p className="text-lg md:text-xl/8 max-w-screen-xl opacity-70 pt-4">
+          <p className="text-base sm:text-lg md:text-xl/8 max-w-screen-xl opacity-70 pt-2 sm:pt-4">
             {intro.content}
           </p>
         </Container>
@@ -235,7 +235,7 @@ export default async function Home() {
               return (
                 <div
                   key={`proyecto-${project.id}`}
-                  className="flex items-center gap-6 md:gap-12 lg:gap-16 py-6 sticky top-0 z-10 bg-background group"
+                  className="flex md:flex-row flex-col items-center gap-6 md:gap-12 lg:gap-16 py-6 sticky top-0 z-10 bg-background group"
                 >
                   <Link
                     className="flex-shrink-0 aspect-[16/12] w-full md:w-1/2 lg:w-4/5 relative overflow-hidden"
