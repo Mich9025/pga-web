@@ -44,7 +44,7 @@ function getUrl(path: string, query?: Record<string, any>) {
 const defaultFetchOptions: FetchOptions = {
   next: {
     tags: ["wordpress"],
-    revalidate: 3600, // Revalidate every hour by default
+    revalidate: 0, // Revalidate every hour by default
   },
   headers: {
     Accept: "application/json",
@@ -567,7 +567,7 @@ export async function getAllProperties(
       headers: {
         "Content-Type": "application/json",
       },
-      next: { revalidate: 3600 },
+      next: { revalidate: 0 },
     });
 
     if (!response.ok) {
@@ -619,7 +619,7 @@ export async function getPropertyBySlug(
       headers: {
         "Content-Type": "application/json",
       },
-      next: { revalidate: 3600 },
+      next: { revalidate: 0 },
     });
 
     if (!response.ok) {
@@ -659,7 +659,7 @@ export async function extractClassInfo(
         headers: {
           "Content-Type": "application/json",
         },
-        next: { revalidate: 3600 },
+        next: { revalidate: 0 },
       });
 
       if (!response.ok) return undefined;
@@ -785,7 +785,7 @@ export async function getAllFromCustomPostType<T>(
       headers: {
         "Content-Type": "application/json",
       },
-      next: { revalidate: 3600 },
+      next: { revalidate: 0 },
     });
 
     if (!response.ok) {
@@ -809,7 +809,7 @@ export async function getTaxonomies() {
       headers: {
         "Content-Type": "application/json",
       },
-      next: { revalidate: 3600 },
+      next: { revalidate: 0 },
     });
 
     if (!response.ok) {
@@ -833,7 +833,7 @@ export async function getTaxonomy(slug: string) {
       headers: {
         "Content-Type": "application/json",
       },
-      next: { revalidate: 3600 },
+      next: { revalidate:  1800},
     });
 
     if (!response.ok) {
@@ -857,7 +857,7 @@ export async function getTaxonomyTerms(taxonomy: string) {
       headers: {
         "Content-Type": "application/json",
       },
-      next: { revalidate: 3600 },
+      next: { revalidate:  1800},
     });
 
     if (!response.ok) {
@@ -886,7 +886,7 @@ async function getTermIdFromSlug(
       headers: {
         "Content-Type": "application/json",
       },
-      next: { revalidate: 3600 },
+      next: { revalidate:  1800},
     });
 
     if (!response.ok) return null;
@@ -910,7 +910,7 @@ export async function getAllProjects() {
       headers: {
         "Content-Type": "application/json",
       },
-      next: { revalidate: 3600 },
+      next: { revalidate:  1800},
     });
 
     if (!response.ok) {
@@ -933,7 +933,7 @@ export async function getProjectBySlug(slug: string) {
       headers: {
         "Content-Type": "application/json",
       },
-      next: { revalidate: 3600 },
+      next: { revalidate:  1800},
     });
 
     if (!response.ok) {
@@ -957,7 +957,7 @@ export async function getAllServices() {
       headers: {
         "Content-Type": "application/json",
       },
-      next: { revalidate: 3600 },
+      next: { revalidate:  1800},
     });
 
     if (!response.ok) {
@@ -981,7 +981,7 @@ export async function getService(slug: string) {
       headers: {
         "Content-Type": "application/json",
       },
-      next: { revalidate: 3600 },
+      next: { revalidate:  1800},
     });
 
     if (!response.ok) {

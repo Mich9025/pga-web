@@ -15,8 +15,8 @@ export default async function Home() {
 
   const bgImages = [
     "https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/04/DSC1669_70_71-editada-scaled.jpg",
-    "https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/04/Diseno-sin-titulo-3.png",
-    "https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/04/Captura-de-pantalla-2025-02-18-a-las-2.54.08-p.m.png",
+    "https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/05/1.-FOTO-FACHADA-4_3-_-1080-x-1350px-scaled.jpg",
+    "https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/05/TEMPO-4_3-_-1080x1350px.jpg",
     "https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/04/17-1-scaled.jpg",
   ];
 
@@ -252,7 +252,7 @@ export default async function Home() {
                       alt=""
                       fill
                       className="object-cover transform scale-100 group-hover:scale-105 transition-transform duration-300 ease-in-out grayscale opacity-50 group-hover:opacity-0"
-                    />
+                    /> 
                   </Link>
                   <div className="flex-1 space-y-2 md:space-y-4 lg:space-y-6 w-full md:w-1/2 lg:w-1/5 text-sm md:text-base lg:text-lg pb-10 lg:pb-20">
                     {project.icon ? (
@@ -313,8 +313,8 @@ export default async function Home() {
           </div>
         </Container>
         <Container className="flex lg:flex-row gap-6">
-          <div className="border-r border-foreground/10 md:sticky top-0 z-10 mt-6 w-12">
-            <h2 className="md:text-nowrap md:indent-3 md:rotate-90 transform tracking-tight sticky top-6 z-10 text-muted-foreground before:content-[''] before:bg-muted-foreground/50 before:w-4 before:h-px before:inline-block before:relative before:bottom-1 before:mr-3 before:rounded-full">
+          <div className="hidden md:block border-r border-foreground/10 md:sticky top-0 z-10 mt-6 w-12">
+            <h2 className="hidden md:block md:text-nowrap md:indent-3 md:rotate-90 transform tracking-tight sticky top-6 z-10 text-muted-foreground before:content-[''] before:bg-muted-foreground/50 before:w-4 before:h-px before:inline-block before:relative before:bottom-1 before:mr-3 before:rounded-full">
               Servicios
             </h2>
           </div>
@@ -323,9 +323,9 @@ export default async function Home() {
             {intro.services.map(({ headline, content, image }, i) => (
               <div
                 key={`service-${i}-${headline}`}
-                className="flex items-center gap-6 md:gap-18 lg:gap-24 py-6 sticky top-0 z-10 bg-background group"
+                className="flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-18 lg:gap-24 py-6 sticky top-0 z-10 bg-background group"
               >
-                <div className="flex-shrink-0 aspect-[4/3] w-full max-w-screen-sm relative overflow-hidden">
+                <div className="flex-shrink-0 aspect-[4/3] w-full md:w-1/2 lg:w-2/5 relative overflow-hidden">
                   <Image
                     src={image}
                     alt=""
@@ -339,7 +339,7 @@ export default async function Home() {
                     className="object-cover transform scale-100 group-hover:scale-105 transition-transform duration-300 ease-in-out grayscale opacity-50 group-hover:opacity-0"
                   />
                 </div>
-                <div className="flex-1 space-y-2 md:space-y-4 lg:space-y-8 text-sm md:text-base lg:text-lg">
+                <div className="flex-1 space-y-2 md:space-y-4 lg:space-y-8 text-sm md:text-base lg:text-lg pt-4 md:pt-0">
                   <span className="text-lg md:text-xl lg:text-2xl font-bold tracking-wide uppercase">
                     0{i + 1}
                   </span>

@@ -56,12 +56,12 @@ export default async function Page() {
         <div className="lg:fixed lg:inset-0 lg:left-1/2 -z-10">
           <img
             alt=""
-            src="https://slategray-mosquito-366047.hostingersite.com/wp-admin/upload.php?item=128"
+            src="https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/04/17-scaled.jpg"
             className="h-64 w-full bg-foreground/20 object-cover sm:h-80 lg:absolute lg:h-full"
           />
         </div>
         <Container>
-          <div className="px-6 lg:px-8 w-1/2 flex justify-center">
+          <div className="px-6 lg:px-8 w-full flex justify-center">
             <div className="mx-auto max-w-xl lg:mx-0 lg:max-w-2xl w-full">
               <h2 className="text-pretty text-4xl font-semibold tracking-tight text-foreground sm:text-5xl lg:text-7xl mb-8 md:mb-12">
                 {cta.title}
