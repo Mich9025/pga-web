@@ -299,7 +299,7 @@ export default async function Home() {
       <Section className="bg-background">
         <Container className="w-full flex-col space-y-4 md:space-y-6 lg:space-y-8 relative z-10 md:px-16 lg:px-36">
           <div className="max-w-screen-md mr-auto flex flex-col gap-6 md:gap-8 lg:gap-10">
-            <h2 className="text-3xl md:text-6xl lg:text-8xl font-light tracking-tight">
+            <h2 className="text-3xl md:text-6xl lg:text-6xl font-light tracking-tight">
               {servicesSection.title}
             </h2>
             <p className="text-lg md:text-xl opacity-70">

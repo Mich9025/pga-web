@@ -61,36 +61,36 @@ export default async function Page() {
           />
         </div>
         <Container>
-          <div className="px-6 lg:px-8 w-full flex justify-center">
-            <div className="mx-auto max-w-xl lg:mx-0 lg:max-w-2xl w-full">
-              <h2 className="text-pretty text-4xl font-semibold tracking-tight text-foreground sm:text-5xl lg:text-7xl mb-8 md:mb-12">
+          <div className="px-4 sm:px-6 lg:px-8 w-full">
+            <div className="mx-auto max-w-xl lg:mx-0 lg:max-w-96 w-full lg:w-1/2">
+              <h2 className="text-pretty text-3xl sm:text-4xl font-semibold tracking-tight text-foreground lg:text-7xl mb-6 sm:mb-8 md:mb-12">
                 {cta.title}
               </h2>
-              <p className="mt-2 text-lg/8 text-foreground/70">
+              <p className="mt-2 text-base sm:text-lg/8 text-foreground/70">
                 {cta.description}
               </p>
-              <div className="grid md:grid-cols-2 gap-4 py-8">
-                <div className="grid grid-cols-1 gap-5">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-6 sm:py-8">
+                <div className="grid grid-cols-1 gap-4 sm:gap-5">
                   <h3 className="font-bold uppercase text-xs tracking-wider">
                     Contacto
                   </h3>
-                  <p>
+                  <p className="break-words">
                     <a
                       href="mailto:ventasycartera@pgaconstructores.com"
                       aria-label="Email Address"
-                      className="link-underline"
+                      className="link-underline inline-flex items-center"
                     >
                       <span className="sr-only">Email: </span>
                       <Mail
-                        className="inline-block w-4 h-4 mr-2 opacity-60"
+                        className="inline-block w-4 h-4 mr-2 opacity-60 flex-shrink-0"
                         aria-hidden="true"
                       />
-                      ventasycartera@pgaconstructores.com
+                      <span className="break-all">ventasycartera@pgaconstructores.com</span>
                     </a>
                   </p>
-                  <address className="not-prose not-italic flex">
+                  <address className="not-prose not-italic flex items-start">
                     <MapPin
-                      className="inline-block w-4 h-4 mr-2 opacity-60"
+                      className="inline-block w-4 h-4 mr-2 opacity-60 flex-shrink-0 mt-1"
                       aria-hidden="true"
                     />
                     <div className="location" aria-label="Physical Address">
@@ -99,8 +99,8 @@ export default async function Page() {
                     </div>
                   </address>
                 </div>
-                <div className="contact" aria-label="Contact Details">
-                  <h3 className="font-bold uppercase text-xs tracking-wider mb-5">
+                <div className="contact space-y-4" aria-label="Contact Details">
+                  <h3 className="font-bold uppercase text-xs tracking-wider">
                     Teléfonos
                   </h3>
                   {[
@@ -112,11 +112,11 @@ export default async function Page() {
                       <a
                         href={`tel:${phone.replace(" ", "")}`}
                         aria-label="Phone Number"
-                        className="link-underline"
+                        className="link-underline inline-flex items-center"
                       >
                         <span className="sr-only">Teléfono: </span>
                         <Phone
-                          className="inline-block w-4 h-4 mr-2 opacity-60"
+                          className="inline-block w-4 h-4 mr-2 opacity-60 flex-shrink-0"
                           aria-hidden="true"
                         />
                         {phone}
@@ -126,8 +126,8 @@ export default async function Page() {
                 </div>
               </div>
               <hr className="mt-6" />
-              <form action="#" method="POST" className="mt-16">
-                <div className="grid grid-cols-1 gap-2 gap-y-4 sm:grid-cols-2">
+              <form action="#" method="POST" className="mt-12 sm:mt-16">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6">
                   <div>
                     <label
                       htmlFor="first-name"
@@ -184,7 +184,7 @@ export default async function Page() {
                       >
                         Teléfono
                       </label>
-                      <p id="phone-description" className="text-foreground/40">
+                      <p id="phone-description" className="text-foreground/40 text-xs">
                         Opcional
                       </p>
                     </div>
@@ -201,7 +201,7 @@ export default async function Page() {
                   <div className="sm:col-span-2">
                     <div className="flex justify-between text-sm/6">
                       <label
-                        htmlFor="phone"
+                        htmlFor="help-type"
                         className="font-bold uppercase text-xs tracking-wider"
                       >
                         ¿Cómo podemos ayudarte?
@@ -209,7 +209,7 @@ export default async function Page() {
                     </div>
                     <div className="mt-2.5">
                       <Select>
-                        <SelectTrigger className="">
+                        <SelectTrigger id="help-type">
                           <SelectValue placeholder="Seleccionar..." />
                         </SelectTrigger>
                         <SelectContent>
@@ -244,7 +244,7 @@ export default async function Page() {
                       </label>
                       <p
                         id="message-description"
-                        className="text-foreground/40"
+                        className="text-foreground/40 text-xs"
                       >
                         Máximo 500 caracteres
                       </p>
@@ -261,7 +261,7 @@ export default async function Page() {
                   </div>
                 </div>
                 <div className="mt-6 flex justify-end">
-                  <Button variant="outline" size="lg">
+                  <Button variant="outline" size="lg" className="w-full sm:w-auto">
                     Enviar
                   </Button>
                 </div>
