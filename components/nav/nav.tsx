@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-import Logo from "@/public/logo-pga.svg";
+import Logo from "@/public/final.svg";
 
 import Image from "next/image";
 import { usePathname } from "next/navigation";

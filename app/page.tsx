@@ -338,7 +338,7 @@ export default async function Home() {
                   <span className="text-lg md:text-xl lg:text-2xl font-bold tracking-wide uppercase">
                     0{i + 1}
                   </span>
-                  <h3 className="text-xl md:text-4xl lg:text-8xl font-light tracking-tight max-w-md">
+                  <h3 className="text-xl md:text-4xl lg:text-6xl font-light tracking-tight max-w-md">
                     {headline}
                   </h3>
                   <p className="max-w-xl opacity-60">{content}</p>
