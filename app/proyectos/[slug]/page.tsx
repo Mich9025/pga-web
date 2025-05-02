@@ -65,7 +65,7 @@ export default async function projectPage({ params }: any) {
       status =
         project?.meta?.disponibilidad === "0 unidades"
           ? "Construido"
-          : `Construido ${project?.meta?.disponibilidad}`;
+          : `Construido`;
     } else if (project.estado_proyecto?.includes(4)) {
       status = "En construcción";
     } else if (project.estado_proyecto?.includes(5)) {
