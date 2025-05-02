@@ -61,7 +61,7 @@ export default async function Page() {
           />
         </div>
         <Container>
-          <div className="px-4 sm:px-6 lg:px-8 w-full">
+          <div className="px-4 sm:px-6 lg:px-8 w-full mt-8">
             <div className="mx-auto max-w-xl lg:mx-0 lg:max-w-96 w-full lg:w-1/2">
               <h2 className="text-pretty text-3xl sm:text-4xl font-semibold tracking-tight text-foreground lg:text-7xl mb-6 sm:mb-8 md:mb-12">
                 {cta.title}
