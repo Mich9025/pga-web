@@ -65,7 +65,7 @@ export default async function projectPage({ params }: any) {
       status =
         project?.meta?.disponibilidad === "0 unidades"
           ? "Construido"
-          : `Construido - en ventas ${project?.meta?.disponibilidad}`;
+          : `Construido ${project?.meta?.disponibilidad}`;
     } else if (project.estado_proyecto?.includes(4)) {
       status = "En construcción";
     } else if (project.estado_proyecto?.includes(5)) {
@@ -83,8 +83,8 @@ export default async function projectPage({ params }: any) {
     const detailsItems = [
       { label: "Ubicación", value: project?.meta?.ubicacion_exacta },
       { label: "Entrega", value: project?.meta?.fecha_entrega },
-      { label: "Desarrollador", value: project?.meta?.desarrollador },
-      { label: "Arquitecto", value: project?.meta?.arquitecto },
+      { label: "Constructora", value: project?.meta?.desarrollador },
+      { label: "Diseño", value: project?.meta?.arquitecto },
       { label: "Estado", value: status },
       { label: "Disponibilidad", value: project?.meta?.disponibilidad },
       { label: "Total unidades", value: project?.meta?.total_unidades },

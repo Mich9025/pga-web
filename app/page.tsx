@@ -34,7 +34,7 @@ export default async function Home() {
 
   const intro = {
     content:
-      "En PGA CONSTRUCTORES contamos con más de 15 años de experiencia creando espacios de alto nivel en los sectores más exclusivos de ciudades como Cali y Bogotá. Nuestra pasión por la arquitectura de calidad nos ha permitido desarrollar proyectos excepcionales que no solo cumplen con las más altas expectativas, sino que las superan, ofreciendo vistas espectaculares que transforman cada ventana en una obra de arte.",
+      "Más de 14 años de experiencia creando proyectos de alto nivel en los sectores más exclusivos de Colombia. Nuestra pasión por la arquitectura de calidad nos ha permitido desarrollar proyectos excepcionales que no solo cumplen con las más altas expectativas, sino que las superan.",
     content_extra:
       "Nos especializamos en diseñar zonas comunes de lujo, perfectas para quienes buscan lo mejor para su calidad de vida. Desde elegantes áreas sociales hasta sofisticadas zonas de recreación, cada espacio está pensado para brindar el máximo confort y estilo. Sabemos que el hogar es más que un lugar, es un refugio. Por eso, cada uno de nuestros proyectos está diseñado para ofrecer ambientes familiares, ideales para compartir momentos especiales con amigos. En PGA CONSTRUCTORES, creemos que tu hogar debe ser un lugar al que siempre quieras regresar. Con nuestras propuestas arquitectónicas, no sólo ofrecemos un espacio físico, sino un estilo de vida. Porque sabemos que la calidad de vida comienza en casa, nos aseguramos de que cada detalle, cada rincón y cada ambiente sean perfectos para que disfrutes de un hogar único, cómodo y lleno de bienestar.",
     valueProposition:
@@ -67,7 +67,7 @@ export default async function Home() {
       {
         headline: "Experiencia",
         image:
-          "https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/04/portrait-of-an-engineer-designing-a-large-project-2025-03-09-12-32-31-utc.jpg",
+          "https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/05/Colette-Studio_Unique-Cali_Exterior-7-Alta-scaled.jpg",
         content:
           "Cumplimos rigurosamente nuestros plazos de entrega y ofrecemos soporte post-venta personalizado, respondiendo con la dedicación que merece tu inversión.",
         // "Porque sabemos que la calidad de vida comienza en casa, nos aseguramos de que cada detalle, cada rincón y cada ambiente sean perfectos para que disfrutes de un hogar único, cómodo y lleno de bienestar.",
