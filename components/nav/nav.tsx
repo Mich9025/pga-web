@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-import Logo from "@/public/final.svg";
+import Logo from "@/public/images/logo/Logo_horizontal.svg";
 
 import Image from "next/image";
 import { usePathname } from "next/navigation";
