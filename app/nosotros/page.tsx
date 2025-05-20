@@ -171,6 +171,7 @@ export default async function Page() {
                       alt={project.title.rendered}
                       fill
                       className="object-contain object-center"
+                      unoptimized = {true}
                     />
                   </div>
                 </Link>

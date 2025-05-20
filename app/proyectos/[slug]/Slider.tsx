@@ -81,6 +81,7 @@ function Slider({ alt, id: altId, images }: SliderProps) {
                     width={width}
                     height={height}
                     priority={index === 0}
+                    unoptimized = {true}
                   />
                 </div>
               </div>
@@ -107,6 +108,7 @@ function Slider({ alt, id: altId, images }: SliderProps) {
                     height={height}
                     alt={`Thumbnail ${index + 1}`}
                     className="w-full h-full object-cover rounded-md"
+                    unoptimized = {true}
                   />
                 </div>
               ))}
