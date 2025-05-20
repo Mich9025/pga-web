@@ -143,6 +143,7 @@ export default async function projectPage({ params }: any) {
                   alt={project?.title?.rendered}
                   fill
                   className="object-contain object-left-bottom invert"
+                  unoptimized = {true}
                 />
               </div>
             ) : (
@@ -178,6 +179,7 @@ export default async function projectPage({ params }: any) {
                         alt={project?.title?.rendered}
                         fill
                         className="object-cover"
+                        unoptimized = {true}
                       />
                     </div>
                   </Zoom>
@@ -216,6 +218,7 @@ export default async function projectPage({ params }: any) {
                                 }`}
                                 fill
                                 className="object-cover transition-transform duration-300 ease-in-out"
+                                unoptimized = {true}
                               />
                             </div>
                           </Zoom>
