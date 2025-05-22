@@ -13,6 +13,7 @@ import { Footer } from "@/components/footer/Footer";
 
 import { NavigationMenu } from "@/components/nav/nav";
 import { NavProvider } from "./context/NavContext";
+import Script from "next/script";
 
 const font = FontSans({
   weight: ["200", "400", "500", "600", "700"],
@@ -41,7 +42,27 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head />
+      <head>
+        {/* Google Tag Manager */}
+        <Script
+          id="gtm-script"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+              new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+              j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+              'https://www.googletagmanager.com/gtag/js?id='+i+dl;f.parentNode.insertBefore(j,f);
+              })(window,document,'script','dataLayer','G-BNL8YKKDK4');
+              
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-BNL8YKKDK4');
+            `,
+          }}
+        />
+      </head>
       <body className={cn("min-h-screen font-sans antialiased", font.variable)}>
         <ThemeProvider
           attribute="class"
