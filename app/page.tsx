@@ -16,7 +16,7 @@ export default async function Home() {
   const bgImages = [
     "https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/04/DSC1669_70_71-editada-scaled.jpg",
     "https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/05/1.-FOTO-FACHADA-4_3-_-1080-x-1350px-scaled.jpg",
-    "https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/05/TEMPO-4_3-_-1080x1350px.jpg",
+    "https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/06/US-b7ebc48d-13af-4a53-872b-4b252537267c.jpeg",
     "https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/04/17-1-scaled.jpg",
   ];
 

@@ -82,6 +82,11 @@ const navItems = [
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
   },
   {
+    title: "Avance de obra",
+    href: "/avance-de-obra",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+  },
+  {
     title: "Contacto",
     href: "/contacto",
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",

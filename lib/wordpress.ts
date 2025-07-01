@@ -3,8 +3,19 @@
 // Types are imported from `wp.d.ts`
 
 import { revalidateTag } from "next/cache";
-import { headers } from "next/headers";
+// Import headers dynamically to avoid issues in client components
 import querystring from "query-string";
+
+// We'll handle headers access safely in the wordpressFetch function
+let headers: Function | undefined;
+try {
+  // Dynamic import to avoid issues in client components
+  const headersModule = require("next/headers");
+  headers = headersModule.headers;
+} catch (e) {
+  // Headers module not available (client component)
+  headers = undefined;
+}
 
 import {
   Author,
@@ -65,8 +76,27 @@ async function wordpressFetch<T>(
   url: string,
   options: FetchOptions = {}
 ): Promise<T> {
-  const headersList = await headers();
-  const userAgent = headersList.get("user-agent") || "Next.js WordPress Client";
+  // Use a default user agent since we're in a server component
+  const userAgent = "Next.js WordPress Client";
+  
+  // Check if we're in a browser environment where headers() is available
+  let requestHeaders = { ...defaultFetchOptions.headers };
+  
+  try {
+    // Only try to access headers in environments where it's available
+    if (typeof headers === 'function') {
+      const headersList = headers();
+      if (headersList && headersList.get) {
+        const headerUserAgent = headersList.get("user-agent");
+        if (headerUserAgent) {
+          requestHeaders = { ...requestHeaders, "User-Agent": headerUserAgent };
+        }
+      }
+    }
+  } catch (e) {
+    // Silently fail if headers() is not available
+    // This allows the code to work in both server and client components
+  }
 
   // Check if it's a WooCommerce endpoint
   const isWooCommerce = url.includes("/wp-json/wc/");
@@ -91,7 +121,7 @@ async function wordpressFetch<T>(
     ...defaultFetchOptions,
     ...options,
     headers: {
-      ...defaultFetchOptions.headers,
+      ...requestHeaders,
       "User-Agent": userAgent,
       ...options.headers,
     },
@@ -567,7 +597,9 @@ export async function getAllProperties(
       headers: {
         "Content-Type": "application/json",
       },
-      next: { revalidate: 0 },
+      // Use cache: 'no-store' for client components instead of next.revalidate
+      cache: typeof window !== 'undefined' ? 'no-store' : undefined,
+      next: typeof window === 'undefined' ? { revalidate: 0 } : undefined,
     });
 
     if (!response.ok) {
@@ -619,7 +651,9 @@ export async function getPropertyBySlug(
       headers: {
         "Content-Type": "application/json",
       },
-      next: { revalidate: 0 },
+      // Use cache: 'no-store' for client components instead of next.revalidate
+      cache: typeof window !== 'undefined' ? 'no-store' : undefined,
+      next: typeof window === 'undefined' ? { revalidate: 0 } : undefined,
     });
 
     if (!response.ok) {
@@ -659,7 +693,9 @@ export async function extractClassInfo(
         headers: {
           "Content-Type": "application/json",
         },
-        next: { revalidate: 0 },
+        // Use cache: 'no-store' for client components instead of next.revalidate
+        cache: typeof window !== 'undefined' ? 'no-store' : undefined,
+        next: typeof window === 'undefined' ? { revalidate: 0 } : undefined,
       });
 
       if (!response.ok) return undefined;
@@ -833,7 +869,9 @@ export async function getTaxonomy(slug: string) {
       headers: {
         "Content-Type": "application/json",
       },
-      next: { revalidate:  1800},
+      // Use cache: 'no-store' for client components instead of next.revalidate
+      cache: typeof window !== 'undefined' ? 'no-store' : undefined,
+      next: typeof window === 'undefined' ? { revalidate: 1800 } : undefined,
     });
 
     if (!response.ok) {
@@ -857,7 +895,9 @@ export async function getTaxonomyTerms(taxonomy: string) {
       headers: {
         "Content-Type": "application/json",
       },
-      next: { revalidate:  1800},
+      // Use cache: 'no-store' for client components instead of next.revalidate
+      cache: typeof window !== 'undefined' ? 'no-store' : undefined,
+      next: typeof window === 'undefined' ? { revalidate: 1800 } : undefined,
     });
 
     if (!response.ok) {
@@ -886,7 +926,9 @@ async function getTermIdFromSlug(
       headers: {
         "Content-Type": "application/json",
       },
-      next: { revalidate:  1800},
+      // Use cache: 'no-store' for client components instead of next.revalidate
+      cache: typeof window !== 'undefined' ? 'no-store' : undefined,
+      next: typeof window === 'undefined' ? { revalidate: 1800 } : undefined,
     });
 
     if (!response.ok) return null;
@@ -910,7 +952,9 @@ export async function getAllProjects() {
       headers: {
         "Content-Type": "application/json",
       },
-      next: { revalidate:  0},
+      // Use cache: 'no-store' for client components instead of next.revalidate
+      cache: typeof window !== 'undefined' ? 'no-store' : undefined,
+      next: typeof window === 'undefined' ? { revalidate: 0 } : undefined,
     });
 
     if (!response.ok) {
@@ -929,11 +973,14 @@ export async function getProjectBySlug(slug: string) {
   const url = getUrl("/wp-json/wp/v2/proyectos", { slug });
 
   try {
+    // Use a more client-friendly fetch approach
     const response = await fetch(url, {
       headers: {
         "Content-Type": "application/json",
       },
-      next: { revalidate:  1800},
+      // Use cache: 'no-store' for client components instead of next.revalidate
+      cache: typeof window !== 'undefined' ? 'no-store' : undefined,
+      next: typeof window === 'undefined' ? { revalidate: 1800 } : undefined,
     });
 
     if (!response.ok) {
