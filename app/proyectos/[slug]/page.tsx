@@ -468,14 +468,14 @@ const obras = {
                 {/* Columna izquierda: Texto */}
                 <div className="flex items-center justify-center">
                   <div className="prose prose-lg max-w-none">
-                    {obras[project.title.rendered] ? (
+                    {obras[project.title.rendered as keyof typeof obras] ? (
                       <>
                         <h3 className="text-xl font-medium mb-4 flex items-center">
                           <span className="mr-2">Descripción del Avance</span>
                           <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Actualizado</span>
                         </h3>
                         <div className="space-y-4">
-                          {obras[project.title.rendered].split('. ').map((parrafo, index) => (
+                          {obras[project.title.rendered as keyof typeof obras ].split('. ').map((parrafo, index) => (
                             parrafo.trim() && (
                               <p key={index}>{parrafo.trim()}{parrafo.trim().endsWith('.') ? '' : '.'}</p>
                             )
