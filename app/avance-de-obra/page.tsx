@@ -1,7 +1,6 @@
 "use client";
 
-import { Container } from "@/components/craft";
-import { Section } from "@/components/craft";
+import { Container, Section } from "@/components/craft";
 import { getAllProjects } from "@/lib/wordpress";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,13 +8,18 @@ import { useState, useEffect } from "react";
 import ImageCarousel from "../proyectos/[slug]/components/ImageCarousel";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-
-
 export default function AvanceDeObraPage() {
   const [proyectosEnConstruccion, setProyectosEnConstruccion] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedProject, setSelectedProject] = useState<any>(null);
   const [showProjectDetails, setShowProjectDetails] = useState(false);
+
+  const obras = {
+    "Unique Qbico": "A la fecha, hemos finalizado con éxito la cimentación profunda del proyecto, la cual incluyó la ejecución de pantallas perimetrales, barretes, pilotes temporales y definitivos, así como la fase de pilotaje. Actualmente, nos encontramos en proceso de demolición de la placa de concreto existente, lo que permitirá dar inicio a la construcción de las vigas puntales y vigas andén. Esta etapa es fundamental para habilitar el inicio de la excavación de los dos sótanos, marcando un nuevo hito en el desarrollo estructural del proyecto. Seguimos avanzando con precisión y compromiso, cumpliendo cada fase según lo planificado.",
+    "Unique Me": "El proyecto Unique Me ha alcanzado un avance significativo en su construcción. Hemos completado la fase de cimentación y estructura de los primeros niveles. Los trabajos de mampostería están en proceso en los pisos inferiores, mientras que las instalaciones hidráulicas y eléctricas avanzan según lo programado. El equipo de construcción está enfocado en mantener los altos estándares de calidad que caracterizan a todos nuestros proyectos, asegurando que cada detalle cumpla con las especificaciones técnicas establecidas.",
+    "Unique Haus": "La construcción de Unique Haus progresa de manera óptima. Actualmente, hemos finalizado la estructura completa del edificio y estamos avanzando en los acabados interiores de los apartamentos. Las áreas comunes están en fase de instalación de pisos y revestimientos. Los sistemas de seguridad y automatización están siendo implementados según el cronograma establecido. Estimamos que el proyecto estará listo para entrega en los próximos meses, cumpliendo con todos los estándares de calidad y diseño que nos caracterizan.",
+    "Unique Loft": "El proyecto Unique Loft se encuentra en una etapa avanzada de construcción. La estructura principal está completada al 100%, y actualmente estamos trabajando en los acabados interiores y fachadas. Las instalaciones especiales, incluyendo el sistema de domótica y eficiencia energética, están siendo implementadas según las especificaciones de diseño. Los espacios comunes, incluyendo la terraza y áreas de coworking, están tomando forma con la instalación de mobiliario y paisajismo. El proyecto mantiene su cronograma para entrega en la fecha prevista."
+  }
   
   // Cargar proyectos al montar el componente
   useEffect(() => {
@@ -27,7 +31,6 @@ export default function AvanceDeObraPage() {
         // Filtrar solo los proyectos en construcción (estado_proyecto = [4])
         const filteredProjects = allProjects.filter((project: any) => 
           project.estado_proyecto[0] == 4
-        
         );
         
         setProyectosEnConstruccion(filteredProjects);
@@ -198,19 +201,49 @@ export default function AvanceDeObraPage() {
                 {/* Columna izquierda: Texto */}
                 <div className="flex items-center justify-center">
                   <div className="prose prose-lg max-w-none">
-                    <h3 className="text-xl font-medium mb-4">Descripción del Avance</h3>
-                    <p>
-                      El proyecto {selectedProject.title.rendered} se encuentra actualmente en fase de construcción.
-                      Los avances más recientes incluyen:
-                    </p>
-                    <ul>
-                      <li>Estructura principal completada al 75%</li>
-                      <li>Instalaciones eléctricas en proceso</li>
-                      <li>Acabados interiores iniciados en primeros niveles</li>
-                    </ul>
-                    <p>
-                      Última actualización: {formatDate(selectedProject.modified)}
-                    </p>
+                    {obras[selectedProject.title.rendered] ? (
+                      <>
+                        <h3 className="text-xl font-medium mb-4 flex items-center">
+                          <span className="mr-2">Descripción del Avance</span>
+                          <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Actualizado</span>
+                        </h3>
+                        <div className="space-y-4">
+                          {obras[selectedProject.title.rendered].split('. ').map((parrafo, index) => (
+                            parrafo.trim() && (
+                              <p key={index}>{parrafo.trim()}{parrafo.trim().endsWith('.') ? '' : '.'}</p>
+                            )
+                          ))}
+                        </div>
+                        <div className="mt-6 flex items-center space-x-2">
+                          <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse"></div>
+                          <p className="text-sm font-medium">
+                            Última actualización: <span className="text-primary">{formatDate(selectedProject.modified)}</span>
+                          </p>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <h3 className="text-xl font-medium mb-4 flex items-center">
+                          <span className="mr-2">Descripción del Avance</span>
+                          <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">Información General</span>
+                        </h3>
+                        <p>
+                          El proyecto {selectedProject.title.rendered} se encuentra actualmente en fase de construcción.
+                          Los avances más recientes incluyen:
+                        </p>
+                        <ul>
+                          <li>Estructura principal completada al 75%</li>
+                          <li>Instalaciones eléctricas en proceso</li>
+                          <li>Acabados interiores iniciados en primeros niveles</li>
+                        </ul>
+                        <div className="mt-6 flex items-center space-x-2">
+                          <div className="h-2 w-2 rounded-full bg-yellow-500"></div>
+                          <p className="text-sm font-medium">
+                            Última actualización: <span className="text-primary">{formatDate(selectedProject.modified)}</span>
+                          </p>
+                        </div>
+                      </>
+                    )}
                     <p className="text-sm text-muted-foreground mt-4">
                       * La información mostrada es aproximada y puede variar según el avance real de la obra.
                     </p>

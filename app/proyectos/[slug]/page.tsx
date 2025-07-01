@@ -67,6 +67,11 @@ export default function ProjectPage({ params }: any) {
   const [statusClass, setStatusClass] = useState<string>("");
   const [currentGalleryType, setCurrentGalleryType] = useState<'main' | 'avance'>('main');
   
+const obras = {
+    "Unique Qbico": "A la fecha, hemos finalizado con éxito la cimentación profunda del proyecto, la cual incluyó la ejecución de pantallas perimetrales, barretes, pilotes temporales y definitivos, así como la fase de pilotaje. Actualmente, nos encontramos en proceso de demolición de la placa de concreto existente, lo que permitirá dar inicio a la construcción de las vigas puntales y vigas andén. Esta etapa es fundamental para habilitar el inicio de la excavación de los dos sótanos, marcando un nuevo hito en el desarrollo estructural del proyecto. Seguimos avanzando con precisión y compromiso, cumpliendo cada fase según lo planificado.",    
+  }
+
+
 // Función para formatear la fecha
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -463,19 +468,49 @@ export default function ProjectPage({ params }: any) {
                 {/* Columna izquierda: Texto */}
                 <div className="flex items-center justify-center">
                   <div className="prose prose-lg max-w-none">
-                    <h3 className="text-xl font-medium mb-4">Descripción del Avance</h3>
-                    <p>
-                      El proyecto {project.title.rendered} se encuentra actualmente en fase de construcción.
-                      Los avances más recientes incluyen:
-                    </p>
-                    <ul>
-                      <li>Estructura principal completada al 75%</li>
-                      <li>Instalaciones eléctricas en proceso</li>
-                      <li>Acabados interiores iniciados en primeros niveles</li>
-                    </ul>
-                    <p>
-                      Última actualización: {formatDate(project.modified)}
-                    </p>
+                    {obras[project.title.rendered] ? (
+                      <>
+                        <h3 className="text-xl font-medium mb-4 flex items-center">
+                          <span className="mr-2">Descripción del Avance</span>
+                          <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Actualizado</span>
+                        </h3>
+                        <div className="space-y-4">
+                          {obras[project.title.rendered].split('. ').map((parrafo, index) => (
+                            parrafo.trim() && (
+                              <p key={index}>{parrafo.trim()}{parrafo.trim().endsWith('.') ? '' : '.'}</p>
+                            )
+                          ))}
+                        </div>
+                        <div className="mt-6 flex items-center space-x-2">
+                          <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse"></div>
+                          <p className="text-sm font-medium">
+                            Última actualización: <span className="text-primary">{formatDate(project.modified)}</span>
+                          </p>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <h3 className="text-xl font-medium mb-4 flex items-center">
+                          <span className="mr-2">Descripción del Avance</span>
+                          <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">Información General</span>
+                        </h3>
+                        <p>
+                          El proyecto {project.title.rendered} se encuentra actualmente en fase de construcción.
+                          Los avances más recientes incluyen:
+                        </p>
+                        <ul>
+                          <li>Estructura principal completada al 75%</li>
+                          <li>Instalaciones eléctricas en proceso</li>
+                          <li>Acabados interiores iniciados en primeros niveles</li>
+                        </ul>
+                        <div className="mt-6 flex items-center space-x-2">
+                          <div className="h-2 w-2 rounded-full bg-yellow-500"></div>
+                          <p className="text-sm font-medium">
+                            Última actualización: <span className="text-primary">{formatDate(project.modified)}</span>
+                          </p>
+                        </div>
+                      </>
+                    )}
                     <p className="text-sm text-muted-foreground mt-4">
                       * La información mostrada es aproximada y puede variar según el avance real de la obra.
                     </p>
