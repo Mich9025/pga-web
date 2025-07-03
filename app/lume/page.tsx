@@ -116,9 +116,7 @@ const LumePage = () => {
     mensaje: ''
   });
 
-  const { scrollYProgress } = useScroll();
-  const y = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
-  const opacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
+  // Removed parallax effects
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -136,44 +134,44 @@ const LumePage = () => {
 
   return (
     <div className="min-h-screen bg-white overflow-x-hidden">
-      {/* Video Section */}
-      <motion.section 
-        className="relative h-screen w-full overflow-hidden"
-        style={{ y, opacity }}
-      >
-        <video
-          className="absolute inset-0 w-full h-full object-cover"
-          autoPlay
-          muted
-          loop
-          playsInline
+      <div className="relative">
+        {/* Video Section */}
+        <motion.section 
+          className="relative h-screen w-full overflow-hidden sticky top-0 z-50 bg-white"
         >
-          <source src="https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/VIDEO-LANDING-LUME-PGA.mov" type="video/mp4" />
-          Tu navegador no soporta el elemento de video.
-        </video>
-        <div className="absolute inset-0 bg-black/30 z-10" />
-        <div className="relative z-20 h-full flex items-center justify-center">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.2, ease: "easeOut" }}
-            className="text-center"
+          <video
+            className="absolute inset-0 w-full h-full object-cover"
+            autoPlay
+            muted
+            loop
+            playsInline
           >
-            <div>
-              <Image
-                src="https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/Logo-final-de-LUME_Blanco.png"
-                alt="Unique Lume Logo"
-                width={200}
-                height={80}
-                className="mx-auto"
-              />
-            </div>
-          </motion.div>
-        </div>
-      </motion.section>
+            <source src="https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/VIDEO-LANDING-LUME-PGA.mov" type="video/mp4" />
+            Tu navegador no soporta el elemento de video.
+          </video>
+          <div className="absolute inset-0 bg-black/30 z-10" />
+          <div className="relative z-20 h-full flex items-center justify-center">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1.2, ease: "easeOut" }}
+              className="text-center"
+            >
+              <div>
+                <Image
+                  src="https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/Logo-final-de-LUME_Blanco.png"
+                  alt="Unique Lume Logo"
+                  width={200}
+                  height={80}
+                  className="mx-auto"
+                />
+              </div>
+            </motion.div>
+          </div>
+        </motion.section>
 
       {/* Quote Section */}
-      <motion.section 
+      {/* <motion.section 
         className="py-32 px-4 mt-8 md:px-8 bg-white"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -192,31 +190,43 @@ const LumePage = () => {
               "
             </div>
             <h2 className="text-4xl md:text-6xl font-serif italic text-stone-800 mt-8 mb-8 relative z-10">
-              No solo es vivir, es proyectar quien eres.
+              <Image
+                src="https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/LUME-sin-fondo.png"
+                alt="Lume Logo"
+                width={130}
+                height={48}
+                className="flex items-baseline"
+              />
+              se adapta a ti
             </h2>
             <div className="w-24 h-1 bg-[#fbbf24] mx-auto"></div>
           </motion.div>
         </div>
-      </motion.section>  
+      </motion.section>   */}
 
-      {/* Section 2 - LUME se adapta a ti */}
-      <div className="bg-[url(https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/Unique_Rosales-CDLP-Sala-de-reuniones-C3VF-I.A-0.7-JPG-scaled.jpg)] bg-contain bg-no-repeat bg-left">
-      <motion.section 
-        className="py-20 px-4 md:px-8 "//bg-stone-100
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-        viewport={{ once: true }}
-      >
+        {/* Section 2 - LUME se adapta a ti */}
+        <motion.div 
+          className="relative overflow-hidden w-screen h-screen sticky top-0 z-40 bg-white"
+        >
+          <motion.div 
+            className="absolute inset-0 bg-[url(https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/Unique_Rosales-CDLP-Sala-de-reuniones-C3VF-I.A-0.7-JPG-scaled.jpg)] bg-contain bg-no-repeat bg-left"
+          />
+          <motion.section 
+            className="h-full w-full flex items-center justify-center px-4 md:px-8 relative z-10"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 1, ease: "easeOut" }}
+            viewport={{ once: true, margin: "-100px" }}
+          >
         
-        <div className="max-w-7xl mx-auto">
+        <div className="w-full">
           {/* Header */}
           <motion.div
             initial={{ y: 50, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-right mb-12"
+            className="text-right mb-12 max-w-7xl mx-auto px-4 md:px-8"
           >
             <h2 className="text-4xl md:text-5xl font-bold text-stone-900 mb-4 flex items-center justify-end gap-4">
               <Image
@@ -230,13 +240,13 @@ const LumePage = () => {
             </h2>
           </motion.div>
           
-          {/* Three Image Grid */}
+          {/* Six Image Grid */}
           <motion.div
             initial={{ y: 50, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-16 p-4 bg-white"
+            className="grid grid-cols-2 md:grid-cols-6 gap-4 mb-16 p-4 bg-white w-[70%] ml-auto"
           >
             {/* Biblioteca/Coworking */}
             <div className="relative h-[500px] overflow-hidden">
@@ -262,7 +272,37 @@ const LumePage = () => {
             <div className="relative h-[500px] overflow-hidden">
               <Image
                 src="https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/Unique_Rosales-CDLP-GimnasioC2VF-I.A-0.7-JPG-scaled.jpg"
-                alt="Gimnasio"
+                alt="Sala de estar"
+                fill
+                className="object-cover"
+              />
+            </div>
+            
+            {/* Terraza */}
+            <div className="relative h-[500px] overflow-hidden">
+              <Image
+                src="https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/Unique_Rosales-CDLP-Terraza-exteriorVF-I.A1.8-JPG-scaled.jpg"
+                alt="Terraza Exterior"
+                fill
+                className="object-cover"
+              />
+            </div>
+            
+            {/* Billar */}
+            <div className="relative h-[500px] overflow-hidden">
+              <Image
+                src="https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/Unique_Rosales-CDLP-BillarC2VF-I.A-1.8-JPG-scaled.jpg"
+                alt="Sala de Billar"
+                fill
+                className="object-cover"
+              />
+            </div>
+            
+            {/* Bar */}
+            <div className="relative h-[500px] overflow-hidden">
+              <Image
+                src="https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/Unique_Rosales-CDLP-BarC2VF-I.A-1.5-JPG-scaled.jpg"
+                alt="Bar"
                 fill
                 className="object-cover"
               />
@@ -275,18 +315,18 @@ const LumePage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-right"
+            className="text-right max-w-7xl mx-auto px-4 md:px-8"
           >
             {/* <p className="text-xl text-stone-700 mb-2">
               Porque el verdadero lujo está
             </p> */}
             <h3 className="text-3xl md:text-4xl font-light text-stone-900">
-              <span className="font-bold">vivir a tu manera.</span>
+              en <span className="font-bold">vivir a tu manera.</span>
             </h3>
           </motion.div>
         </div>
-      </motion.section>
-      </div>    
+          </motion.section>
+        </motion.div>    
 
       {/* Section 1 - Ilumina historias */}
       {/* <motion.section 
@@ -368,84 +408,94 @@ const LumePage = () => {
         </div>
       </motion.section>       */}
       
-      {/* Image Carousel Section */}
-      <motion.section 
-        className="relative h-screen w-full overflow-hidden"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-        viewport={{ once: true }}
-      >
-        <ImageCarousel />
-      </motion.section>
+        {/* Image Carousel Section */}
+        <motion.section 
+          className="relative h-screen w-full overflow-hidden sticky top-0 z-30 bg-white"
+        >
+          <motion.div
+            initial={{ opacity: 0, scale: 1.1 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.2, ease: "easeOut" }}
+            viewport={{ once: true, margin: "-100px" }}
+            className="h-full w-full"
+          >
+            <ImageCarousel />
+          </motion.div>
+        </motion.section>
 
-      {/* Ubicación Section */}
-      <motion.section 
-        className="py-20 bg-white"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-        viewport={{ once: true }}
-      >
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 h-[100vh]">
-            {/* Columna izquierda - Imagen con dirección */}
-            <motion.div
-              initial={{ x: -100, opacity: 0 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className="relative h-full overflow-hidden"
-            >
-              <Image
-                src="https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/Unique_Rosales-CDLP-Piscina-VF-I.A-0.7-JPG-scaled.jpg"
-                alt="Edificio LUME"
-                fill
-                className="brightness-50 object-cover"
-              />
-              {/* Overlay con dirección */}
-              <div className="absolute inset-0 bg-black/0 flex flex-col justify-end">
-                <div className="text-white p-32">
-                  <h3 className="text-[#fbbf24] text-lg font-bold mb-2 tracking-wide uppercase">
-                    Ubicación
-                  </h3>
-                  <div className="bg-white/ rounded-md">
-                    <h4 className="text-2xl font-bold mb-1">Calle 74 #3-35</h4>                    
+        {/* Ubicación Section */}
+        <motion.section 
+          className="bg-white relative overflow-hidden w-screen h-screen sticky top-0 z-20"
+        >
+          <motion.div
+            initial={{ opacity: 0, x: -100 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1, ease: "easeOut" }}
+            viewport={{ once: true, margin: "-100px" }}
+            className="absolute inset-0 z-0"
+          />
+          <div className="w-full h-full">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 h-full">
+              {/* Columna izquierda - Imagen con dirección */}
+              <motion.div
+                initial={{ x: -100, opacity: 0 }}
+                whileInView={{ x: 0, opacity: 1 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true }}
+                className="relative h-full overflow-hidden"
+              >
+                <Image
+                  src="https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/Unique_Rosales-CDLP-Piscina-VF-I.A-0.7-JPG-scaled.jpg"
+                  alt="Edificio LUME"
+                  fill
+                  className="brightness-50 object-cover"
+                />
+                {/* Overlay con dirección */}
+                <div className="absolute inset-0 bg-black/0 flex flex-col justify-end">
+                  <div className="text-white p-32">
+                    <h3 className="text-[#fbbf24] text-lg font-bold mb-2 tracking-wide uppercase">
+                      Ubicación
+                    </h3>
+                    <div className="bg-white/ rounded-md">
+                      <h4 className="text-2xl font-bold mb-1">Calle 74 #3-35</h4>                    
+                    </div>
                   </div>
                 </div>
-              </div>
-            </motion.div>
-            
-            {/* Columna derecha - Mapa */}
-            <motion.div
-              initial={{ x: 100, opacity: 0 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              viewport={{ once: true }}
-              className="h-full"
-            >
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.8234567890123!2d-74.0567890!3d4.6482837!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f9a123456789a%3A0x123456789abcdef0!2sCalle%2074%20%233-35%2C%20Bogot%C3%A1%2C%20Colombia!5e0!3m2!1sen!2sco!4v1234567890123!5m2!1sen!2sco"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
-            </motion.div>
+              </motion.div>
+              
+              {/* Columna derecha - Mapa */}
+              <motion.div
+                initial={{ x: 100, opacity: 0 }}
+                whileInView={{ x: 0, opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                viewport={{ once: true }}
+                className="h-full"
+              >
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.8234567890123!2d-74.0567890!3d4.6482837!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f9a123456789a%3A0x123456789abcdef0!2sCalle%2074%20%233-35%2C%20Bogot%C3%A1%2C%20Colombia!5e0!3m2!1sen!2sco!4v1234567890123!5m2!1sen!2sco"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
+              </motion.div>
+            </div>
           </div>
-        </div>
-      </motion.section>
+        </motion.section>
 
-      {/* Formulario de Contacto */}
-      <motion.section 
-        className="py-20 px-4 md:px-8 bg-gradient-to-br from-stone-800 to-stone-900"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-        viewport={{ once: true }}
-      >
+        {/* Formulario de Contacto */}
+        <motion.section 
+          className="py-20 px-4 md:px-8 bg-gradient-to-br from-stone-800 to-stone-900 relative overflow-hidden sticky top-0 z-10"
+        >
+        <motion.div
+          initial={{ opacity: 0, y: 100 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: "easeOut", staggerChildren: 0.2 }}
+          viewport={{ once: true, margin: "-100px" }}
+          className="relative z-10"
+        >
         <div className="max-w-4xl mx-auto">
           <motion.div
             initial={{ y: 50, opacity: 0 }}
@@ -545,29 +595,41 @@ const LumePage = () => {
             </motion.button>
           </motion.form>
         </div>
-      </motion.section>
+        </motion.div>
+        </motion.section>
 
-      {/* Footer */}
-      <footer className="bg-stone-900 py-8 px-4 md:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row items-center justify-between">
-            <div className="flex items-center space-x-4 mb-4 md:mb-0">              
-              <p className="text-stone-400 text-sm">
-                {new Date().getFullYear()} - © Todos los derechos reservados.
-              </p>
-            </div>
-            <div className="text-stone-500 text-xs">             
-              <Image
-                src="https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/05/Logo-final-de-PGA-SVG-negro-horizontal.svg"
-                alt="PGA Logo"
-                width={60}
-                height={60}
-                className="opacity-100 invert"
-              />
+        {/* Footer */}
+        <motion.footer 
+          className="bg-stone-900 py-8 px-4 md:px-8 relative overflow-hidden"
+        >
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            viewport={{ once: true, margin: "-50px" }}
+            className="relative z-10"
+          >
+          <div className="max-w-7xl mx-auto">
+            <div className="flex flex-col md:flex-row items-center justify-between">
+              <div className="flex items-center space-x-4 mb-4 md:mb-0">              
+                <p className="text-stone-400 text-sm">
+                  {new Date().getFullYear()} - © Todos los derechos reservados.
+                </p>
+              </div>
+              <div className="text-stone-500 text-xs">             
+                <Image
+                  src="https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/05/Logo-final-de-PGA-SVG-negro-horizontal.svg"
+                  alt="PGA Logo"
+                  width={60}
+                  height={60}
+                  className="opacity-100 invert"
+                />
+              </div>
             </div>
           </div>
-        </div>
-      </footer>
+          </motion.div>
+        </motion.footer>
+      </div>
     </div>
   );
 };
