@@ -959,7 +959,7 @@ async function getTermIdFromSlug(
 
 export async function getAllProjects() {
   // Use proxy route when running in browser to avoid CORS issues
-  const baseUrl = typeof window !== 'undefined' ? '' : WORDPRESS_URL;
+  const baseUrl = "https://slategray-mosquito-366047.hostingersite.com";
   const url = `${baseUrl}/wp-json/wp/v2/proyectos?orderby=date&order=asc`;
 
   console.log("🌐 Fetching projects from URL:", url);
