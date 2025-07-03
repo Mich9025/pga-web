@@ -5,14 +5,15 @@ import { Metadata } from "next";
 import ProjectClient from "./ProjectClient";
 
 interface ProjectPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
   try {
-    const project = await getProjectBySlug(params.slug);
+    const { slug } = await params;
+    const project = await getProjectBySlug(slug);
     
     if (!project) {
       return {
@@ -33,7 +34,7 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
           height: 630,
           alt: project.title?.rendered
         }] : [],
-        url: `/proyectos/${params.slug}`,
+        url: `/proyectos/${slug}`,
         type: 'website'
       },
       twitter: {
@@ -62,7 +63,8 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
   try {
-    const project = await getProjectBySlug(params.slug);
+    const { slug } = await params;
+    const project = await getProjectBySlug(slug);
     
     if (!project) {
       notFound();

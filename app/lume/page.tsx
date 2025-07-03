@@ -270,7 +270,7 @@ const LumePage = () => {
                   viewport={{ once: true }}
                   className="text-xl text-stone-500 mb-8 font-light tracking-wide"
                 >
-                  Adonde cada rayo <br />revela diseño y personalidad.""
+                  Adonde cada rayo <br />revela diseño y personalidad."
                 </motion.p>
               </div>
               <motion.div

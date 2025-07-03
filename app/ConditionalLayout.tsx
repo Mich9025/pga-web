@@ -15,7 +15,7 @@ export function ConditionalLayout({ children }: ConditionalLayoutProps) {
 
   if (isLumePage) {
     // Para la página de Lume, no mostrar navegación ni footer
-    return <main className="min-h-screen">{children}</main>;
+    return <main>{children}</main>;
   }
 
   // Para todas las demás páginas, mostrar navegación y footer
