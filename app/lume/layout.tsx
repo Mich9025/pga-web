@@ -14,13 +14,29 @@ const font = FontSans({
 });
 
 export const metadata: Metadata = {
-  title: "Unique Lume - Exclusividad Redefinida",
+  title: "Unique Lume",
   description: "Descubre Unique Lume, un proyecto inmobiliario exclusivo que redefine el lujo y la elegancia en cada detalle.",
   keywords: "inmobiliario, lujo, exclusivo, apartamentos, Bogotá, Unique Lume",
   icons: {
     icon: [
       { url: "/final.svg" }
     ],
+  },
+  openGraph: {
+    title: "Unique Lume",
+    description: "Descubre Unique Lume, un proyecto inmobiliario exclusivo que redefine el lujo y la elegancia en cada detalle.",
+    images: [{
+      url: "https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/Unique_Rosales-CDLP-Terraza-exteriorVF-I.A1.8-JPG-scaled.jpg",
+      width: 1200,
+      height: 630,
+      alt: "Unique Lume"
+    }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Unique Lume",
+    description: "Descubre Unique Lume, un proyecto inmobiliario exclusivo que redefine el lujo y la elegancia en cada detalle.",
+    images: ["https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/Unique_Rosales-CDLP-Terraza-exteriorVF-I.A1.8-JPG-scaled.jpg"],
   },
 };
 
