@@ -170,46 +170,14 @@ const LumePage = () => {
           </div>
         </motion.section>
 
-      {/* Quote Section */}
-      {/* <motion.section 
-        className="py-32 px-4 mt-8 md:px-8 bg-white"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-        viewport={{ once: true }}
-      >
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="relative"
-          >
-            <div className="text-6xl md:text-8xl text-stone-300 font-serif absolute -top-16 left-1/2 transform -translate-x-1/2 select-none">
-              "
-            </div>
-            <h2 className="text-4xl md:text-6xl font-serif italic text-stone-800 mt-8 mb-8 relative z-10">
-              <Image
-                src="https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/LUME-sin-fondo.png"
-                alt="Lume Logo"
-                width={130}
-                height={48}
-                className="flex items-baseline"
-              />
-              se adapta a ti
-            </h2>
-            <div className="w-24 h-1 bg-[#fbbf24] mx-auto"></div>
-          </motion.div>
-        </div>
-      </motion.section>   */}
+      
 
         {/* Section 2 - LUME se adapta a ti */}
-        <motion.div 
+        <motion.section 
           className="relative overflow-hidden w-screen h-screen sticky top-0 z-40 bg-white"
         >
           <motion.div 
-            className="absolute inset-0 bg-[url(https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/Unique_Rosales-CDLP-Sala-de-reuniones-C3VF-I.A-0.7-JPG-scaled.jpg)] bg-contain bg-no-repeat bg-left"
+            className="absolute inset-0 bg-[url(https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/Unique_Rosales-CDLP-Sala-de-reuniones-C3VF-I.A-0.7-JPG-scaled.jpg)] bg-cover md:bg-contain bg-no-repeat bg-center md:bg-left"
           />
           <motion.section 
             className="h-full w-full flex items-center justify-center px-4 md:px-8 relative z-10"
@@ -226,17 +194,17 @@ const LumePage = () => {
             whileInView={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-right mb-12 max-w-7xl mx-auto px-4 md:px-8"
+            className="text-center md:text-right mb-12 max-w-7xl mx-auto px-4 md:px-8"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-stone-900 mb-4 flex items-center justify-end gap-4">
+            <h2 className="text-2xl md:text-5xl font-bold text-stone-900 mb-4 flex flex-col md:flex-row items-center justify-center md:justify-end gap-2 md:gap-4">
               <Image
                 src="https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/LUME-sin-fondo.png"
                 alt="Lume Logo"
                 width={130}
-                height={48}
+                height={100}
                 className="flex items-baseline"
               />
-              se adapta a ti.
+              <span className="text-center md:text-left">Luz que transforma</span>
             </h2>
           </motion.div>
           
@@ -246,10 +214,10 @@ const LumePage = () => {
             whileInView={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
-            className="grid grid-cols-2 md:grid-cols-6 gap-4 mb-16 p-4 bg-white w-[70%] ml-auto"
+            className="grid grid-cols-2 md:grid-cols-6 gap-2 md:gap-4 mb-8 md:mb-16 p-2 md:p-4 bg-white w-full md:w-[70%] md:ml-auto"
           >
             {/* Biblioteca/Coworking */}
-            <div className="relative h-[500px] overflow-hidden">
+            <div className="relative h-[200px] md:h-[500px] overflow-hidden rounded-lg">
               <Image
                 src="https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/Unique_Rosales-CDLP-LobbyVF-I.A-0.7-JPG-scaled.jpg"
                 alt="Coworking Space"
@@ -259,7 +227,7 @@ const LumePage = () => {
             </div>
             
             {/* Gimnasio */}
-            <div className="relative h-[500px] overflow-hidden">
+            <div className="relative h-[200px] md:h-[500px] overflow-hidden rounded-lg">
               <Image
                 src="https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/Unique_Rosales-CDLP-GimnasioVF-I.A-0.7-JPG-scaled.jpg"
                 alt="Gimnasio"
@@ -269,7 +237,7 @@ const LumePage = () => {
             </div>
             
             {/* Sala de estar */}
-            <div className="relative h-[500px] overflow-hidden">
+            <div className="relative h-[200px] md:h-[500px] overflow-hidden rounded-lg">
               <Image
                 src="https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/Unique_Rosales-CDLP-GimnasioC2VF-I.A-0.7-JPG-scaled.jpg"
                 alt="Sala de estar"
@@ -279,7 +247,7 @@ const LumePage = () => {
             </div>
             
             {/* Terraza */}
-            <div className="relative h-[500px] overflow-hidden">
+            <div className="relative h-[200px] md:h-[500px] overflow-hidden rounded-lg">
               <Image
                 src="https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/Unique_Rosales-CDLP-Terraza-exteriorVF-I.A1.8-JPG-scaled.jpg"
                 alt="Terraza Exterior"
@@ -289,7 +257,7 @@ const LumePage = () => {
             </div>
             
             {/* Billar */}
-            <div className="relative h-[500px] overflow-hidden">
+            <div className="relative h-[200px] md:h-[500px] overflow-hidden rounded-lg">
               <Image
                 src="https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/Unique_Rosales-CDLP-BillarC2VF-I.A-1.8-JPG-scaled.jpg"
                 alt="Sala de Billar"
@@ -299,10 +267,10 @@ const LumePage = () => {
             </div>
             
             {/* Bar */}
-            <div className="relative h-[500px] overflow-hidden">
+            <div className="relative h-[200px] md:h-[500px] overflow-hidden rounded-lg">
               <Image
                 src="https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/Unique_Rosales-CDLP-BarC2VF-I.A-1.5-JPG-scaled.jpg"
-                alt="Bar"
+                alt="Bar"                
                 fill
                 className="object-cover"
               />
@@ -315,18 +283,18 @@ const LumePage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-right max-w-7xl mx-auto px-4 md:px-8"
+            className="text-center md:text-right max-w-7xl mx-auto px-4 md:px-8 mb-8"
           >
             {/* <p className="text-xl text-stone-700 mb-2">
               Porque el verdadero lujo está
             </p> */}
-            <h3 className="text-3xl md:text-4xl font-light text-stone-900">
+            <h3 className="text-xl md:text-4xl font-light text-stone-900">
               en <span className="font-bold">vivir a tu manera.</span>
             </h3>
           </motion.div>
         </div>
           </motion.section>
-        </motion.div>    
+        </motion.section>    
 
       {/* Section 1 - Ilumina historias */}
       {/* <motion.section 
@@ -423,6 +391,40 @@ const LumePage = () => {
           </motion.div>
         </motion.section>
 
+        {/* Quote Section */}
+      <motion.section 
+        className="py-32 px-4 mt-8 md:px-8 bg-white"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+        viewport={{ once: true }}
+      >
+        <div className="max-w-4xl mx-auto text-center">
+          <motion.div
+            initial={{ y: 50, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="relative"
+          >
+            <div className="text-6xl md:text-8xl text-stone-300 font-serif absolute -top-16 left-1/2 transform -translate-x-1/2 select-none">
+              "
+            </div>
+            <h2 className="text-4xl md:text-6xl  text-stone-800  relative z-10">
+              {/* <Image
+                src="https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/LUME-sin-fondo.png"
+                alt="Lume Logo"
+                width={130}
+                height={48}
+                className="flex items-baseline"
+              /> */}
+              Más cerca de todo lo que necesitas
+            </h2>
+            {/* <div className="w-100 h-1 bg-[#fbbf24] mx-auto"></div> */}
+          </motion.div>
+        </div>
+      </motion.section>  
+
         {/* Ubicación Section */}
         <motion.section 
           className="bg-white relative overflow-hidden w-screen h-screen sticky top-0 z-20"
@@ -443,7 +445,7 @@ const LumePage = () => {
                 transition={{ duration: 0.8 }}
                 viewport={{ once: true }}
                 className="relative h-full overflow-hidden"
-              >
+              >                
                 <Image
                   src="https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/Unique_Rosales-CDLP-Piscina-VF-I.A-0.7-JPG-scaled.jpg"
                   alt="Edificio LUME"
@@ -451,12 +453,12 @@ const LumePage = () => {
                   className="brightness-50 object-cover"
                 />
                 {/* Overlay con dirección */}
-                <div className="absolute inset-0 bg-black/0 flex flex-col justify-end">
+                <div className="absolute inset-0 bg-black/40 flex flex-col justify-end">
                   <div className="text-white p-32">
                     <h3 className="text-[#fbbf24] text-lg font-bold mb-2 tracking-wide uppercase">
                       Ubicación
                     </h3>
-                    <div className="bg-white/ rounded-md">
+                    <div className="bg-white/0 rounded-md p-4">
                       <h4 className="text-2xl font-bold mb-1">Calle 74 #3-35</h4>                    
                     </div>
                   </div>
