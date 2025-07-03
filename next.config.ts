@@ -44,6 +44,14 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async rewrites() {
+    return [
+      {
+        source: "/wp-json/:path*",
+        destination: `${process.env.WORDPRESS_URL}/wp-json/:path*`,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

@@ -2,7 +2,18 @@
 // Used to fetch data from a WordPress site using the WordPress REST API
 // Types are imported from `wp.d.ts`
 
-import { revalidateTag } from "next/cache";
+// Import revalidateTag conditionally to avoid client-side issues
+let revalidateTag: ((tag: string) => void) | undefined;
+
+// Only import revalidateTag on server-side
+if (typeof window === 'undefined') {
+  try {
+    const { revalidateTag: serverRevalidateTag } = require('next/cache');
+    revalidateTag = serverRevalidateTag;
+  } catch (error) {
+    console.warn('Failed to import revalidateTag:', error);
+  }
+}
 // Import headers dynamically to avoid issues in client components
 import querystring from "query-string";
 
@@ -486,13 +497,18 @@ export async function searchAuthors(query: string): Promise<Author[]> {
 
 // Helper function to revalidate WordPress data
 export async function revalidateWordPressData(tags: string[] = ["wordpress"]) {
-  try {
-    tags.forEach((tag) => {
-      revalidateTag(tag);
-    });
-  } catch (error) {
-    console.error("Failed to revalidate WordPress data:", error);
-    throw new Error("Failed to revalidate WordPress data");
+  // Only revalidate on server-side
+  if (typeof window === 'undefined' && revalidateTag) {
+    try {
+      tags.forEach((tag) => {
+        revalidateTag!(tag);
+      });
+    } catch (error) {
+      console.error("Failed to revalidate WordPress data:", error);
+      throw new Error("Failed to revalidate WordPress data");
+    }
+  } else {
+    console.log("Skipping revalidation on client-side or when revalidateTag is unavailable");
   }
 }
 
@@ -942,10 +958,12 @@ async function getTermIdFromSlug(
 }
 
 export async function getAllProjects() {
-  const baseUrl = WORDPRESS_URL;
+  // Use proxy route when running in browser to avoid CORS issues
+  const baseUrl = typeof window !== 'undefined' ? '' : WORDPRESS_URL;
   const url = `${baseUrl}/wp-json/wp/v2/proyectos?orderby=date&order=asc`;
 
-  console.log("Fetching URL:", url); // For debugging
+  console.log("🌐 Fetching projects from URL:", url);
+  console.log("🔍 Running in:", typeof window !== 'undefined' ? 'browser (using proxy)' : 'server (direct)');
 
   try {
     const response = await fetch(url, {
@@ -957,14 +975,30 @@ export async function getAllProjects() {
       next: typeof window === 'undefined' ? { revalidate: 0 } : undefined,
     });
 
+    console.log("📡 Response status:", response.status, response.statusText);
+    console.log("📋 Response headers:", Object.fromEntries(response.headers.entries()));
+
     if (!response.ok) {
-      throw new Error(`Properties API failed: ${response.statusText}`);
+      console.error("❌ API request failed:", response.status, response.statusText);
+      throw new Error(`Projects API failed: ${response.statusText}`);
     }
 
     const items = await response.json();
+    console.log("✅ Projects fetched successfully:", items.length, "projects");
+    console.log("📊 First project sample:", items[0]);
+    
+    // Log project states for debugging
+    items.forEach((project: any, index: number) => {
+      if (index < 3) { // Only log first 3 projects to avoid spam
+        console.log(`Project ${index + 1} (${project.title?.rendered}):`);
+        console.log('  - estado_proyecto:', project.estado_proyecto);
+        console.log('  - All fields:', Object.keys(project));
+      }
+    });
+    
     return items;
   } catch (error) {
-    console.error("Error fetching properties:", error);
+    console.error("❌ Error fetching projects:", error);
     throw error;
   }
 }

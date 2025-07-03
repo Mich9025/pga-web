@@ -26,10 +26,39 @@ export default function AvanceDeObraPage() {
         setLoading(true);
         const allProjects = await getAllProjects();
         
-        // Filtrar solo los proyectos en construcción (estado_proyecto = [4])
-        const filteredProjects = allProjects.filter((project: any) => 
-          project.estado_proyecto[0] == 4
-        );
+        console.log('🔍 Total de proyectos obtenidos:', allProjects.length);
+        console.log('📊 Todos los proyectos:', allProjects);
+        
+        // Analizar los estados de los proyectos
+        allProjects.forEach((project: any, index: number) => {
+          console.log(`Proyecto ${index + 1}: ${project.title?.rendered}`);
+          console.log('  - estado_proyecto:', project.estado_proyecto);
+          console.log('  - tipo de estado_proyecto:', typeof project.estado_proyecto);
+          console.log('  - es array:', Array.isArray(project.estado_proyecto));
+          if (Array.isArray(project.estado_proyecto)) {
+            console.log('  - primer elemento:', project.estado_proyecto[0]);
+            console.log('  - tipo del primer elemento:', typeof project.estado_proyecto[0]);
+          }
+        });
+        
+        // Filtrar proyectos en construcción
+        // Primero verificar si existe el campo estado_proyecto, si no, usar todos los proyectos
+        const filteredProjects = allProjects.filter((project: any) => {
+          // Si no existe estado_proyecto, considerar todos los proyectos como en construcción para debugging
+          if (!project.estado_proyecto) {
+            console.log(`Proyecto "${project.title?.rendered}" - No tiene campo estado_proyecto, incluyendo para debug`);
+            return true; // Temporalmente incluir todos para debugging
+          }
+          
+          const isInConstruction = Array.isArray(project.estado_proyecto) && 
+            project.estado_proyecto[0] == 4;
+          
+          console.log(`Proyecto "${project.title?.rendered}" en construcción:`, isInConstruction);
+          return isInConstruction;
+        });
+        
+        console.log('🏗️ Proyectos en construcción encontrados:', filteredProjects.length);
+        console.log('📋 Proyectos filtrados:', filteredProjects);
         
         setProyectosEnConstruccion(filteredProjects);
         
@@ -49,8 +78,30 @@ export default function AvanceDeObraPage() {
 
   // Función para manejar el clic en un proyecto
   const handleProjectClick = (project: any) => {
-    console.log('Proyecto seleccionado:', project);
-    console.log('Avance de obra:', project.avance_obra);
+    // Ejecutar diagnóstico completo
+    diagnosticarAvanceObra(project);
+    
+    // Validar y normalizar los datos de avance_obra
+    if (project.avance_obra) {
+      if (typeof project.avance_obra === 'string') {
+        try {
+          project.avance_obra = JSON.parse(project.avance_obra);
+          console.log('avance_obra parseado desde string:', project.avance_obra);
+        } catch (e) {
+          console.error('Error parseando avance_obra:', e);
+          project.avance_obra = [];
+        }
+      }
+      
+      // Asegurar que sea un array
+      if (!Array.isArray(project.avance_obra)) {
+        console.warn('avance_obra no es un array, convirtiendo...');
+        project.avance_obra = project.avance_obra ? [project.avance_obra] : [];
+      }
+    } else {
+      project.avance_obra = [];
+    }
+    
     setSelectedProject(project);
     setShowProjectDetails(true);
   };
@@ -63,6 +114,28 @@ export default function AvanceDeObraPage() {
       month: 'long',
       year: 'numeric'
     }).format(date);
+  };
+
+  // Función para diagnosticar la estructura de datos de avance_obra
+  const diagnosticarAvanceObra = (project: any) => {
+    console.group(`🔍 Diagnóstico de avance_obra para: ${project.title?.rendered || 'Proyecto sin título'}`);
+    console.log('📊 Datos completos del proyecto:', project);
+    console.log('🏗️ Campo avance_obra:', project.avance_obra);
+    console.log('📝 Tipo:', typeof project.avance_obra);
+    console.log('📋 Es array:', Array.isArray(project.avance_obra));
+    console.log('📏 Longitud:', project.avance_obra?.length);
+    
+    if (project.avance_obra) {
+      console.log('🔍 Primeros 3 elementos:', project.avance_obra.slice(0, 3));
+      
+      // Verificar otros campos relacionados con imágenes
+      console.log('🖼️ Otros campos de imágenes:');
+      console.log('  - gallery_images:', project.gallery_images);
+      console.log('  - featured_image_url:', project.featured_image_url);
+      console.log('  - acf:', project.acf);
+    }
+    
+    console.groupEnd();
   };
 
   return (
@@ -109,11 +182,23 @@ export default function AvanceDeObraPage() {
       
       <Section>
         <Container className="!pt-8">
-          {proyectosEnConstruccion.length === 0 ? (
+          {loading ? (
             <div className="text-center py-12">
-              <h3 className="text-2xl font-light">No hay proyectos en construcción en este momento.</h3>
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+              <h3 className="text-2xl font-light">Cargando proyectos...</h3>
+              <p className="text-sm text-muted-foreground mt-2">Obteniendo información de proyectos en construcción</p>
             </div>
-          ) : (
+          ) : proyectosEnConstruccion.length === 0 ? (
+             <div className="text-center py-12">
+               <h3 className="text-2xl font-light">No hay proyectos en construcción en este momento.</h3>
+               <div className="mt-4 p-4 bg-gray-100 rounded-lg text-left max-w-2xl mx-auto">
+                 <p className="text-sm font-medium mb-2">Información de Debug:</p>
+                 <p className="text-xs text-muted-foreground">Estado de loading: {loading.toString()}</p>
+                 <p className="text-xs text-muted-foreground">Proyectos filtrados: {proyectosEnConstruccion.length}</p>
+                 <p className="text-xs text-muted-foreground mt-2">Revisa la consola del navegador para más detalles sobre los datos recibidos de la API.</p>
+               </div>
+             </div>
+           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
               {proyectosEnConstruccion.map((project: any) => {
                 // Obtener la imagen destacada o usar una por defecto
@@ -250,21 +335,75 @@ export default function AvanceDeObraPage() {
                 
                 {/* Columna derecha: Carrusel de imágenes */}
                 <div className="w-full">
-                  {selectedProject.avance_obra && selectedProject.avance_obra.length > 0 ? (
-                    <ImageCarousel 
-                      images={selectedProject.avance_obra.map((image: any, index: number) => ({
-                        id: image.id || index,
-                        url: image.url || image.source_url || image,
-                        width: image.width || 800,
-                        height: image.height || 600
-                      }))} 
-                      filterByDate={true}
-                    />
-                  ) : (
-                    <div className="bg-gray-100 rounded-lg p-8 text-center h-[400px] flex items-center justify-center">
-                      <p className="text-gray-500">No hay imágenes de avance disponibles para este proyecto.</p>
-                    </div>
-                  )}
+                  {(() => {
+                    console.log('selectedProject.avance_obra:', selectedProject.avance_obra);
+                    console.log('Tipo de avance_obra:', typeof selectedProject.avance_obra);
+                    console.log('Es array:', Array.isArray(selectedProject.avance_obra));
+                    
+                    if (selectedProject.avance_obra && selectedProject.avance_obra.length > 0) {
+                       const mappedImages = selectedProject.avance_obra
+                         .map((image: any, index: number) => {
+                           console.log('Imagen original:', image);
+                           
+                           // Determinar la URL de la imagen
+                           let imageUrl = '';
+                           if (typeof image === 'string') {
+                             imageUrl = image;
+                           } else if (image && typeof image === 'object') {
+                             imageUrl = image.url || image.source_url || image.guid?.rendered || '';
+                           }
+                           
+                           // Validar que la URL sea válida
+                           if (!imageUrl || (!imageUrl.startsWith('http') && !imageUrl.startsWith('data:'))) {
+                             console.warn(`URL de imagen inválida en índice ${index}:`, imageUrl);
+                             return null;
+                           }
+                           
+                           const mappedImage = {
+                             id: image.id || index,
+                             url: imageUrl,
+                             width: image.width || 800,
+                             height: image.height || 600
+                           };
+                           console.log('Imagen mapeada:', mappedImage);
+                           return mappedImage;
+                         })
+                         .filter(Boolean); // Filtrar imágenes nulas
+                      
+                      console.log('Imágenes finales para el carrusel:', mappedImages);
+                       
+                       if (mappedImages.length === 0) {
+                         return (
+                           <div className="bg-gray-100 rounded-lg p-8 text-center h-[400px] flex items-center justify-center">
+                             <div className="space-y-2">
+                               <p className="text-gray-500">Las imágenes de avance no están disponibles en este momento.</p>
+                               <p className="text-xs text-gray-400">
+                                 Debug: Se encontraron {selectedProject.avance_obra.length} elementos, pero ninguno tenía URLs válidas
+                               </p>
+                             </div>
+                           </div>
+                         );
+                       }
+                       
+                       return (
+                         <ImageCarousel 
+                           images={mappedImages}
+                           filterByDate={true}
+                         />
+                       );
+                    } else {
+                      return (
+                        <div className="bg-gray-100 rounded-lg p-8 text-center h-[400px] flex items-center justify-center">
+                          <div className="space-y-2">
+                            <p className="text-gray-500">No hay imágenes de avance disponibles para este proyecto.</p>
+                            <p className="text-xs text-gray-400">
+                              Debug: avance_obra = {JSON.stringify(selectedProject.avance_obra)}
+                            </p>
+                          </div>
+                        </div>
+                      );
+                    }
+                  })()}
                 </div>
               </div>
               

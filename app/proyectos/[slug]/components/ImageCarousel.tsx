@@ -24,6 +24,10 @@ export default function ImageCarousel({ images, filterByDate = false, onImageCli
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
   const [isFullScreen, setIsFullScreen] = useState(false);
+  
+  // Debug logging
+  console.log('ImageCarousel - Imágenes recibidas:', images);
+  console.log('ImageCarousel - filterByDate:', filterByDate);
 
   // Filtrar imágenes por fecha en el nombre si se solicita
   useEffect(() => {
@@ -86,7 +90,17 @@ export default function ImageCarousel({ images, filterByDate = false, onImageCli
   }, [emblaApi, onSelect]);
 
   if (filteredImages.length === 0) {
-    return null;
+    console.log('ImageCarousel - No hay imágenes para mostrar');
+    return (
+      <div className="bg-gray-100 rounded-lg p-8 text-center h-[50vh] md:h-[70vh] flex items-center justify-center">
+        <div className="space-y-2">
+          <p className="text-gray-500">No hay imágenes disponibles</p>
+          <p className="text-xs text-gray-400">
+            Debug: Imágenes recibidas = {images.length}, Filtradas = {filteredImages.length}
+          </p>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -94,22 +108,33 @@ export default function ImageCarousel({ images, filterByDate = false, onImageCli
       <div className="relative w-full overflow-hidden">
         <div className="overflow-hidden" ref={emblaRef}>
           <div className="flex">
-            {filteredImages.map((image, index) => (
-              <div 
-                key={`carousel-image-${image.id}-${index}`} 
-                className="relative flex-[0_0_100%] min-w-0 h-[50vh] md:h-[70vh] cursor-pointer"
-                onClick={() => onImageClick ? onImageClick(index) : openFullScreen()}
-              >
-                <Image
-                  src={image.url}
-                  alt={`Imagen ${index + 1}`}
-                  fill
-                  className="object-cover"
-                  unoptimized={true}
-                  priority={index === 0}
-                />
-              </div>
-            ))}
+            {filteredImages.map((image, index) => {
+              console.log(`ImageCarousel - Renderizando imagen ${index + 1}:`, image);
+              return (
+                <div 
+                  key={`carousel-image-${image.id}-${index}`} 
+                  className="relative flex-[0_0_100%] min-w-0 h-[50vh] md:h-[70vh] cursor-pointer"
+                  onClick={() => onImageClick ? onImageClick(index) : openFullScreen()}
+                >
+                  <Image
+                    src={image.url}
+                    alt={`Imagen ${index + 1}`}
+                    fill
+                    className="object-cover"
+                    unoptimized={true}
+                    priority={index === 0}
+                    onError={(e) => {
+                      console.error(`Error cargando imagen ${index + 1}:`, image.url);
+                      // Mostrar imagen de placeholder en caso de error
+                      e.currentTarget.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlbiBubyBkaXNwb25pYmxlPC90ZXh0Pjwvc3ZnPg==';
+                    }}
+                    onLoad={() => {
+                      console.log(`Imagen ${index + 1} cargada correctamente:`, image.url);
+                    }}
+                  />
+                </div>
+              );
+            })}
           </div>
         </div>
 

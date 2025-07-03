@@ -1,20 +1,11 @@
-import "./globals.css";
+import "../globals.css";
 
 import { ThemeProvider } from "@/components/theme/theme-provider";
-import { siteConfig } from "@/site.config";
 import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
 import { Poppins as FontSans } from "next/font/google";
-
-// import { NavProvider } from "@/app/context/NavContext";
 import { cn } from "@/lib/utils";
-
-import { Footer } from "@/components/footer/Footer";
-
-import { NavigationMenu } from "@/components/nav/nav";
-import { NavProvider } from "./context/NavContext";
 import Script from "next/script";
-import { ConditionalLayout } from "./ConditionalLayout";
 
 const font = FontSans({
   weight: ["200", "400", "500", "600", "700"],
@@ -23,12 +14,9 @@ const font = FontSans({
 });
 
 export const metadata: Metadata = {
-  title: siteConfig.seo.defaultTitle,
-  description: siteConfig.seo.defaultDescription,
-  metadataBase: new URL(siteConfig.domain),
-  alternates: {
-    canonical: "/",
-  },
+  title: "Unique Lume - Exclusividad Redefinida",
+  description: "Descubre Unique Lume, un proyecto inmobiliario exclusivo que redefine el lujo y la elegancia en cada detalle.",
+  keywords: "inmobiliario, lujo, exclusivo, apartamentos, Bogotá, Unique Lume",
   icons: {
     icon: [
       { url: "/final.svg" }
@@ -36,13 +24,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default function LumeLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="es" suppressHydrationWarning>
       <head>
         {/* Google Tag Manager */}
         <Script
@@ -71,7 +59,8 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <ConditionalLayout>{children}</ConditionalLayout>
+          {/* Sin NavigationMenu ni Footer para esta landing page exclusiva */}
+          <main className="min-h-screen">{children}</main>
         </ThemeProvider>
         <Analytics />
       </body>
