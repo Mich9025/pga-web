@@ -289,7 +289,7 @@ const LumePage = () => {
       </div>    
 
       {/* Section 1 - Ilumina historias */}
-      <motion.section 
+      {/* <motion.section 
         className="py-24 px-4 md:px-8 bg-white"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -352,7 +352,7 @@ const LumePage = () => {
                   
                 </motion.p>
               </div>
-              {/* <motion.div
+              <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 1, duration: 0.6 }}
@@ -362,11 +362,11 @@ const LumePage = () => {
                 <p className="text-stone-700 leading-relaxed font-light text-lg">
                   Se convierte en una metáfora visual y emocional del proyecto: un edificio que no solo se construye con concreto, si no que también ilumina aspiraciones, refleja estatus y proyecta un nuevo estándar de vida urbana sofisticada.
                 </p>
-              </motion.div> */}
+              </motion.div>
             </motion.div>
           </div>
         </div>
-      </motion.section>      
+      </motion.section>       */}
       
       {/* Image Carousel Section */}
       <motion.section 
@@ -398,10 +398,10 @@ const LumePage = () => {
               className="relative h-full overflow-hidden"
             >
               <Image
-                src="https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/Unique_Rosales-CDLP-LobbyC2VF-I.A-0.7-JPG-scaled.jpg"
+                src="https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/Unique_Rosales-CDLP-Piscina-VF-I.A-0.7-JPG-scaled.jpg"
                 alt="Edificio LUME"
                 fill
-                className="object-cover"
+                className="brightness-50 object-cover"
               />
               {/* Overlay con dirección */}
               <div className="absolute inset-0 bg-black/0 flex flex-col justify-end">
@@ -409,7 +409,7 @@ const LumePage = () => {
                   <h3 className="text-[#fbbf24] text-lg font-bold mb-2 tracking-wide uppercase">
                     Ubicación
                   </h3>
-                  <div className="bg-white/0 rounded-md">
+                  <div className="bg-white/ rounded-md">
                     <h4 className="text-2xl font-bold mb-1">Calle 74 #3-35</h4>                    
                   </div>
                 </div>
