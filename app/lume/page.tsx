@@ -197,18 +197,96 @@ const LumePage = () => {
             <div className="w-24 h-1 bg-[#fbbf24] mx-auto"></div>
           </motion.div>
         </div>
-      </motion.section>
+      </motion.section>  
 
-      {/* Image Carousel Section */}
+      {/* Section 2 - LUME se adapta a ti */}
+      <div className="bg-[url(https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/Unique_Rosales-CDLP-Sala-de-reuniones-C3VF-I.A-0.7-JPG-scaled.jpg)] bg-contain bg-no-repeat bg-left">
       <motion.section 
-        className="relative h-screen w-full overflow-hidden"
+        className="py-20 px-4 md:px-8 "//bg-stone-100
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 1 }}
         viewport={{ once: true }}
       >
-        <ImageCarousel />
+        
+        <div className="max-w-7xl mx-auto">
+          {/* Header */}
+          <motion.div
+            initial={{ y: 50, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-right mb-12"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-stone-900 mb-4 flex items-center justify-end gap-4">
+              <Image
+                src="https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/LUME-sin-fondo.png"
+                alt="Lume Logo"
+                width={130}
+                height={48}
+                className="flex items-baseline"
+              />
+              se adapta a ti.
+            </h2>
+          </motion.div>
+          
+          {/* Three Image Grid */}
+          <motion.div
+            initial={{ y: 50, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-16 p-4 bg-white"
+          >
+            {/* Biblioteca/Coworking */}
+            <div className="relative h-[500px] overflow-hidden">
+              <Image
+                src="https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/Unique_Rosales-CDLP-LobbyVF-I.A-0.7-JPG-scaled.jpg"
+                alt="Coworking Space"
+                fill
+                className="object-cover"
+              />
+            </div>
+            
+            {/* Gimnasio */}
+            <div className="relative h-[500px] overflow-hidden">
+              <Image
+                src="https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/Unique_Rosales-CDLP-GimnasioVF-I.A-0.7-JPG-scaled.jpg"
+                alt="Gimnasio"
+                fill
+                className="object-cover"
+              />
+            </div>
+            
+            {/* Sala de estar */}
+            <div className="relative h-[500px] overflow-hidden">
+              <Image
+                src="https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/Unique_Rosales-CDLP-GimnasioC2VF-I.A-0.7-JPG-scaled.jpg"
+                alt="Gimnasio"
+                fill
+                className="object-cover"
+              />
+            </div>
+          </motion.div>
+          
+          {/* Bottom Text */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6, duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-right"
+          >
+            {/* <p className="text-xl text-stone-700 mb-2">
+              Porque el verdadero lujo está
+            </p> */}
+            <h3 className="text-3xl md:text-4xl font-light text-stone-900">
+              <span className="font-bold">vivir a tu manera.</span>
+            </h3>
+          </motion.div>
+        </div>
       </motion.section>
+      </div>    
 
       {/* Section 1 - Ilumina historias */}
       <motion.section 
@@ -270,10 +348,11 @@ const LumePage = () => {
                   viewport={{ once: true }}
                   className="text-xl text-stone-500 mb-8 font-light tracking-wide"
                 >
-                  Adonde cada rayo <br />revela diseño y personalidad."
+                  Cada linea revela <br />revela diseño y personalidad."
+                  
                 </motion.p>
               </div>
-              <motion.div
+              {/* <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 1, duration: 0.6 }}
@@ -283,101 +362,23 @@ const LumePage = () => {
                 <p className="text-stone-700 leading-relaxed font-light text-lg">
                   Se convierte en una metáfora visual y emocional del proyecto: un edificio que no solo se construye con concreto, si no que también ilumina aspiraciones, refleja estatus y proyecta un nuevo estándar de vida urbana sofisticada.
                 </p>
-              </motion.div>
+              </motion.div> */}
             </motion.div>
           </div>
         </div>
-      </motion.section>
-
-      {/* Section 2 - LUME se adapta a ti */}
-      <div className="bg-[url(https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/Unique_Rosales-CDLP-Sala-de-reuniones-C3VF-I.A-0.7-JPG-scaled.jpg)] bg-contain bg-no-repeat bg-left">
+      </motion.section>      
+      
+      {/* Image Carousel Section */}
       <motion.section 
-        className="py-20 px-4 md:px-8 "//bg-stone-100
+        className="relative h-screen w-full overflow-hidden"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 1 }}
         viewport={{ once: true }}
       >
-        
-        <div className="max-w-7xl mx-auto">
-          {/* Header */}
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-right mb-12"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold text-stone-900 mb-4 flex items-center justify-end gap-4">
-              <Image
-                src="https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/Logo-final-de-LUME_sin-fondo.png"
-                alt="Lume Logo"
-                width={130}
-                height={48}
-                className="flex items-baseline"
-              />
-              se adapta a ti.
-            </h2>
-          </motion.div>
-          
-          {/* Three Image Grid */}
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-16 p-4 bg-white"
-          >
-            {/* Biblioteca/Coworking */}
-            <div className="relative h-[500px] overflow-hidden">
-              <Image
-                src="https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/Unique_Rosales-CDLP-LobbyVF-I.A-0.7-JPG-scaled.jpg"
-                alt="Coworking Space"
-                fill
-                className="object-cover"
-              />
-            </div>
-            
-            {/* Gimnasio */}
-            <div className="relative h-[500px] overflow-hidden">
-              <Image
-                src="https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/Unique_Rosales-CDLP-GimnasioVF-I.A-0.7-JPG-scaled.jpg"
-                alt="Gimnasio"
-                fill
-                className="object-cover"
-              />
-            </div>
-            
-            {/* Sala de estar */}
-            <div className="relative h-[500px] overflow-hidden">
-              <Image
-                src="https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/Unique_Rosales-CDLP-GimnasioC2VF-I.A-0.7-JPG-scaled.jpg"
-                alt="Gimnasio"
-                fill
-                className="object-cover"
-              />
-            </div>
-          </motion.div>
-          
-          {/* Bottom Text */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-right"
-          >
-            <p className="text-xl text-stone-700 mb-2">
-              Porque el verdadero lujo está
-            </p>
-            <h3 className="text-3xl md:text-4xl font-light text-stone-900">
-              en <span className="font-bold">vivir a tu manera.</span>
-            </h3>
-          </motion.div>
-        </div>
+        <ImageCarousel />
       </motion.section>
-      </div>
-      
+
       {/* Ubicación Section */}
       <motion.section 
         className="py-20 bg-white"
