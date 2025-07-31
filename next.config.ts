@@ -20,13 +20,7 @@ const nextConfig: NextConfig = {
         hostname: "api.pgaconstructores.co",
         port: "",
         pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: "clon.codecolombia.com",
-        port: "",
-        pathname: "/**",
-      },
+      },      
       {
         protocol: "https",
         hostname: "slategray-mosquito-366047.hostingersite.com",
