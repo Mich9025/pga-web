@@ -109,11 +109,23 @@ export default async function Home() {
   const projects = [
     {
       id: "4ea1eb06-24b7-4228-b03c-bd3a6d512fa3",
+      title: "Unique Lume",
+      location: "Bogotá. Colombia",
+      description:
+        "Proyecto que estará ubicado cerca a embajadas como la de Brasil, cerca al castillo, en una zona tradicional y exclusiva de la ciudad. Un edificio que pretende innovar con su diseño inteligente y glamuroso.",
+      status: "En venta",
+      image:
+        "https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/Unique_Rosales-CDLP-PiscinaC2-VF-I.A-0.7-JPG-scaled.jpg",
+      logo: "https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/Logo-final-de-LUME_sin-fondo.png",
+      slug: "unique-lume",
+    },
+    {
+      id: "4ea1eb06-24b7-4228-b03c-bd3a6d512fa3",
       title: "Unique Tempo",
       location: "Bogotá. Colombia",
       description:
         "Proyecto ubicado en una zona exclusiva de bogotá, en chapinero, cuenta con 8 pisos y apartamentos de grandes áreas y exclusivas zonas comunes.",
-      status: "Construido - en ventas 2 aptos",
+      status: "Construido",
       image:
         "https://pgaconstructores.co/wp-content/uploads/2023/10/unique_tempo_apto_still.webp",
       logo: "https://pgaconstructores.co/wp-content/uploads/2023/10/tempo-1.svg",
@@ -216,7 +228,7 @@ export default async function Home() {
                 status =
                   project.meta.disponibilidad === "0 unidades"
                     ? "Construido"
-                    : `Construido - en ventas ${project.meta.disponibilidad}`;
+                    : `Construido - en ventas`; //${project.meta.disponibilidad}
               } else if (project.estado_proyecto?.includes(4)) {
                 status = "En construcción";
               } else if (project.estado_proyecto?.includes(5)) {

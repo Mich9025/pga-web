@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { CgArrowLongLeft } from "react-icons/cg";
@@ -18,9 +18,25 @@ interface ProjectClientProps {
 }
 
 const obras = {
-    "Unique Qbico": "A la fecha, hemos finalizado con éxito la cimentación profunda del proyecto, la cual incluyó la ejecución de pantallas perimetrales, barretes, pilotes temporales y definitivos, así como la fase de pilotaje. Actualmente, nos encontramos en proceso de demolición de la placa de concreto existente, lo que permitirá dar inicio a la construcción de las vigas puntales y vigas andén. Esta etapa es fundamental para habilitar el inicio de la excavación de los dos sótanos, marcando un nuevo hito en el desarrollo estructural del proyecto. Seguimos avanzando con precisión y compromiso, cumpliendo cada fase según lo planificado.",
-    "Unique Me": " ",    
-  }
+  "Unique Qbico": {
+    "2025-6": {
+      descripcion: "A la fecha, hemos finalizado con éxito la cimentación profunda del proyecto, la cual incluyó la ejecución de pantallas perimetrales, barretes, pilotes temporales y definitivos, así como la fase de pilotaje. Actualmente, nos encontramos en proceso de demolición de la placa de concreto existente, lo que permitirá dar inicio a la construcción de las vigas puntales y vigas andén.",
+      fecha: "2025-06-26",
+      videos: [
+        { id: 1, url: "https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/AVANCE-DE-OBRA-QBICO.mov", titulo: "Cimentación profunda" },          
+      ]
+    },    
+  },
+  "Unique Me": {
+     "2025-6": {
+       descripcion: "Inicio de la etapa de obra preliminares: trabajos de demolición de construcciones existentes y descapote de terreno. Se ha completado el 60% de la demolición programada.",
+       fecha: "2025-06-26",
+       videos: [
+         { id: 4, url: "https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/AVANCE-JUNIO-UNIQUE-ME.mp4", titulo: "Demolición inicial" }
+       ]
+     },       
+   }
+}
 
 const formatDate = (dateString: string) => {
   const date = new Date(dateString);
@@ -35,6 +51,9 @@ export default function ProjectClient({ project }: ProjectClientProps) {
   const [isFullScreenOpen, setIsFullScreenOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [currentGalleryType, setCurrentGalleryType] = useState<'gallery' | 'avance'>('gallery');
+  const [selectedMonth, setSelectedMonth] = useState<string>("");
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxImageIndex, setLightboxImageIndex] = useState(0);
 
   const openFullScreen = (index: number, galleryType: 'gallery' | 'avance' = 'gallery') => {
     setCurrentImageIndex(index);
@@ -45,6 +64,63 @@ export default function ProjectClient({ project }: ProjectClientProps) {
   const closeFullScreen = () => {
     setIsFullScreenOpen(false);
   };
+
+  // Funciones para el lightbox
+  const openLightbox = (index: number) => {
+    setLightboxImageIndex(index);
+    setLightboxOpen(true);
+  };
+
+  const closeLightbox = () => {
+    setLightboxOpen(false);
+  };
+
+  const nextLightboxImage = () => {
+    if (project?.avance_obra && project.avance_obra.length > 0) {
+      setLightboxImageIndex((prev) => 
+        prev === project.avance_obra.length - 1 ? 0 : prev + 1
+      );
+    }
+  };
+
+  const prevLightboxImage = () => {
+    if (project?.avance_obra && project.avance_obra.length > 0) {
+      setLightboxImageIndex((prev) => 
+        prev === 0 ? project.avance_obra.length - 1 : prev - 1
+      );
+    }
+  };
+
+  // Manejar teclas del teclado para navegación del lightbox
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (lightboxOpen) {
+        if (e.key === 'Escape') {
+          closeLightbox();
+        } else if (e.key === 'ArrowRight') {
+          nextLightboxImage();
+        } else if (e.key === 'ArrowLeft') {
+          prevLightboxImage();
+        }
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [lightboxOpen, project]);
+
+  // Inicializar el mes seleccionado cuando se carga el proyecto
+  useEffect(() => {
+    if (project && project.title && project.title.rendered) {
+      const projectData = obras[project.title.rendered as keyof typeof obras];
+      if (projectData && typeof projectData === 'object') {
+        const availableMonths = Object.keys(projectData).sort().reverse();
+        if (availableMonths.length > 0) {
+          setSelectedMonth(availableMonths[0]);
+        }
+      }
+    }
+  }, [project]);
 
   // Determinar el estado del proyecto
   const getProjectStatus = () => {
@@ -291,6 +367,7 @@ export default function ProjectClient({ project }: ProjectClientProps) {
         </Container>
       </Section>
 
+      {/*AVANCE DE OBRA*/}
       {project.estado_proyecto[0] == 4 && (
         <Section className="bg-gray-50 py-16">
           <Container>
@@ -299,90 +376,229 @@ export default function ProjectClient({ project }: ProjectClientProps) {
                 Detalles de Avance: {project.title.rendered}
               </h2>
               
+              {/* Selector de mes */}
               <Select 
-                defaultValue="general" 
-                onValueChange={(value) => console.log(`Seleccionado: ${value}`)}
+                value={selectedMonth}
+                onValueChange={(value) => setSelectedMonth(value)}
               >
                 <SelectTrigger className="w-full md:w-[300px] mb-6">
-                  <SelectValue placeholder="Selecciona una vista" />
+                  <SelectValue placeholder="Selecciona un mes" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="general">Vista General</SelectItem>
-                  <SelectItem value="mensual">Avance Mensual</SelectItem>                  
+                  {(() => {
+                    const projectData = obras[project.title.rendered as keyof typeof obras];
+                    if (projectData && typeof projectData === 'object') {
+                      return Object.keys(projectData).sort().reverse().map((month) => (
+                        <SelectItem key={month} value={month}>
+                          {new Date(month + '-01').toLocaleDateString('es-ES', { 
+                            year: 'numeric', 
+                            month: 'long' 
+                          })}
+                        </SelectItem>
+                      ));
+                    }
+                    return <SelectItem value="no-data">No hay datos disponibles</SelectItem>;
+                  })()}
                 </SelectContent>
               </Select>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {/* Columna izquierda: Texto */}
                 <div className="flex items-center justify-center">
                   <div className="prose prose-lg max-w-none">
-                    {obras[project.title.rendered as keyof typeof obras] ? (
-                      <>
-                        <h3 className="text-xl font-medium mb-4 flex items-center">
-                          <span className="mr-2">Descripción del Avance</span>
-                          <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Actualizado</span>
-                        </h3>
-                        <div className="space-y-4">
-                          {obras[project.title.rendered as keyof typeof obras ].split('. ').map((parrafo, index) => (
-                            parrafo.trim() && (
-                              <p key={index}>{parrafo.trim()}{parrafo.trim().endsWith('.') ? '' : '.'}</p>
-                            )
+                    {(() => {
+                      const projectData = obras[project.title.rendered as keyof typeof obras];
+                      const monthData = projectData && typeof projectData === 'object' && selectedMonth ? 
+                        projectData[selectedMonth as keyof typeof projectData] : null;
+                      
+                      if (monthData && typeof monthData === 'object' && 'descripcion' in monthData) {
+                        return (
+                          <>
+                            <h3 className="text-xl font-medium mb-4 flex items-center">
+                              <span className="mr-2">Avance de {new Date(selectedMonth + '-01').toLocaleDateString('es-ES', { year: 'numeric', month: 'long' })}</span>
+                              <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Actualizado</span>
+                            </h3>
+                            <div className="space-y-4">
+                              {(monthData as {descripcion: string}).descripcion.split('. ').map((parrafo: string, index: number) => (
+                                parrafo.trim() && (
+                                  <p key={index}>{parrafo.trim()}{parrafo.trim().endsWith('.') ? '' : '.'}</p>
+                                )
+                              ))}
+                            </div>
+                            <div className="mt-6 flex items-center space-x-2">
+                              <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse"></div>
+                              <p className="text-sm font-medium">
+                                Última actualización: <span className="text-primary">{formatDate((monthData as {fecha: string}).fecha)}</span>
+                              </p>
+                            </div>
+                          </>
+                        );
+                      } else {
+                        return (
+                          <>
+                            <h3 className="text-xl font-medium mb-4 flex items-center">
+                              <span className="mr-2">Descripción del Avance</span>
+                              <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">Información General</span>
+                            </h3>
+                            <p>
+                              El proyecto {project.title.rendered} se encuentra actualmente en fase de construcción.
+                              Los avances más recientes incluyen:
+                            </p>
+                            <ul>
+                              <li>Estructura principal completada al 75%</li>
+                              <li>Instalaciones eléctricas en proceso</li>
+                              <li>Acabados interiores iniciados en primeros niveles</li>
+                            </ul>
+                            <div className="mt-6 flex items-center space-x-2">
+                              <div className="h-2 w-2 rounded-full bg-yellow-500"></div>
+                              <p className="text-sm font-medium">
+                                Última actualización: <span className="text-primary">{formatDate(project.modified)}</span>
+                              </p>
+                            </div>
+                             
+                             {/* Galería de imágenes de WordPress */}
+                          </>
+                        );
+                      }
+                    })()}
+                    
+                    {/* Galería de imágenes de WordPress */}
+                    {project.avance_obra && project.avance_obra.length > 0 && (
+                      <div className="mt-6">
+                        <h4 className="text-lg font-medium mb-4">Galería de Imágenes</h4>
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+                          {project.avance_obra.slice(0, 6).map((image: any, index: number) => (
+                            <div 
+                              key={index} 
+                              className="relative aspect-square cursor-pointer group overflow-hidden rounded-lg"
+                              onClick={() => openLightbox(index)}
+                            >
+                              <Image
+                                src={image.url || image}
+                                alt={`Avance ${index + 1}`}
+                                fill
+                                className="object-cover transition-transform duration-300 group-hover:scale-110"
+                              />
+                              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
+                                <Maximize2 className="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                              </div>
+                            </div>
                           ))}
+                          {project.avance_obra.length > 6 && (
+                            <div className="relative aspect-square bg-gray-100 rounded-lg flex items-center justify-center">
+                              <span className="text-sm text-gray-600">+{project.avance_obra.length - 6} más</span>
+                            </div>
+                          )}
                         </div>
-                        <div className="mt-6 flex items-center space-x-2">
-                          <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse"></div>
-                          <p className="text-sm font-medium">
-                            Última actualización: <span className="text-primary">{formatDate(project.modified)}</span>
-                          </p>
-                        </div>
-                      </>
-                    ) : (
-                      <>
-                        <h3 className="text-xl font-medium mb-4 flex items-center">
-                          <span className="mr-2">Descripción del Avance</span>
-                          <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">Información General</span>
-                        </h3>
-                        <p>
-                          El proyecto {project.title.rendered} se encuentra actualmente en fase de construcción.
-                          Los avances más recientes incluyen:
-                        </p>
-                        <ul>
-                          <li>Estructura principal completada al 75%</li>
-                          <li>Instalaciones eléctricas en proceso</li>
-                          <li>Acabados interiores iniciados en primeros niveles</li>
-                        </ul>
-                        <div className="mt-6 flex items-center space-x-2">
-                          <div className="h-2 w-2 rounded-full bg-yellow-500"></div>
-                          <p className="text-sm font-medium">
-                            Última actualización: <span className="text-primary">{formatDate(project.modified)}</span>
-                          </p>
-                        </div>
-                      </>
+                      </div>
                     )}
+                    
                     <p className="text-sm text-muted-foreground mt-4">
                       * La información mostrada es aproximada y puede variar según el avance real de la obra.
                     </p>
                   </div>
                 </div>
                 
+                {/* Columna derecha: Videos de avance */}
                 <div className="w-full">
-                  {project.avance_obra && project.avance_obra.length > 0 ? (
-                    <ImageCarousel 
-                      images={project.avance_obra} 
-                      filterByDate={true}
-                      onImageClick={(index) => openFullScreen(index, 'avance')}
-                    />
-                  ) : (
-                    <div className="bg-gray-100 rounded-lg p-8 text-center h-[400px] flex items-center justify-center">
-                      <p className="text-gray-500">No hay imágenes de avance disponibles para este proyecto.</p>
-                    </div>
-                  )}
+                  {(() => {
+                    const projectData = obras[project.title.rendered as keyof typeof obras];
+                    const monthData = projectData && typeof projectData === 'object' && selectedMonth ? 
+                      projectData[selectedMonth as keyof typeof projectData] : null;
+                    const videos = monthData && typeof monthData === 'object' && 'videos' in monthData ? 
+                      (monthData as {videos: any[]}).videos : [];
+                    
+                    if (videos && videos.length > 0) {
+                      return (
+                        <div className="space-y-4">
+                          {/* Video player */}
+                          <div className="relative w-full aspect-[3/4] bg-black rounded-lg overflow-hidden">
+                            <video 
+                              controls 
+                              className="w-full h-full object-cover"
+                              poster={project.featured_image_url || "https://pgaconstructores.co/wp-content/uploads/2024/08/TERRAZA-2.png"}
+                            >
+                              <source src={videos[0].url} type="video/mp4" />
+                              <source src={videos[0].url} type="video/mov" />
+                              Tu navegador no soporta el elemento de video.
+                            </video>
+                          </div>
+
+                        </div>
+                      );
+                    } else {
+                      return (
+                        <div className="space-y-4">
+                          <div className="bg-gray-100 rounded-lg p-8 text-center h-[400px] flex items-center justify-center">
+                            <p className="text-gray-500">No hay contenido de avance disponible para este mes.</p>
+                          </div>
+                        </div>
+                      );
+                    }
+                  })()}
                 </div>
               </div>
             </div>
+            
+            {/* Lightbox Modal */}
+            {lightboxOpen && project.avance_obra && project.avance_obra.length > 0 && (
+              <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4">
+                <div className="relative max-w-4xl max-h-full w-full h-full flex items-center justify-center">
+                  {/* Imagen principal */}
+                  <div className="relative w-full h-full flex items-center justify-center">
+                    <Image
+                      src={project.avance_obra[lightboxImageIndex]?.url || project.avance_obra[lightboxImageIndex]}
+                      alt={`Avance ${lightboxImageIndex + 1}`}
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
+                  
+                  {/* Botón cerrar */}
+                  <button
+                    onClick={closeLightbox}
+                    className="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors"
+                  >
+                    <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                  
+                  {/* Navegación anterior */}
+                  {project.avance_obra.length > 1 && (
+                    <button
+                      onClick={prevLightboxImage}
+                      className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300 transition-colors"
+                    >
+                      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                      </svg>
+                    </button>
+                  )}
+                  
+                  {/* Navegación siguiente */}
+                  {project.avance_obra.length > 1 && (
+                    <button
+                      onClick={nextLightboxImage}
+                      className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300 transition-colors"
+                    >
+                      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </button>
+                  )}
+                  
+                  {/* Contador de imágenes */}
+                  <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-white text-sm">
+                    {lightboxImageIndex + 1} / {project.avance_obra.length}
+                  </div>
+                </div>
+              </div>
+            )}
           </Container>
         </Section>
       )}
-
+      {/*FIN AVANCE DE OBRA*/}
       <Section className="bg-primary text-primary-foreground">
         <Container className="text-center py-16">
           <h2 className="text-3xl md:text-5xl font-light tracking-tight mb-6">
