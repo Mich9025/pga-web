@@ -1,6 +1,6 @@
 
 import { getProjectBySlug } from "@/lib/wordpress";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { Metadata } from "next";
 import ProjectClient from "./ProjectClient";
 
@@ -12,7 +12,8 @@ interface ProjectPageProps {
 
 export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
   try {
-    const { slug } = await params;
+    const { slug } = await params;      
+    
     const project = await getProjectBySlug(slug);
     
     if (!project) {
@@ -63,7 +64,8 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
   try {
-    const { slug } = await params;
+    const { slug } = await params;        
+    
     const project = await getProjectBySlug(slug);
     
     if (!project) {

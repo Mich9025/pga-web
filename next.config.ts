@@ -36,6 +36,11 @@ const nextConfig: NextConfig = {
         destination: `${process.env.WORDPRESS_URL}/wp-admin`,
         permanent: true,
       },
+      {
+        source: "/proyectos/unique-lume",
+        destination: `/lume`,
+        permanent: true,
+      }
     ];
   },
   async rewrites() {
