@@ -14,10 +14,10 @@ export default async function Home() {
   const homeProjects = wpProjects.slice(0, 3);
 
   const bgImages = [
-    "https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/04/DSC1669_70_71-editada-scaled.jpg",
-    "https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/05/1.-FOTO-FACHADA-4_3-_-1080-x-1350px-scaled.jpg",
-    "https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/06/US-b7ebc48d-13af-4a53-872b-4b252537267c.jpeg",
-    "https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/04/17-1-scaled.jpg",
+    "https://api.pgaconstructores.co/wp-content/uploads/2025/04/DSC1669_70_71-editada-scaled.jpg",
+    "https://api.pgaconstructores.co/wp-content/uploads/2025/05/1.-FOTO-FACHADA-4_3-_-1080-x-1350px-scaled.jpg",
+    "https://api.pgaconstructores.co/wp-content/uploads/2025/06/US-b7ebc48d-13af-4a53-872b-4b252537267c.jpeg",
+    "https://api.pgaconstructores.co/wp-content/uploads/2025/04/17-1-scaled.jpg",
   ];
 
   const heroSection = {
@@ -43,14 +43,14 @@ export default async function Home() {
       {
         headline: "Diseño Personalizado",
         image:
-          "https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/04/19-scaled.jpg",
+          "https://api.pgaconstructores.co/wp-content/uploads/2025/04/19-scaled.jpg",
         content:
           "Creamos espacios que reflejan su personalidad. Nuestro equipo de diseño trabaja con cada cliente para desarrollar ambientes adaptados a sus necesidades específicas como lo es la distribución de los espacios, queremos que su hogar sea una extensión auténtica de quién es usted.",
       },
       {
         headline: "Confort y Estilo",
         image:
-          "https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/04/FOTO-8.png",
+          "https://api.pgaconstructores.co/wp-content/uploads/2025/04/FOTO-8.png",
         content:
           "Equilibramos funcionalidad con refinamiento estético, cada espacio está cuidadosamente creado para mejorar su experiencia diaria. Materiales premium, soluciones inteligentes y atención meticulosa a los detalles definen nuestro compromiso con su bienestar.<> Desde elegantes áreas sociales hasta sofisticadas zonas de recreación, cada espacio está pensado para brindar el máximo confort y estilo.",
       },
@@ -67,7 +67,7 @@ export default async function Home() {
       {
         headline: "Experiencia",
         image:
-          "https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/05/Colette-Studio_Unique-Cali_Exterior-7-Alta-scaled.jpg",
+          "https://api.pgaconstructores.co/wp-content/uploads/2025/05/Colette-Studio_Unique-Cali_Exterior-7-Alta-scaled.jpg",
         content:
           "Cumplimos rigurosamente nuestros plazos de entrega y ofrecemos soporte post-venta personalizado, respondiendo con la dedicación que merece tu inversión.",
         // "Porque sabemos que la calidad de vida comienza en casa, nos aseguramos de que cada detalle, cada rincón y cada ambiente sean perfectos para que disfrutes de un hogar único, cómodo y lleno de bienestar.",
@@ -115,8 +115,8 @@ export default async function Home() {
         "Proyecto que estará ubicado cerca a embajadas como la de Brasil, cerca al castillo, en una zona tradicional y exclusiva de la ciudad. Un edificio que pretende innovar con su diseño inteligente y glamuroso.",
       status: "En venta",
       image:
-        "https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/Unique_Rosales-CDLP-PiscinaC2-VF-I.A-0.7-JPG-scaled.jpg",
-      logo: "https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/Logo-final-de-LUME_sin-fondo.png",
+        "https://api.pgaconstructores.co/wp-content/uploads/2025/07/Unique_Rosales-CDLP-PiscinaC2-VF-I.A-0.7-JPG-scaled.jpg",
+    logo: "https://api.pgaconstructores.co/wp-content/uploads/2025/07/Logo-final-de-LUME_sin-fondo.png",
       slug: "unique-lume",
     },
     {

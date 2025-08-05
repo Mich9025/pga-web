@@ -10,23 +10,23 @@ const ImageCarousel = () => {
   
   const images = [
     {
-      src: "https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/Unique_Rosales-CDLP-Terraza-exteriorVF-I.A1.8-JPG-scaled.jpg",
+      src: "https://api.pgaconstructores.co/wp-content/uploads/2025/07/Unique_Rosales-CDLP-Terraza-exteriorVF-I.A1.8-JPG-scaled.jpg",
       alt: "Terraza Exterior Unique Rosales"
     },
     {
-      src: "https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/Unique_Rosales-CDLP-BillarC2VF-I.A-1.8-JPG-scaled.jpg",
+      src: "https://api.pgaconstructores.co/wp-content/uploads/2025/07/Unique_Rosales-CDLP-BillarC2VF-I.A-1.8-JPG-scaled.jpg",
       alt: "Sala de Billar Unique Rosales"
     },
     {
-      src: "https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/Unique_Rosales-CDLP-Piscina-VF-I.A-0.7-JPG-scaled.jpg",
+      src: "https://api.pgaconstructores.co/wp-content/uploads/2025/07/Unique_Rosales-CDLP-Piscina-VF-I.A-0.7-JPG-scaled.jpg",
       alt: "Piscina Unique Rosales"
     },
     {
-      src: "https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/Unique_Rosales-CDLP-BarC2VF-I.A-1.5-JPG-scaled.jpg",
+      src: "https://api.pgaconstructores.co/wp-content/uploads/2025/07/Unique_Rosales-CDLP-BarC2VF-I.A-1.5-JPG-scaled.jpg",
       alt: "Bar Unique Rosales"
     },
     {
-      src: "https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/Unique_Rosales-CDLP-CoworkingC2VF-I.A-1.8-JPG-scaled.jpg",
+      src: "https://api.pgaconstructores.co/wp-content/uploads/2025/07/Unique_Rosales-CDLP-CoworkingC2VF-I.A-1.8-JPG-scaled.jpg",
       alt: "Coworking Unique Rosales"
     }
   ];
@@ -146,7 +146,7 @@ const LumePage = () => {
             loop
             playsInline
           >
-            <source src="https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/VIDEO-LANDING-LUME-PGA.mov" type="video/mp4" />
+            <source src="https://api.pgaconstructores.co/wp-content/uploads/2025/07/VIDEO-LANDING-LUME-PGA.mov" type="video/mp4" />
             Tu navegador no soporta el elemento de video.
           </video>
           <div className="absolute inset-0 bg-black/30 z-10" />
@@ -159,7 +159,7 @@ const LumePage = () => {
             >
               <div>
                 <Image
-                  src="https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/Logo-final-de-LUME_Blanco.png"
+                  src="https://api.pgaconstructores.co/wp-content/uploads/2025/07/Logo-final-de-LUME_Blanco.png"
                   alt="Unique Lume Logo"
                   width={200}
                   height={80}
@@ -177,7 +177,7 @@ const LumePage = () => {
           className="relative overflow-hidden w-screen h-screen sticky top-0 z-40 bg-white"
         >
           <motion.div 
-            className="absolute inset-0 bg-[url(https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/Unique_Rosales-CDLP-Sala-de-reuniones-C3VF-I.A-0.7-JPG-scaled.jpg)] bg-cover md:bg-contain bg-no-repeat bg-center md:bg-left"
+            className="absolute inset-0 bg-[url(https://api.pgaconstructores.co/wp-content/uploads/2025/07/Unique_Rosales-CDLP-Sala-de-reuniones-C3VF-I.A-0.7-JPG-scaled.jpg)] bg-cover md:bg-contain bg-no-repeat bg-center md:bg-left"
           />
           <motion.section 
             className="h-full w-full flex items-center justify-center px-4 md:px-8 relative z-10"
@@ -198,7 +198,7 @@ const LumePage = () => {
           >
             <h2 className="text-2xl md:text-5xl font-bold text-stone-900 mb-4 flex flex-col md:flex-row items-center justify-center md:justify-end gap-2 md:gap-4">
               <Image
-                src="https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/LUME-sin-fondo.png"
+                src="https://api.pgaconstructores.co/wp-content/uploads/2025/07/LUME-sin-fondo.png"
                 alt="Lume Logo"
                 width={130}
                 height={100}
@@ -219,7 +219,7 @@ const LumePage = () => {
             {/* Biblioteca/Coworking */}
             <div className="relative h-[200px] md:h-[500px] overflow-hidden rounded-lg">
               <Image
-                src="https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/Unique_Rosales-CDLP-LobbyVF-I.A-0.7-JPG-scaled.jpg"
+                src="https://api.pgaconstructores.co/wp-content/uploads/2025/07/Unique_Rosales-CDLP-LobbyVF-I.A-0.7-JPG-scaled.jpg"
                 alt="Coworking Space"
                 fill
                 className="object-cover"
@@ -229,7 +229,7 @@ const LumePage = () => {
             {/* Gimnasio */}
             <div className="relative h-[200px] md:h-[500px] overflow-hidden rounded-lg">
               <Image
-                src="https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/Unique_Rosales-CDLP-GimnasioVF-I.A-0.7-JPG-scaled.jpg"
+                src="https://api.pgaconstructores.co/wp-content/uploads/2025/07/Unique_Rosales-CDLP-GimnasioVF-I.A-0.7-JPG-scaled.jpg"
                 alt="Gimnasio"
                 fill
                 className="object-cover"
@@ -239,7 +239,7 @@ const LumePage = () => {
             {/* Sala de estar */}
             <div className="relative h-[200px] md:h-[500px] overflow-hidden rounded-lg">
               <Image
-                src="https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/Unique_Rosales-CDLP-GimnasioC2VF-I.A-0.7-JPG-scaled.jpg"
+                src="https://api.pgaconstructores.co/wp-content/uploads/2025/07/Unique_Rosales-CDLP-GimnasioC2VF-I.A-0.7-JPG-scaled.jpg"
                 alt="Sala de estar"
                 fill
                 className="object-cover"
@@ -249,7 +249,7 @@ const LumePage = () => {
             {/* Terraza */}
             <div className="relative h-[200px] md:h-[500px] overflow-hidden rounded-lg">
               <Image
-                src="https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/Unique_Rosales-CDLP-Terraza-exteriorVF-I.A1.8-JPG-scaled.jpg"
+                src="https://api.pgaconstructores.co/wp-content/uploads/2025/07/Unique_Rosales-CDLP-Terraza-exteriorVF-I.A1.8-JPG-scaled.jpg"
                 alt="Terraza Exterior"
                 fill
                 className="object-cover"
@@ -259,7 +259,7 @@ const LumePage = () => {
             {/* Billar */}
             <div className="relative h-[200px] md:h-[500px] overflow-hidden rounded-lg">
               <Image
-                src="https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/Unique_Rosales-CDLP-BillarC2VF-I.A-1.8-JPG-scaled.jpg"
+                src="https://api.pgaconstructores.co/wp-content/uploads/2025/07/Unique_Rosales-CDLP-BillarC2VF-I.A-1.8-JPG-scaled.jpg"
                 alt="Sala de Billar"
                 fill
                 className="object-cover"
@@ -269,7 +269,7 @@ const LumePage = () => {
             {/* Bar */}
             <div className="relative h-[200px] md:h-[500px] overflow-hidden rounded-lg">
               <Image
-                src="https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/Unique_Rosales-CDLP-BarC2VF-I.A-1.5-JPG-scaled.jpg"
+                src="https://api.pgaconstructores.co/wp-content/uploads/2025/07/Unique_Rosales-CDLP-BarC2VF-I.A-1.5-JPG-scaled.jpg"
                 alt="Bar"                
                 fill
                 className="object-cover"
@@ -314,7 +314,7 @@ const LumePage = () => {
               className="relative h-96 lg:h-[550px] rounded-none overflow-hidden shadow-xl border border-stone-200"
             >
               <Image
-                src="https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/Unique_Rosales-CDLP-Piscina-VF-I.A-0.7-JPG-scaled.jpg"
+                src="https://api.pgaconstructores.co/wp-content/uploads/2025/07/Unique_Rosales-CDLP-Piscina-VF-I.A-0.7-JPG-scaled.jpg"
                 alt="Fondo Unique Rosales"
                 fill
                 className="object-cover"
@@ -322,7 +322,7 @@ const LumePage = () => {
               />
               <div className="absolute bottom-8 right-8 w-40 h-32 rounded-none overflow-hidden shadow-xl border border-white z-20">
                 <Image
-                  src="https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/Unique_Rosales-CDLP-PiscinaC2-VF-I.A-0.7-JPG-scaled.jpg"
+                  src="https://api.pgaconstructores.co/wp-content/uploads/2025/07/Unique_Rosales-CDLP-PiscinaC2-VF-I.A-0.7-JPG-scaled.jpg"
                   alt="Bar Unique Rosales"
                   fill
                   className="object-cover"
@@ -412,7 +412,7 @@ const LumePage = () => {
             </div>
             <h2 className="text-4xl md:text-6xl  text-stone-800  relative z-10">
               {/* <Image
-                src="https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/LUME-sin-fondo.png"
+                src="https://api.pgaconstructores.co/wp-content/uploads/2025/07/LUME-sin-fondo.png"
                 alt="Lume Logo"
                 width={130}
                 height={48}
@@ -447,7 +447,7 @@ const LumePage = () => {
                 className="relative h-full overflow-hidden"
               >                
                 <Image
-                  src="https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/07/Unique_Rosales-CDLP-Piscina-VF-I.A-0.7-JPG-scaled.jpg"
+                  src="https://api.pgaconstructores.co/wp-content/uploads/2025/07/Unique_Rosales-CDLP-Piscina-VF-I.A-0.7-JPG-scaled.jpg"
                   alt="Edificio LUME"
                   fill
                   className="brightness-50 object-cover"
@@ -620,7 +620,7 @@ const LumePage = () => {
               </div>
               <div className="text-stone-500 text-xs">             
                 <Image
-                  src="https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/05/Logo-final-de-PGA-SVG-negro-horizontal.svg"
+                  src="https://api.pgaconstructores.co/wp-content/uploads/2025/05/Logo-final-de-PGA-SVG-negro-horizontal.svg"
                   alt="PGA Logo"
                   width={60}
                   height={60}

@@ -56,7 +56,7 @@ export default async function Page() {
         <div className="lg:fixed lg:inset-0 lg:left-1/2 -z-10">
           <img
             alt=""
-            src="https://slategray-mosquito-366047.hostingersite.com/wp-content/uploads/2025/04/17-scaled.jpg"
+            src="https://api.pgaconstructores.co/wp-content/uploads/2025/04/17-scaled.jpg"
             className="h-64 w-full bg-foreground/20 object-cover sm:h-80 lg:absolute lg:h-full"
           />
         </div>

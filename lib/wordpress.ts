@@ -41,7 +41,8 @@ import {
 } from "./wordpress.d";
 
 // WordPress Config
-const WORDPRESS_URL = "https://slategray-mosquito-366047.hostingersite.com"; // process.env.WORDPRESS_URL;
+//const WORDPRESS_URL = "https://api.pgaconstructores.co/";
+const WORDPRESS_URL = process.env.WORDPRESS_URL || "https://api.pgaconstructores.co";
 const baseUrl = WORDPRESS_URL;
 
 if (!baseUrl) {
@@ -959,7 +960,7 @@ async function getTermIdFromSlug(
 
 export async function getAllProjects() {
   // Use proxy route when running in browser to avoid CORS issues
-  const baseUrl = "https://slategray-mosquito-366047.hostingersite.com";
+  const baseUrl = typeof window !== 'undefined' ? '' : WORDPRESS_URL;
   const url = `${baseUrl}/wp-json/wp/v2/proyectos?orderby=date&order=asc`;
 
   console.log("🌐 Fetching projects from URL:", url);
