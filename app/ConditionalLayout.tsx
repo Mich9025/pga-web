@@ -17,6 +17,7 @@ export function ConditionalLayout({ children }: ConditionalLayoutProps) {
     // Para la página de Lume, no mostrar navegación ni footer
     return <main>{children}</main>;
   }
+  
   // Para todas las demás páginas, mostrar navegación y footer
   return (
     <NavProvider>
