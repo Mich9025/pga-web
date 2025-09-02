@@ -33,8 +33,7 @@ export default function AvanceDeObraPage() {
           { id: 1, url: "https://api.pgaconstructores.co/wp-content/uploads/2025/07/AVANCE-DE-OBRA-QBICO.mov", titulo: "Cimentación profunda" },          
         ]
       }       
-    },
-    
+    },    
     "Unique Me": {
        "2025-7": {
          descripcion: "La obra Unique ME avanza de manera favorable y conforme a los plazos establecidos. Entre las actividades más relevantes, ya se realizó la tala de árboles en el terreno y el traslado de objetos ornamentales de la propiedad vecina, lo que ha permitido dejar el área lista para las siguientes etapas del proyecto. Paralelamente, se adelanta la construcción del muro de cerramiento en mampostería, una estructura clave para garantizar la seguridad y privacidad del perímetro. En los próximos días se dará inicio a la demolición de la edificación existente en el lote, un proceso que se llevará a cabo con estricto cumplimiento de los protocolos de seguridad y respeto por el entorno. Agradecemos su confianza y reiteramos nuestro compromiso con la calidad y el cumplimiento de los tiempos previstos.",
