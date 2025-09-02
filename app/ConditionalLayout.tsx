@@ -23,7 +23,7 @@ export function ConditionalLayout({ children }: ConditionalLayoutProps) {
     <NavProvider>
       <NavigationMenu />
       <main className="min-h-screen">{children}</main>
-      {/* <Footer /> */}
+       <Footer /> 
     </NavProvider>
   );
 }
