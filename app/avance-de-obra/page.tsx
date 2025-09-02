@@ -19,13 +19,20 @@ export default function AvanceDeObraPage() {
 
   const obras = {
     "Unique Qbico": {
+      "2025-8": {
+        descripcion: "Iniciamos la construcción  de la placa del primer piso y vigas cartelas, que darán la base para toda la plataforma de trabajo o patio de obra del proyecto. También realizamos el descabece de pilotes , pantallas y barretes para el empalme con la placa y avance en la construcción del primer parqueadero de los 2 sótanos.",
+        fecha: "2025-08-15",
+        videos: [
+          { id: 1, url: "https://api.pgaconstructores.co/wp-content/uploads/2025/09/AVANCE-QBICO.mp4", titulo: "Placa del primer piso" },          
+        ]
+      },   
       "2025-6": {
         descripcion: "A la fecha, hemos finalizado con éxito la cimentación profunda del proyecto, la cual incluyó la ejecución de pantallas perimetrales, barretes, pilotes temporales y definitivos, así como la fase de pilotaje. Actualmente, nos encontramos en proceso de demolición de la placa de concreto existente, lo que permitirá dar inicio a la construcción de las vigas puntales y vigas andén.",
         fecha: "2025-06-26",
         videos: [
           { id: 1, url: "https://api.pgaconstructores.co/wp-content/uploads/2025/07/AVANCE-DE-OBRA-QBICO.mov", titulo: "Cimentación profunda" },          
         ]
-      },    
+      }       
     },
     "Unique Me": {
        "2025-7": {
@@ -478,9 +485,10 @@ export default function AvanceDeObraPage() {
                           <h4 className="text-lg font-medium mb-4">Videos del Avance</h4>
                           <div className="grid gap-6">
                             {monthData && 'videos' in monthData && (monthData as {videos: any[]}).videos.map((video: any) => (
-                              <div key={video.id} className="bg-white rounded-lg shadow-sm border overflow-hidden">
+                              <div key={`${selectedMonth}-${video.id}`} className="bg-white rounded-lg shadow-sm border overflow-hidden">
                                 <div className="aspect-[3/4] bg-gray-100 flex items-center justify-center">
                                   <video 
+                                    key={`video-${selectedMonth}-${video.id}`}
                                     controls 
                                     className="w-full h-full object-cover"
                                     poster={selectedProject.featured_image_url || "https://pgaconstructores.co/wp-content/uploads/2024/08/TERRAZA-2.png"}
