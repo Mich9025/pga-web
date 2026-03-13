@@ -138,8 +138,8 @@ export const Footer = async () => {
             </p>
           </div>
           <div>
-            <Link className="underline" href="/tos">
-              Política de Privacidad
+            <Link className="underline" href="/politica-de-datos">
+              Política de Privacidad de datos
             </Link>
           </div>
         </Container>
